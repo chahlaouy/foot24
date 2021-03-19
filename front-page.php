@@ -13,12 +13,13 @@
 get_header();
 
 ?>
+
 <section class="wrapper mx-auto h-96 bg-gray-100 w-full relative">
 
     <div class="h-full flex flex-col justify-center items-center">
 
         <div class="w-full mx-auto relative z-50" x-data="{ activeSlide: 1, 
-            slides: [[1, '<?php echo 'har'?>'], [2, <?php echo '1'?>]]
+            slides: [[1, '<?php echo 'اتحاد بن قردان: القاسمي وبن طرشة'?>'], [2, <?php echo '1'?>]]
 
         }">
             <!-- Slides -->
@@ -77,17 +78,31 @@ get_header();
         <!-- **************************
                 *   begin card template  *
                 ************************** -->
+        <?php
+            $args = array(
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'category_name' => 'cat1',
+            'posts_per_page' => 5,
+            );
+            $arr_posts = new WP_Query( $args );
 
+            if ( $arr_posts->have_posts() ) :
+
+                while ( $arr_posts->have_posts() ) :
+
+                    $arr_posts->the_post();
+                    ?>
         <div class="wrapper antialiased text-gray-900 w-64">
             <div>
-                <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                    class="w-full object-cover object-center rounded-lg shadow-md">
+                <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
+                    class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
 
                 <div class="relative px-4 -mt-16 ">
                     <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
                         <div class="flex items-baseline">
                             <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
-                                27 mars 2021
+                                <?php the_date() ?>
                             </div>
                             <span
                                 class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
@@ -95,116 +110,69 @@ get_header();
                             </span>
                         </div>
 
-                        <h4 class="my-3 text-sm font-semibold uppercase leading-tight">برنامج تحضيرات المنتخب لمباراة
-                            ليبيا</h4>
+                        <h4 class="my-3 text-sm font-semibold uppercase leading-tight"><?php the_title(); ?></h4>
 
                         <div class="mt-1">
                             الأخبار الوطنية
 
                         </div>
                         <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
-                            <span class="text-white text-md font-semibold">اقرأ المزيد</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="wrapper antialiased text-gray-900 w-64">
-            <div>
-                <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                    class="w-full object-cover object-center rounded-lg shadow-md">
-
-                <div class="relative px-4 -mt-16 ">
-                    <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
-                        <div class="flex items-baseline">
-                            <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
-                                27 mars 2021
-                            </div>
-                            <span
-                                class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
-                                New
+                            <span class="text-white text-md font-semibold">
+                                <a href="<?php the_permalink() ?>">
+                                    اقرأ المزيد
+                                </a>
                             </span>
                         </div>
-
-                        <h4 class="my-3 text-sm font-semibold uppercase leading-tight">اتحاد بن قردان: القاسمي وبن طرشة
-                            يعودان ضد الصفاقسي</h4>
-
-                        <div class="mt-1">
-                            الأخبار الوطنية
-
-                        </div>
-                        <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
-                            <span class="text-white text-md font-semibold">اقرأ المزيد</span>
-                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <div class="wrapper antialiased text-gray-900 w-64">
-            <div>
-                <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                    class="w-full object-cover object-center rounded-lg shadow-md">
-
-                <div class="relative px-4 -mt-16 ">
-                    <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
-                        <div class="flex items-baseline">
-                            <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
-                                27 mars 2021
-                            </div>
-                            <span
-                                class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
-                                New
-                            </span>
-                        </div>
-
-                        <h4 class="my-3 text-sm font-semibold uppercase leading-tight">برنامج تحضيرات المنتخب لمباراة
-                            ليبيا</h4>
-
-                        <div class="mt-1">
-                            الأخبار الوطنية
-
-                        </div>
-                        <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
-                            <span class="text-white text-md font-semibold">اقرأ المزيد</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <?php
+                   
+                endwhile;
+            endif;
+        ?>
 
 
     </div>
+
     <div class="w-96 bg-gray-800 rounded text-gray-100 p-1">
-        <div>
-            <!-- <ion-icon name="camera-outline" class="text-3xl"></ion-icon> -->
-            <h1 class="bg-gray-900 text-center text-lg py-3 text-gray-100 border-2 border-red-500 rounded-lg">صور</h1>
 
-            <div class="p-2">
-                <img src="https://source.unsplash.com/random/" alt=" random imgee"
-                    class="w-full h-32  object-cover object-center rounded-lg shadow-md">
+        <?php
+            $args = array(
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'category_name' => 'cat1',
+            'posts_per_page' => 6,
+            );
+            $arr_posts = new WP_Query( $args );
 
-                <h1 class="text-sm text-center mt-3">مريول ألمانيا في يورو 2020</h1>
-            </div>
-            <div class="p-2">
-                <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                    class="w-full h-32 object-cover object-center rounded-lg shadow-md">
+            if ( $arr_posts->have_posts() ) :
+                ?>
+                    <h1 class="bg-gray-900 text-center text-lg py-3 text-gray-100 border-2 border-red-500 rounded-lg">صور</h1>
+                <?php
+                while ( $arr_posts->have_posts() ) :
 
-                <h1 class="text-center text-sm mt-3">مريول ألمانيا في يورو 2020</h1>
-            </div>
-            <div class="p-2">
-                <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                    class="w-full h-32 object-cover object-center rounded-lg shadow-md">
+                    $arr_posts->the_post();
+                    ?>     
+                    <div>
 
-                <h1 class="text-center text-sm mt-3">مريول ألمانيا في يورو 2020</h1>
-            </div>
+                        <div class="p-2">
+                            <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
+                                class="w-full h-32  object-cover object-center rounded-lg shadow-md">
 
-        </div>
+                            <h1 class="text-sm text-center mt-3">  <?php the_title() ?></h1>
+                        </div>
+
+                    </div>
+
+                    <?php
+                   
+                endwhile;
+            endif;
+        ?>
 
     </div>
     <div class="bg-gray-800 rounded text-gray-100 mr-2 p-1" style="width: 500px">

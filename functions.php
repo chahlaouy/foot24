@@ -28,6 +28,8 @@
 	function dg_title_tag(){
 		// Adds dynamic title tag support
 		add_theme_support('title-tag');
+		add_theme_support( 'post-thumbnails');
+		add_theme_support('custom-logo');
 	}
 
 	
