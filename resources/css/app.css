@@ -1,0 +1,35 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+body{
+    direction: rtl !important;
+}
+.wrapper{
+    max-width: 1366px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bg-green{
+    background-color: #40780b !important;
+}
+.text-green{
+    color: #40780b !important;
+}
+.line{
+    position: relative;
+}
+.line::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    content: "";
+    border: 1px solid #40780b;
+    height: 100%;
+}
