@@ -93,43 +93,43 @@ get_header();
 
                     $arr_posts->the_post();
                     ?>
-        <div class="wrapper antialiased text-gray-900 w-64">
-            <div>
-                <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
-                    class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
+                        <div class="wrapper antialiased text-gray-900 w-64">
+                            <div>
+                                <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
+                                    class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
 
-                <div class="relative px-4 -mt-16 ">
-                    <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
-                        <div class="flex items-baseline">
-                            <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
-                                <?php the_date() ?>
+                                <div class="relative px-4 -mt-16 ">
+                                    <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+                                        <div class="flex items-baseline">
+                                            <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
+                                                <?php echo get_the_date('F j, Y') ?>
+                                            </div>
+                                            <span
+                                                class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+                                                New
+                                            </span>
+                                        </div>
+
+                                        <h4 class="my-3 text-sm font-semibold uppercase leading-tight"><?php the_title(); ?></h4>
+
+                                        <div class="mt-1">
+                                            الأخبار الوطنية
+
+                                        </div>
+                                        <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
+                                            <span class="text-white text-md font-semibold">
+                                                <a href="<?php the_permalink() ?>">
+                                                    اقرأ المزيد
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                            <span
-                                class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
-                                New
-                            </span>
                         </div>
 
-                        <h4 class="my-3 text-sm font-semibold uppercase leading-tight"><?php the_title(); ?></h4>
-
-                        <div class="mt-1">
-                            الأخبار الوطنية
-
-                        </div>
-                        <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
-                            <span class="text-white text-md font-semibold">
-                                <a href="<?php the_permalink() ?>">
-                                    اقرأ المزيد
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <?php
+                    <?php
                    
                 endwhile;
             endif;
@@ -151,24 +151,24 @@ get_header();
 
             if ( $arr_posts->have_posts() ) :
                 ?>
-                    <h1 class="bg-gray-900 text-center text-lg py-3 text-gray-100 border-2 border-red-500 rounded-lg">صور</h1>
-                <?php
+        <h1 class="bg-gray-900 text-center text-lg py-3 text-gray-100 border-2 border-red-500 rounded-lg">صور</h1>
+        <?php
                 while ( $arr_posts->have_posts() ) :
 
                     $arr_posts->the_post();
-                    ?>     
-                    <div>
+                    ?>
+        <div>
 
-                        <div class="p-2">
-                            <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
-                                class="w-full h-32  object-cover object-center rounded-lg shadow-md">
+            <div class="p-2">
+                <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
+                    class="w-full h-32  object-cover object-center rounded-lg shadow-md">
 
-                            <h1 class="text-sm text-center mt-3">  <?php the_title() ?></h1>
-                        </div>
+                <h1 class="text-sm text-center mt-3"> <?php the_title() ?></h1>
+            </div>
 
-                    </div>
+        </div>
 
-                    <?php
+        <?php
                    
                 endwhile;
             endif;
@@ -179,36 +179,44 @@ get_header();
         <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500">أخر الأخبار
         </h1>
 
+        <?php
+            $args = array(
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'category_name' => 'cat1',
+            'posts_per_page' => 6,
+            );
+            $arr_posts = new WP_Query( $args );
+
+            if ( $arr_posts->have_posts() ) :
+                ?>
         <div class="px-2 mt-6">
             <ul>
+                <?php
+                while ( $arr_posts->have_posts() ) :
+
+                    $arr_posts->the_post();
+                    ?>
                 <li class="flex items-center justify-center">
-                    <h1 class="text-5xl">18</h1>
+                    <h1 class="text-5xl"><?php the_time( 'j' );?></h1>
                     <div class="p-1 mx-2 line">
-                        <h2 class="text-sm">Mars</h2>
-                        <span class="text-xs">23:23</span>
+                        <h2 class="text-sm"><?php the_time( 'M' );?></h2>
+                        <span class="text-xs"><?php the_time( 'g:i' );?></span>
                     </div>
 
-                    <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                        class="w-12 h-12 rounded-full shadow-md ">
+                    <img src="<?php the_post_thumbnail_url(); ?>" alt="" class="w-12 h-12 rounded-full shadow-md ">
                     <div class="p-1">
-                        <h1 class="text-yellow-600 text-sm">mars mars </h1>
-                        <p class="text-xs">Lorem ipsum dolor sit, amet consectetur </p>
+                        <h1 class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?> </h1>
+                        <p class="text-xs"> <?php the_title(); ?></p>
                     </div>
                 </li>
-                <li class="flex items-center justify-center">
-                    <h1 class="text-5xl">18</h1>
-                    <div class="p-1 mx-2 line">
-                        <h2 class="text-sm">Mars</h2>
-                        <span class="text-xs">23:23</span>
-                    </div>
 
-                    <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                        class="w-12 h-12 rounded-full shadow-md ">
-                    <div class="p-1">
-                        <h1 class="text-yellow-600 text-sm">mars mars </h1>
-                        <p class="text-xs">Lorem ipsum dolor sit, amet consectetur </p>
-                    </div>
-                </li>
+                <?php
+                   
+                endwhile;
+            endif;
+        ?>
+
             </ul>
         </div>
     </div>
@@ -219,87 +227,81 @@ get_header();
 <section class="wrapper mt-8">
     <div class="flex">
         <div class="flex">
+
+
             <!-- **************************
                 *   begin card template  *
                 ************************** -->
+            <?php
+            $args = array(
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'category_name' => 'cat2',
+            'posts_per_page' => 6,
+            );
+            $arr_posts = new WP_Query( $args );
 
-            <div id="app" class="w-96 h-60 rounded shadow-md flex rounded-lg ml-4">
-                <img class="w-40 object-cover object-center rounded-l-sm" src="https://bit.ly/2EApSiC" alt="Room Image">
-                <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
-                    <div class="p-4 pb-0 flex-1">
-                        <h3 class="font-light text-gray-100 mb-6 text-xs"> الأخبار الوطنية</h3>
+            if ( $arr_posts->have_posts() ) :
+                ?>
+                    <?php
+                while ( $arr_posts->have_posts() ) :
 
-                        <span class="text-sm font-semibold text-gray-100"> الأخبار الوطنية</span>
-                        <div class="flex items-center mt-4 text-gray-100">
-                            <div class="pr-2 text-xs">
-                                28 mars
-                            </div>
-                            <div class="px-2 text-xs">
-                                23:23
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
-                        اقرأ المزيد
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- **************************
-                *   begin card template  *
-                ************************** -->
-
-            <div id="app" class="w-96 h-60 rounded shadow-md flex rounded-lg ml-4">
-                <img class="w-40 object-cover object-center rounded-l-sm" src="https://bit.ly/2EApSiC" alt="Room Image">
-                <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
-                    <div class="p-4 pb-0 flex-1">
-                        <h3 class="font-light text-gray-100 mb-6 text-xs"> الأخبار الوطنية</h3>
-
-                        <span class="text-sm font-semibold text-gray-100"> الأخبار الوطنية</span>
-                        <div class="flex items-center mt-4 text-gray-100">
-                            <div class="pr-2 text-xs">
-                                28 mars
-                            </div>
-                            <div class="px-2 text-xs">
-                                23:23
+                    $arr_posts->the_post();
+                    ?>
+                    
+                        <div id="app" class="w-96 h-60 rounded shadow-md flex rounded-lg ml-4">
+                            <img class="w-40 h-64 object-cover object-center rounded-l-sm" src="<?php the_post_thumbnail_url(); ?>"
+                                alt="Room Image">
+                            <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
+                                <div class="p-4 pb-0 flex-1">
+                                    <h3 class="font-light text-gray-100 mb-6 text-xs"> <?php the_category() ?></h3>
+            
+                                    <span class="text-sm font-semibold text-gray-100"> <?php the_title() ?></span>
+                                    <div class="flex items-center mt-4 text-gray-100">
+                                        <div class="pr-2 text-xs">
+                                        <?php echo get_the_date('F j, Y') ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
+                                    اقرأ المزيد
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
-                        اقرأ المزيد
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
+                    <?php
+                   
+                endwhile;
+            endif;
+        ?>
+
+
             </div>
 
-
+            <div class="bg-gray-800 text-xs mr-3 w-full p-4 text-gray-100">
+                <table class="w-full rounded-lg ">
+                    <tr class="bg-gray-900 py-2 border border-gray-800">
+                        <td class="p-2">الفريق</td>
+                        <td class="p-2">نقاط</td>
+                        <td class="p-2">ل</td>
+                        <td class="p-2">ف</td>
+                        <td class="p-2">ت</td>
+                        <td class="p-2">خ</td>
+                        <td class="p-2">فارق</td>
+                    </tr>
+                    <tr class="bg-gray-800 my-2">
+                        <td class="p-2">الفريق</td>
+                        <td>نقاط</td>
+                        <td>ل</td>
+                        <td>ف</td>
+                        <td>ت</td>
+                        <td>خ</td>
+                        <td>فارق</td>
+                    </tr>
+                </table>
+            </div>
 
         </div>
-
-        <div class="bg-gray-800 text-xs mr-3 w-full p-4 text-gray-100">
-            <table class="w-full rounded-lg ">
-                <tr class="bg-gray-900 py-2 border border-gray-800">
-                    <td class="p-2">الفريق</td>
-                    <td class="p-2">نقاط</td>
-                    <td class="p-2">ل</td>
-                    <td class="p-2">ف</td>
-                    <td class="p-2">ت</td>
-                    <td class="p-2">خ</td>
-                    <td class="p-2">فارق</td>
-                </tr>
-                <tr class="bg-gray-800 my-2">
-                    <td class="p-2">الفريق</td>
-                    <td>نقاط</td>
-                    <td>ل</td>
-                    <td>ف</td>
-                    <td>ت</td>
-                    <td>خ</td>
-                    <td>فارق</td>
-                </tr>
-            </table>
-        </div>
-
-    </div>
 
 </section>
 

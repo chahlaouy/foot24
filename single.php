@@ -14,11 +14,11 @@ get_header();
 
 ?>
 
-<section class="wrapper flex">
+<section class="wrapper flex  mt-4">
     <div class="w-96">
 
     </div>
-    <div class="w-full p-3">
+    <div class="w-full">
     <?php
     
         if(have_posts()){
@@ -27,7 +27,7 @@ get_header();
             ?>
                 <img src="<?php the_post_thumbnail_url() ?>" alt=" random imgee"
                     class="w-full rounded shadow-2xl h-96 object-cover bg-cover bg-center bg-top">
-                <span class="block py-4 text-gray-300"><?php the_date() ?></span>
+                <span class="block py-4 text-gray-300"><?php echo get_the_date('F j, Y') ?></span>
                 <h1 class="my-4 text-5xl"><?php the_title() ?></h1>
                 <div class="px-4">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. In beatae exercitationem iusto molestiae dignissimos voluptate atque, iure doloribus quisquam ipsa. Ullam, ipsam labore quo doloremque a porro dolorem rem itaque.
@@ -64,16 +64,22 @@ get_header();
                         
                         <div class="flex items-center mt-2">
                             <img src="<?php the_post_thumbnail_url() ?>" alt=" random imgee"
-                                class="w-full h-36 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
-            
+                                class="w-36 h-36 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
                             <div class="mr-5">
-                                <span class="text-gray-100 text-sm"><?php the_date() ?></span>
-                                <h1 class="text-lg">
+
+                                <span class="text-gray-100 text-sm"><?php echo get_the_date('F j, Y') ?></span>
+                                <h1 class="text-lg font-bold">
                                     <a href="<?php the_permalink() ?>">
                                         <?php the_title() ?>
                                     </a>
                                 </h1>
+                                <!-- <button class="w-full py-2 bg-red-500 text-gray-100">
+                                    <a href="<?php the_permalink() ?>">
+                                        readmore
+                                    </a>
+                                </button> -->
                             </div>
+
             
                         </div>
                     </div>
@@ -94,36 +100,44 @@ get_header();
         <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500">أخر الأخبار
         </h1>
 
+        <?php
+            $args = array(
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'category_name' => 'cat1',
+            'posts_per_page' => 6,
+            );
+            $arr_posts = new WP_Query( $args );
+
+            if ( $arr_posts->have_posts() ) :
+                ?>
         <div class="px-2 mt-6">
             <ul>
+                <?php
+                while ( $arr_posts->have_posts() ) :
+
+                    $arr_posts->the_post();
+                    ?>
                 <li class="flex items-center justify-center">
-                    <h1 class="text-5xl">18</h1>
+                    <h1 class="text-5xl"><?php the_time( 'j' );?></h1>
                     <div class="p-1 mx-2 line">
-                        <h2 class="text-sm">Mars</h2>
-                        <span class="text-xs">23:23</span>
+                        <h2 class="text-sm"><?php the_time( 'M' );?></h2>
+                        <span class="text-xs"><?php the_time( 'g:i' );?></span>
                     </div>
 
-                    <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                        class="w-12 h-12 rounded-full shadow-md ">
+                    <img src="<?php the_post_thumbnail_url(); ?>" alt="" class="w-12 h-12 rounded-full shadow-md ">
                     <div class="p-1">
-                        <h1 class="text-yellow-600 text-sm">mars mars </h1>
-                        <p class="text-xs">Lorem ipsum dolor sit, amet consectetur </p>
+                        <h1 class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?> </h1>
+                        <p class="text-xs"> <?php the_title(); ?></p>
                     </div>
                 </li>
-                <li class="flex items-center justify-center">
-                    <h1 class="text-5xl">18</h1>
-                    <div class="p-1 mx-2 line">
-                        <h2 class="text-sm">Mars</h2>
-                        <span class="text-xs">23:23</span>
-                    </div>
 
-                    <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-                        class="w-12 h-12 rounded-full shadow-md ">
-                    <div class="p-1">
-                        <h1 class="text-yellow-600 text-sm">mars mars </h1>
-                        <p class="text-xs">Lorem ipsum dolor sit, amet consectetur </p>
-                    </div>
-                </li>
+                <?php
+                   
+                endwhile;
+            endif;
+        ?>
+
             </ul>
         </div>
     </div>

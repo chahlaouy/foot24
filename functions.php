@@ -6,7 +6,7 @@
  * 
  * @package DIGIGATE
  */
-
+// Posted on <?php the_time( 'l, F jS, Y' );
  if (! defined('DIGIGATE_DIR_PATH')) {
 	 
 	define('DIGIGATE_DIR_PATH', untrailingslashit(get_template_directory()));
