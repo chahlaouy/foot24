@@ -15,11 +15,11 @@ get_header();
 ?>
 
 <section class="wrapper flex mt-4">
-    <div class="w-96">
+    <!-- <div class="w-96">
 
-    </div>
+    </div> -->
     <div class="w-full">
-        <div class="grid grid-cols-3 gap-2 w-full">
+        <div class="grid grid-cols-4 gap-2 w-full">
         <?php 
             if(have_posts()){
                 while (have_posts()){
@@ -33,7 +33,7 @@ get_header();
                     <div class="relative px-4 -mt-16 ">
                         <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
                             <div class="flex items-baseline">
-                                <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
+                                <div class="ml-2 text-yellow-600 uppercase text-xs font-semibold tracking-wider">
                                     <?php echo get_the_date('F j, Y') ?>
                                 </div>
                                 <span
@@ -91,7 +91,7 @@ get_header();
 
                     $arr_posts->the_post();
                     ?>
-                <li class="flex items-center justify-center">
+                <li class="flex items-center justify-center my-4">
                     <h1 class="text-5xl"><?php the_time( 'j' );?></h1>
                     <div class="p-1 mx-2 line">
                         <h2 class="text-sm"><?php the_time( 'M' );?></h2>
@@ -112,6 +112,39 @@ get_header();
         ?>
 
             </ul>
+        </div>
+        <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500 mt-8">البطولة التونسية 
+        </h1>
+        <div class="bg-gray-800 text-xs w-full p-4 text-gray-100">
+            <table class="w-full rounded-lg ">
+                <tr class="bg-gray-900 py-2 border border-gray-800">
+                    <td class="p-2">الفريق</td>
+                    <td class="p-2">نقاط</td>
+                    <td class="p-2">ل</td>
+                    <td class="p-2">ف</td>
+                    <td class="p-2">ت</td>
+                    <td class="p-2">خ</td>
+                    <td class="p-2">فارق</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">الفريق</td>
+                    <td>نقاط</td>
+                    <td>ل</td>
+                    <td>ف</td>
+                    <td>ت</td>
+                    <td>خ</td>
+                    <td>فارق</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">الفريق</td>
+                    <td>نقاط</td>
+                    <td>ل</td>
+                    <td>ف</td>
+                    <td>ت</td>
+                    <td>خ</td>
+                    <td>فارق</td>
+                </tr>
+            </table>
         </div>
     </div>
 </section>

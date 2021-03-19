@@ -103,7 +103,7 @@ get_header();
                                     <div class="relative px-4 -mt-16 ">
                                         <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
                                             <div class="flex items-baseline">
-                                                <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
+                                                <div class="ml-2 text-yellow-600 uppercase text-xs font-semibold tracking-wider">
                                                     <?php echo get_the_date('F j, Y') ?>
                                                 </div>
                                                 <span
@@ -168,7 +168,7 @@ get_header();
                 
                                         <span class="text-sm font-semibold text-gray-100"> <?php the_title() ?></span>
                                         <div class="flex items-center mt-4 text-gray-100">
-                                            <div class="pr-2 text-xs">
+                                            <div class="pr-2 text-xs text-yellow-600">
                                             <?php echo get_the_date('F j, Y') ?>
                                             </div>
                                         </div>
@@ -248,7 +248,7 @@ get_header();
 
                     $arr_posts->the_post();
                     ?>
-                <li class="flex items-center justify-center">
+                <li class="flex items-center justify-center my-4">
                     <h1 class="text-5xl"><?php the_time( 'j' );?></h1>
                     <div class="p-1 mx-2 line">
                         <h2 class="text-sm"><?php the_time( 'M' );?></h2>

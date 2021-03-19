@@ -27,9 +27,9 @@ get_header();
             ?>
                 <img src="<?php the_post_thumbnail_url() ?>" alt=" random imgee"
                     class="w-full rounded shadow-2xl h-96 object-cover bg-cover bg-center bg-top">
-                <span class="block py-4 text-gray-300"><?php echo get_the_date('F j, Y') ?></span>
-                <h1 class="my-4 text-5xl"><?php the_title() ?></h1>
-                <div class="px-4">
+                <span class="block py-8 text-yellow-600"><?php echo get_the_date('F j, Y') ?></span>
+                <h1 class="my-4 text-5xl text-gray-200"><?php the_title() ?></h1>
+                <div class="px-4 text-gray-100">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. In beatae exercitationem iusto molestiae dignissimos voluptate atque, iure doloribus quisquam ipsa. Ullam, ipsam labore quo doloremque a porro dolorem rem itaque.
                 </div>
 
@@ -67,17 +67,12 @@ get_header();
                                 class="w-36 h-36 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
                             <div class="mr-5">
 
-                                <span class="text-gray-100 text-sm"><?php echo get_the_date('F j, Y') ?></span>
+                                <span class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?></span>
                                 <h1 class="text-lg font-bold">
-                                    <a href="<?php the_permalink() ?>">
+                                    <a class="text-gray-100" href="<?php the_permalink() ?>">
                                         <?php the_title() ?>
                                     </a>
                                 </h1>
-                                <!-- <button class="w-full py-2 bg-red-500 text-gray-100">
-                                    <a href="<?php the_permalink() ?>">
-                                        readmore
-                                    </a>
-                                </button> -->
                             </div>
 
             
@@ -118,16 +113,16 @@ get_header();
 
                     $arr_posts->the_post();
                     ?>
-                <li class="flex items-center justify-center">
+                <li class="flex items-center justify-center my-4">
                     <h1 class="text-5xl"><?php the_time( 'j' );?></h1>
                     <div class="p-1 mx-2 line">
                         <h2 class="text-sm"><?php the_time( 'M' );?></h2>
                         <span class="text-xs"><?php the_time( 'g:i' );?></span>
                     </div>
 
-                    <img src="<?php the_post_thumbnail_url(); ?>" alt="" class="w-12 h-12 rounded-full shadow-md ">
+                    <img src="<?php the_post_thumbnail_url(); ?>" alt="" class="w-12 h-12 rounded-full shadow-md">
                     <div class="p-1">
-                        <h1 class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?> </h1>
+                        <h1 class="text-yellow-600 text-sm"><?php the_category() ?></h1>
                         <p class="text-xs"> <?php the_title(); ?></p>
                     </div>
                 </li>

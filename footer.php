@@ -37,7 +37,7 @@
                             class="w-24 h-24 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
 
                         <div class="mr-5">
-                            <span class="text-gray-400 text-sm"><?php echo get_the_date('F j, Y') ?></span>
+                            <span class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?></span>
                             <h1 class="text-sm">
                                 <a class="text-lg font-bold" href="<?php the_permalink() ?>">
                                     <?php the_title() ?>
@@ -77,7 +77,7 @@
                             class="w-24 h-24 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
 
                         <div class="mr-5">
-                            <span class="text-gray-400 text-sm"><?php echo get_the_date('F j, Y') ?></span>
+                            <span class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?></span>
                             <h1 class="text-sm">
                                 <a class="text-lg font-bold" href="<?php the_permalink() ?>">
                                     <?php the_title() ?>
@@ -118,10 +118,10 @@
                             class="w-24 h-24 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
 
                         <div class="mr-5">
-                            <span class="text-gray-400 text-sm"><?php echo get_the_date('F j, Y') ?></span>
+                            <span class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?></span>
                             <h1 class="text-sm">
-                                <a class="text-lg font-bold truncate" href="<?php the_permalink() ?>">
-                                    <?php the_title() ?>
+                                <a class="text-lg font-bold" href="<?php the_permalink() ?>" >
+                                    <?php the_title(); ?>
                                 </a>
                             </h1>
                         </div>
@@ -150,6 +150,7 @@
         </div>
 
     </div>
+
 </footer>
 
 <?php wp_footer(); ?>
