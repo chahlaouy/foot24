@@ -32,6 +32,67 @@
 
 	
 
+
+	function get_menu_id( $location ){
+
+		// Get all the locations
+
+		$locations = get_nav_menu_locations();
+
+		// Get Objet id by location
+
+		$menu_id = $locations[$location];
+
+		return ! empty($menu_id) ? $menu_id : '' ;
+	}
+
+	function get_menu_item_children( $menu_array, $parent_id){
+
+		$children_items = [];
+
+		if (! empty($menu_array) && is_array( $menu_array )){
+
+			foreach( $menu_array as $item ){
+
+				if (intval($item->menu_item_parent) === $parent_id){
+					array_push($children_items, $item);
+				}
+			}
+		}
+
+		return $children_items;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// enqueueinh scripts second method the best one
 
 	// you can register a style and enqueue it on a condition

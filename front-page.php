@@ -13,37 +13,6 @@
 get_header();
 
 ?>
-
-<section class="wrapper mx-auto h-64 bg-gray-800">
-
-</section>
-<nav class="wrapper mx-auto flex items-center justify-between py-4 px-5 bg-gray-900 text-gray-100">
-
-    <ul class="flex items-center justify-between">
-        <li>Foot 24</li>
-        <li class="px-2">Link 1</li>
-        <li class="px-2">Link 1</li>
-        <li class="px-2">Link 1</li>
-        <li class="px-2">Link 1</li>
-    </ul>
-    <ul class="flex items-center">
-        <li>
-            <a href="#" class="text-white p-2 bg-gray-800 bg-opacity-50 rounded ml-2 hover:text-green-600">
-                <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="text-white p-2 bg-gray-800 bg-opacity-50 rounded ml-2 hover:text-green-600">
-                <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="text-white p-2 bg-gray-800 bg-opacity-50 rounded hover:text-green-600">
-                <ion-icon name="logo-youtube"></ion-icon>
-            </a>
-        </li>
-    </ul>
-</nav>
 <section class="wrapper mx-auto h-96 bg-gray-100 w-full relative">
 
     <div class="h-full flex flex-col justify-center items-center">
@@ -291,19 +260,19 @@ get_header();
                 <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
                     <div class="p-4 pb-0 flex-1">
                         <h3 class="font-light text-gray-100 mb-6 text-xs"> الأخبار الوطنية</h3>
-                        
+
                         <span class="text-sm font-semibold text-gray-100"> الأخبار الوطنية</span>
                         <div class="flex items-center mt-4 text-gray-100">
                             <div class="pr-2 text-xs">
-                               28 mars
+                                28 mars
                             </div>
                             <div class="px-2 text-xs">
-                             23:23
+                                23:23
                             </div>
                         </div>
                     </div>
                     <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
-                    اقرأ المزيد
+                        اقرأ المزيد
                         <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
@@ -317,25 +286,25 @@ get_header();
                 <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
                     <div class="p-4 pb-0 flex-1">
                         <h3 class="font-light text-gray-100 mb-6 text-xs"> الأخبار الوطنية</h3>
-                        
+
                         <span class="text-sm font-semibold text-gray-100"> الأخبار الوطنية</span>
                         <div class="flex items-center mt-4 text-gray-100">
                             <div class="pr-2 text-xs">
-                               28 mars
+                                28 mars
                             </div>
                             <div class="px-2 text-xs">
-                             23:23
+                                23:23
                             </div>
                         </div>
                     </div>
                     <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
-                    اقرأ المزيد
+                        اقرأ المزيد
                         <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
             </div>
-           
-           
+
+
 
         </div>
 
@@ -362,6 +331,30 @@ get_header();
             </table>
         </div>
 
+    </div>
+
+</section>
+
+<section class="wrapper mt-8">
+    <div class="flex">
+
+        <div class="flex-1">
+
+            <div class="p-8 bg-gray-800 w-full grid grid-cols-2 gap-2">
+                <div class="rounded-lg shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600054800747-be294a6a0d26?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80"
+                        alt="" class="rounded-t-lg w-full">
+                </div>
+                <div class="rounded-lg shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600054800747-be294a6a0d26?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80"
+                        alt="" class="rounded-t-lg w-full">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1">
+
+        </div>
     </div>
 
 </section>

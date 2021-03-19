@@ -9,6 +9,9 @@
 	 * @subpackage DIGiGATE
 	 * @since DIGiGATE 1.0
 	 */
+
+    $header_menu_id = get_menu_id('primary');
+    $header_nav_items = wp_get_nav_menu_items( $header_menu_id )
 ?>
 
 <!doctype html>
@@ -30,6 +33,64 @@
     ?>
 
     <!-- Section NavBar -->
+    <section class="wrapper mx-auto h-64 bg-gray-800">
+
+    </section>
+    <nav class="wrapper mx-auto flex items-center justify-between py-4 px-5 bg-gray-900 text-gray-100">
+
+        <!-- <ul class="flex items-center justify-between">
+            <li class="text-xl font-bold">Foot 24</li>
+            <li class="px-2">Link 1</li>
+            <li class="px-2">Link 1</li>
+            <li class="px-2">Link 1</li>
+            <li class="px-2">Link 1</li>
+        </ul> -->
+
+        <?php 
+            if (! empty($header_nav_items) && is_array($header_nav_items)){
+                ?>
+        <ul class="flex items-center">
+            <li class="text-xl font-bold">Foot 24</li>
+            <?php 
+                    foreach ($header_nav_items as $item) {
+                       if (! $item->menu_item_parent){
+                           $children_menu_items = get_menu_item_children($header_nav_items, $item->menu_item_parent);
+                           $has_children = ! empty($children_menu_items) && is_array($children_menu_items);
+                       }
+
+                       if (! $has_children){
+                           ?>
+            <li class="px-2">
+                <a href="<?php echo esc_url( $item->url); ?>"><?php echo esc_html( $item->title ) ?></a>
+            </li>
+            <?php
+                       } else {
+                           // here the drop down menu
+                       }
+                    }
+                ?>
+        </ul>
+        <?php
+            }
+        ?>
+        <ul class="flex items-center">
+            <li>
+                <a href="#" class="text-white p-2 bg-gray-800 bg-opacity-50 rounded ml-2 hover:text-green-600">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-white p-2 bg-gray-800 bg-opacity-50 rounded ml-2 hover:text-green-600">
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-white p-2 bg-gray-800 bg-opacity-50 rounded hover:text-green-600">
+                    <ion-icon name="logo-youtube"></ion-icon>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
     <?php 
         get_template_part('template-parts/header/nav-bar');
