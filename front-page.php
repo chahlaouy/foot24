@@ -73,71 +73,122 @@ get_header();
 
 <section class="wrapper flex mt-16 w-full">
 
-    <div class="grid grid-cols-3 gap-2 w-full">
+    <div class="w-full">
 
-        <!-- **************************
-                *   begin card template  *
-                ************************** -->
-        <?php
-            $args = array(
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'category_name' => 'cat1',
-            'posts_per_page' => 5,
-            );
-            $arr_posts = new WP_Query( $args );
+        <div class="grid grid-cols-3 gap-2 w-full">
+        
+            <!-- **************************
+                    *   begin card template  *
+                    ************************** -->
+            <?php
+                $args = array(
+                'post_type' => 'post',
+                'post_status' => 'publish',
+                'category_name' => 'cat1',
+                'posts_per_page' => 5,
+                );
+                $arr_posts = new WP_Query( $args );
 
-            if ( $arr_posts->have_posts() ) :
+                if ( $arr_posts->have_posts() ) :
 
-                while ( $arr_posts->have_posts() ) :
+                    while ( $arr_posts->have_posts() ) :
 
-                    $arr_posts->the_post();
-                    ?>
-                        <div class="wrapper antialiased text-gray-900 w-64">
-                            <div>
-                                <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
-                                    class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
+                        $arr_posts->the_post();
+                        ?>
+                            <div class="wrapper antialiased text-gray-900 w-64">
+                                <div>
+                                    <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
+                                        class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
 
-                                <div class="relative px-4 -mt-16 ">
-                                    <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
-                                        <div class="flex items-baseline">
-                                            <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
-                                                <?php echo get_the_date('F j, Y') ?>
+                                    <div class="relative px-4 -mt-16 ">
+                                        <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+                                            <div class="flex items-baseline">
+                                                <div class="ml-2 text-gray-100 uppercase text-xs font-semibold tracking-wider">
+                                                    <?php echo get_the_date('F j, Y') ?>
+                                                </div>
+                                                <span
+                                                    class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+                                                    New
+                                                </span>
                                             </div>
-                                            <span
-                                                class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
-                                                New
-                                            </span>
-                                        </div>
 
-                                        <h4 class="my-3 text-sm font-semibold uppercase leading-tight"><?php the_title(); ?></h4>
+                                            <h4 class="my-3 text-sm font-semibold uppercase leading-tight"><?php the_title(); ?></h4>
 
-                                        <div class="mt-1">
-                                            الأخبار الوطنية
+                                            <div class="mt-1">
+                                                الأخبار الوطنية
 
-                                        </div>
-                                        <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
-                                            <span class="text-white text-md font-semibold">
-                                                <a href="<?php the_permalink() ?>">
-                                                    اقرأ المزيد
-                                                </a>
-                                            </span>
+                                            </div>
+                                            <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
+                                                <span class="text-white text-md font-semibold">
+                                                    <a href="<?php the_permalink() ?>">
+                                                        اقرأ المزيد
+                                                    </a>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
-
                             </div>
-                        </div>
 
-                    <?php
-                   
-                endwhile;
-            endif;
-        ?>
+                        <?php
+                    
+                    endwhile;
+                endif;
+            ?>
+        </div>
 
+        <div class="grid grid-cols-2 gap-3 w-full mt-12">
+                <!-- **************************
+            *   begin card template  *
+            ************************** -->
+            <?php
+                $args = array(
+                'post_type' => 'post',
+                'post_status' => 'publish',
+                'category_name' => 'cat2',
+                'posts_per_page' => 6,
+                );
+                $arr_posts = new WP_Query( $args );
 
+                if ( $arr_posts->have_posts() ) :
+                    ?>
+                        <?php
+                    while ( $arr_posts->have_posts() ) :
+
+                        $arr_posts->the_post();
+                        ?>
+                        
+                                <div id="app" class="w-96 h-60 rounded shadow-md flex rounded-lg ml-4">
+                                <img class="w-40 h-60 object-cover object-center rounded-l-sm" src="<?php the_post_thumbnail_url(); ?>"
+                                    alt="Room Image">
+                                <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
+                                    <div class="p-4 pb-0 flex-1">
+                                        <h3 class="font-light text-gray-100 mb-6 text-xs"> <?php the_category() ?></h3>
+                
+                                        <span class="text-sm font-semibold text-gray-100"> <?php the_title() ?></span>
+                                        <div class="flex items-center mt-4 text-gray-100">
+                                            <div class="pr-2 text-xs">
+                                            <?php echo get_the_date('F j, Y') ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
+                                        اقرأ المزيد
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                    
+                    endwhile;
+                endif;
+            ?>
+        </div>
+        
     </div>
 
+    
     <div class="w-96 bg-gray-800 rounded text-gray-100 p-1">
 
         <?php
@@ -219,91 +270,50 @@ get_header();
 
             </ul>
         </div>
+
+        <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500 mt-8">البطولة التونسية 
+        </h1>
+        <div class="bg-gray-800 text-xs w-full p-4 text-gray-100">
+            <table class="w-full rounded-lg ">
+                <tr class="bg-gray-900 py-2 border border-gray-800">
+                    <td class="p-2">الفريق</td>
+                    <td class="p-2">نقاط</td>
+                    <td class="p-2">ل</td>
+                    <td class="p-2">ف</td>
+                    <td class="p-2">ت</td>
+                    <td class="p-2">خ</td>
+                    <td class="p-2">فارق</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">الفريق</td>
+                    <td>نقاط</td>
+                    <td>ل</td>
+                    <td>ف</td>
+                    <td>ت</td>
+                    <td>خ</td>
+                    <td>فارق</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">الفريق</td>
+                    <td>نقاط</td>
+                    <td>ل</td>
+                    <td>ف</td>
+                    <td>ت</td>
+                    <td>خ</td>
+                    <td>فارق</td>
+                </tr>
+            </table>
+        </div>
     </div>
 
 
 </section>
 
-<section class="wrapper mt-8">
-    <div class="flex">
-        <div class="flex">
-
-
-            <!-- **************************
-                *   begin card template  *
-                ************************** -->
-            <?php
-            $args = array(
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'category_name' => 'cat2',
-            'posts_per_page' => 6,
-            );
-            $arr_posts = new WP_Query( $args );
-
-            if ( $arr_posts->have_posts() ) :
-                ?>
-                    <?php
-                while ( $arr_posts->have_posts() ) :
-
-                    $arr_posts->the_post();
-                    ?>
-                    
-                        <div id="app" class="w-96 h-60 rounded shadow-md flex rounded-lg ml-4">
-                            <img class="w-40 h-64 object-cover object-center rounded-l-sm" src="<?php the_post_thumbnail_url(); ?>"
-                                alt="Room Image">
-                            <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
-                                <div class="p-4 pb-0 flex-1">
-                                    <h3 class="font-light text-gray-100 mb-6 text-xs"> <?php the_category() ?></h3>
-            
-                                    <span class="text-sm font-semibold text-gray-100"> <?php the_title() ?></span>
-                                    <div class="flex items-center mt-4 text-gray-100">
-                                        <div class="pr-2 text-xs">
-                                        <?php echo get_the_date('F j, Y') ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
-                                    اقرأ المزيد
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                   
-                endwhile;
-            endif;
-        ?>
-
-
-            </div>
-
-            <div class="bg-gray-800 text-xs mr-3 w-full p-4 text-gray-100">
-                <table class="w-full rounded-lg ">
-                    <tr class="bg-gray-900 py-2 border border-gray-800">
-                        <td class="p-2">الفريق</td>
-                        <td class="p-2">نقاط</td>
-                        <td class="p-2">ل</td>
-                        <td class="p-2">ف</td>
-                        <td class="p-2">ت</td>
-                        <td class="p-2">خ</td>
-                        <td class="p-2">فارق</td>
-                    </tr>
-                    <tr class="bg-gray-800 my-2">
-                        <td class="p-2">الفريق</td>
-                        <td>نقاط</td>
-                        <td>ل</td>
-                        <td>ف</td>
-                        <td>ت</td>
-                        <td>خ</td>
-                        <td>فارق</td>
-                    </tr>
-                </table>
-            </div>
-
-        </div>
-
-</section>
+<!-- <section class="wrapper mt-8">
+    <div class="grid grid-cols-2 gap-3 w-full">
+        
+    </div>
+</section> -->
 
 <section class="wrapper mt-8">
     <div class="flex">

@@ -140,6 +140,39 @@ get_header();
 
             </ul>
         </div>
+        <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500 mt-8">البطولة التونسية 
+        </h1>
+        <div class="bg-gray-800 text-xs w-full p-4 text-gray-100">
+            <table class="w-full rounded-lg ">
+                <tr class="bg-gray-900 py-2 border border-gray-800">
+                    <td class="p-2">الفريق</td>
+                    <td class="p-2">نقاط</td>
+                    <td class="p-2">ل</td>
+                    <td class="p-2">ف</td>
+                    <td class="p-2">ت</td>
+                    <td class="p-2">خ</td>
+                    <td class="p-2">فارق</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">الفريق</td>
+                    <td>نقاط</td>
+                    <td>ل</td>
+                    <td>ف</td>
+                    <td>ت</td>
+                    <td>خ</td>
+                    <td>فارق</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">الفريق</td>
+                    <td>نقاط</td>
+                    <td>ل</td>
+                    <td>ف</td>
+                    <td>ت</td>
+                    <td>خ</td>
+                    <td>فارق</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </section>
 

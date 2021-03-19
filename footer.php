@@ -13,7 +13,7 @@
 
 <footer class="wrapper mt-8 grid grid-cols-4 gap-4 p-12 bg-gray-900 text-gray-100">
 
-    <div class="px-2">
+    <div class="px-2 w-full">
         <span class="border-b-2 border-red-500 py-3 text-xl">motafari9a</span>
         <?php
             $args = array(
@@ -37,9 +37,9 @@
                             class="w-24 h-24 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
 
                         <div class="mr-5">
-                            <span class="text-gray-300 text-sm"><?php the_date(); ?></span>
+                            <span class="text-gray-400 text-sm"><?php echo get_the_date('F j, Y') ?></span>
                             <h1 class="text-sm">
-                                <a href="<?php the_permalink() ?>">
+                                <a class="text-lg font-bold" href="<?php the_permalink() ?>">
                                     <?php the_title() ?>
                                 </a>
                             </h1>
@@ -53,7 +53,7 @@
         ?>
         <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">load more</button>
     </div>
-    <div class="px-2">
+    <div class="px-2 w-full">
         <span class="border-b-2 border-red-500 py-3 text-xl">motafari9a</span>
         <?php
             $args = array(
@@ -77,9 +77,9 @@
                             class="w-24 h-24 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
 
                         <div class="mr-5">
-                            <span class="text-gray-300 text-sm"><?php the_date(); ?></span>
+                            <span class="text-gray-400 text-sm"><?php echo get_the_date('F j, Y') ?></span>
                             <h1 class="text-sm">
-                                <a href="<?php the_permalink() ?>">
+                                <a class="text-lg font-bold" href="<?php the_permalink() ?>">
                                     <?php the_title() ?>
                                 </a>
                             </h1>
@@ -93,7 +93,8 @@
         ?>
         <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">load more</button>
     </div>
-    <div class="px-2">
+    <div class="px-2 w-full">
+    
         <span class="border-b-2 border-red-500 py-3 text-xl">motafari9a</span>
         <?php
             $args = array(
@@ -117,9 +118,9 @@
                             class="w-24 h-24 bg-cover bg-top bg-center object-cover shadow-2xl mt-6 rounded-lg">
 
                         <div class="mr-5">
-                            <span class="text-gray-300 text-sm"><?php the_date(); ?></span>
+                            <span class="text-gray-400 text-sm"><?php echo get_the_date('F j, Y') ?></span>
                             <h1 class="text-sm">
-                                <a href="<?php the_permalink() ?>">
+                                <a class="text-lg font-bold truncate" href="<?php the_permalink() ?>">
                                     <?php the_title() ?>
                                 </a>
                             </h1>
@@ -135,7 +136,7 @@
     </div>
     
     
-    <div class="px-2">
+    <div class="px-2 w-full">
         <span class="border-b-2 border-red-500 py-3 text-xl">Foot 24</span>
         <div class="mt-12">
             <span class="text-sm text-gray-500 my-4 block">فووت24 الموقع التونسي رقم 1 في الكورة</span>
@@ -145,7 +146,7 @@
         </div>
 
         <div class="w-full flex items-center justify-center mt-4">
-            <img src="<?php echo get_template_directory_uri() . '/assets/images/logo24.png'; ?>)" alt="">
+            <img src="<?php echo get_template_directory_uri() . '/assets/images/logo24.png'; ?>" alt="">
         </div>
 
     </div>
