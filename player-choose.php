@@ -117,23 +117,49 @@
 
                     <div class="w-full flex items-center justify-around">
                         <div class="">
-                            <img class="w-48 h-48 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
+                            <img 
+                            :src="playerTwo.imgUrl" 
+                            x-show="playerTwo.triggred"
+                            >
+                            <img class="w-48 h-48 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="" 
+                            
+                            x-show="!playerTwo.triggred"
+                            >
                         </div>
                         <div class="mx-32">
-                            <img class="w-64 h-64 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
+                            <img 
+                            :src="playerOne.imgUrl" alt="" 
+                            x-show="playerOne.triggred">
+                            <img class="w-64 h-64 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" 
+                            x-show="!playerOne.triggred"
+                            >
                         </div>
                         <div class="">
-                            <img class="w-48 h-48 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
+                            <img 
+                            :src="playerThree.imgUrl" alt="" 
+                            x-show="playerThree.triggred"
+                            >
+                            <img class="w-48 h-48 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" 
+                            x-show="!playerThree.triggred"
+                            >
                         </div>
                     </div>
 
                     <!-- players list -->
                     <div class="w-full flex items-center justify-around mt-24">
+                        <template x-for="player in players" :key="player.playerId">
 
-                        <div class="">
-                            <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
-                            <h1 class="mt-3 text-center text-xl py-2 px-4">player1</h1>
-                        </div>
+                            <div>
+                                <div class="w-32 h-32 bg-gray-100 rounded-full">
+                                    <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
+                                    :src="player.playerImgUrl"
+                                    @click="vote(player.playerId)"
+                                    x-show="player.playerScore == '0'"
+                                    >
+                                </div>
+                                <h1 class="mt-3 text-center text-xl py-2 px-4" x-text="player.playerName"></h1>
+                            </div>
+                        </template>
 
                     </div>
 
@@ -156,13 +182,53 @@
         function playerChoose(){
             return {
                 players: [
-                    {playerId: '1', playerName: 'Mahdi', playerImgUrl: '1.png'},
-                    {playerId: '1', playerName: 'Mahdi', playerImgUrl: '2.png'},
-                    {playerId: '1', playerName: 'Mahdi', playerImgUrl: '3.png'},
-                    {playerId: '1', playerName: 'Mahdi', playerImgUrl: '4.png'},
-                    {playerId: '1', playerName: 'Mahdi', playerImgUrl: '2.png'},
+                    {playerId: '1', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '1.png', playerScore: 0},
+                    {playerId: '2', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '2.png', playerScore: 0},
+                    {playerId: '3', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', playerScore: 0, disabled: false},
+                    {playerId: '4', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '4.png', playerScore: 0, disabled: false},
+                    {playerId: '5', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', playerScore: 0, disabled: false},
                 ],
 
+                numberOfClicks: 0,
+                playerOne: {
+                    imgUrl: "",
+                    triggred: false
+                },
+                playerTwo: {
+                    imgUrl: "",
+                    triggred: false
+                },
+                playerThree: {
+                    imgUrl: "",
+                    triggred: false
+                },
+
+                vote(id){
+                    console.log(id)
+                    this.numberOfClicks = this.numberOfClicks + 1
+                    this.players.forEach(p => {
+                        if(p.playerId === id){
+                            switch (this.numberOfClicks) {
+                                case 1:
+                                    p.playerScore = 5;
+                                    this.playerOne.imgUrl = p.playerImgUrl;
+                                    this.playerOne.triggred = true;
+                                    break;
+                                case 2:
+                                    p.playerScore = 3;
+                                    this.playerTwo.imgUrl = p.playerImgUrl;
+                                    this.playerTwo.triggred = true;
+                                    break;
+                                case 3:
+                                    p.playerScore = 2
+                                    this.playerThree.imgUrl = p.playerImgUrl;
+                                    this.playerThree.triggred = true;
+                                    break;
+                            } 
+                        }
+                    })
+                    console.log(this.players)
+                },
                 userInfo: {
                   username: "",
                   phone: "",
@@ -206,7 +272,6 @@
                         console.log("sending user data to backend");
                         this.isAllowedToVote = false
                     }else{
-                        console.log("user info incomplete")
                         this.errorMessage = "plz complete the form"
                         this.isChoosingIsCompleteMessage = true
                         setTimeout(() => {
