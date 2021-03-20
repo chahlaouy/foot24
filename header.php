@@ -36,7 +36,13 @@
     <section class="wrapper mx-auto  bg-gray-800 py-8 px-16">
         <img src="<?php echo get_template_directory_uri() . '/assets/images/coca.png'; ?>" class="w-full" alt="">
     </section>
-    <nav class="wrapper mx-auto flex items-center justify-between py-4 px-5 bg-gray-900 text-gray-100">
+    <nav class="md:hidden wrapper mx-auto py-4 px-5 bg-gray-900 text-gray-100">
+        <ul class=" flex items-center justify-between">
+            <li><ion-icon name="grid" class="text-3xl"></ion-icon></li>
+            <li class="text-xl font-bold">Foot 24</li>
+        </ul>
+    </nav>
+    <nav class="hidden md:flex wrapper mx-auto  items-center justify-between py-4 px-5 bg-gray-900 text-gray-100">
 
         <!-- <ul class="flex items-center justify-between">
             <li class="text-xl font-bold">Foot 24</li>

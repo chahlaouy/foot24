@@ -19,7 +19,7 @@ get_header();
 
     </div> -->
     <div class="w-full">
-        <div class="grid grid-cols-4 gap-2 w-full">
+        <div class="grid grid-cols-3 gap-2 w-full">
         <?php 
             if(have_posts()){
                 while (have_posts()){
@@ -77,7 +77,7 @@ get_header();
             $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'category_name' => 'cat1',
+            'category_name' => 'أخبار متفرقة',
             'posts_per_page' => 6,
             );
             $arr_posts = new WP_Query( $args );
@@ -101,7 +101,9 @@ get_header();
                     <img src="<?php the_post_thumbnail_url(); ?>" alt="" class="w-12 h-12 rounded-full shadow-md ">
                     <div class="p-1">
                         <h1 class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?> </h1>
-                        <p class="text-xs"> <?php the_title(); ?></p>
+                        <a class="text-xs" href="<?php the_permalink() ?>">
+                                <?php the_title(); ?>
+                        </a>
                     </div>
                 </li>
 

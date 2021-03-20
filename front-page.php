@@ -18,8 +18,13 @@ get_header();
 
     <div class="h-full flex flex-col justify-center items-center">
 
-        <div class="w-full mx-auto relative z-50" x-data="{ activeSlide: 1, 
-            slides: [[1, '<?php echo 'اتحاد بن قردان: القاسمي وبن طرشة'?>'], [2, <?php echo '1'?>]]
+        <div class="w-full mx-auto relative z-50" x-data="{ activeSlide: 1,
+
+            slides: [
+            
+                [1, '<?php echo 'الترجي الرياضي يستعيد خدمات رائد الفادع'?>'],
+                [2, '<?php echo 'كأس الكاف : تصدي أيمن دحمان ضمن قائمة الأفضل'?>']
+             ]
 
         }">
             <!-- Slides -->
@@ -35,11 +40,11 @@ get_header();
                                 الأخبار الوطنية
                             </div>
                             <div class="text-gray-100 bg-green py-2 px-1 text-xs">
-                                17 mars 2021
+                                19 mars 2021
                             </div>
 
                         </div>
-                        <div class="text-white mt-3" x-text="slide">
+                        <div class="text-white mt-3" x-text="slide[1]">
 
                         </div>
 
@@ -71,11 +76,11 @@ get_header();
     </div>
 </section>
 
-<section class="wrapper flex mt-16 w-full">
+<section class="px-2 md:px-0 wrapper md:flex mt-16 w-full">
 
     <div class="w-full">
 
-        <div class="grid grid-cols-3 gap-2 w-full">
+        <div class="md:grid md:grid-cols-3 gap-2 w-full">
         
             <!-- **************************
                     *   begin card template  *
@@ -84,8 +89,8 @@ get_header();
                 $args = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
-                'category_name' => 'cat1',
-                'posts_per_page' => 5,
+                'category_name' => 'الأخبار الوطنية',
+                'posts_per_page' => 6,
                 );
                 $arr_posts = new WP_Query( $args );
 
@@ -95,7 +100,7 @@ get_header();
 
                         $arr_posts->the_post();
                         ?>
-                            <div class="wrapper antialiased text-gray-900 w-64">
+                            <div class="wrapper antialiased text-gray-900 w-full md:w-64 mt-4 md:mt-0">
                                 <div>
                                     <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
                                         class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
@@ -138,7 +143,7 @@ get_header();
             ?>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 w-full mt-12">
+        <div class="md:grid md:grid-cols-2 md:gap-3 w-full mt-12">
                 <!-- **************************
             *   begin card template  *
             ************************** -->
@@ -146,7 +151,7 @@ get_header();
                 $args = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
-                'category_name' => 'cat2',
+                'category_name' => 'الأخبار العالمية',
                 'posts_per_page' => 6,
                 );
                 $arr_posts = new WP_Query( $args );
@@ -159,10 +164,10 @@ get_header();
                         $arr_posts->the_post();
                         ?>
                         
-                                <div id="app" class="w-96 h-60 rounded shadow-md flex rounded-lg ml-4">
-                                <img class="w-40 h-60 object-cover object-center rounded-l-sm" src="<?php the_post_thumbnail_url(); ?>"
+                                <div id="app" class="md:w-96 w-full md:h-60 rounded shadow-md md:flex rounded-lg ml-4 mt-4 md:mt-0">
+                                <img class="w-full md:w-40 h-60 object-cover object-center rounded-l-sm" src="<?php the_post_thumbnail_url(); ?>"
                                     alt="Room Image">
-                                <div class="w-56 flex flex-col bg-gray-900 rounded-l-lg">
+                                <div class="w-full md:w-56 flex flex-col bg-gray-900 rounded-l-lg">
                                     <div class="p-4 pb-0 flex-1">
                                         <h3 class="font-light text-gray-100 mb-6 text-xs"> <?php the_category() ?></h3>
                 
@@ -173,9 +178,11 @@ get_header();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition ">
-                                        اقرأ المزيد
-                                        <i class="fas fa-chevron-right"></i>
+                                    <div class="bg-green-500 p-3 flex items-center text-gray-100 justify-between transition mt-2 md:mt-0">
+                                    <a href="<?php the_permalink() ?>">
+                                    اقرأ المزيد
+                                    </a>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -189,13 +196,13 @@ get_header();
     </div>
 
     
-    <div class="w-96 bg-gray-800 rounded text-gray-100 p-1">
+    <div class="md:w-96 bg-gray-800 rounded text-gray-100 md:p-1">
 
         <?php
             $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'category_name' => 'cat1',
+            'category_name' => 'ألبومات الصور',
             'posts_per_page' => 6,
             );
             $arr_posts = new WP_Query( $args );
@@ -226,7 +233,7 @@ get_header();
         ?>
 
     </div>
-    <div class="bg-gray-800 rounded text-gray-100 mr-2 p-1" style="width: 500px">
+    <div class="bg-gray-800 rounded text-gray-100 md:mr-2 md:p-1 mt-8 md:mt-0 w-500 ">
         <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500">أخر الأخبار
         </h1>
 
@@ -234,7 +241,7 @@ get_header();
             $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'category_name' => 'cat1',
+            'category_name' => 'أخبار متفرقة',
             'posts_per_page' => 6,
             );
             $arr_posts = new WP_Query( $args );
@@ -258,7 +265,9 @@ get_header();
                     <img src="<?php the_post_thumbnail_url(); ?>" alt="" class="w-12 h-12 rounded-full shadow-md ">
                     <div class="p-1">
                         <h1 class="text-yellow-600 text-sm"><?php echo get_the_date('F j, Y') ?> </h1>
-                        <p class="text-xs"> <?php the_title(); ?></p>
+                        <a class="text-xs" href="<?php the_permalink() ?>">
+                            <?php the_title(); ?>
+                        </a>
                     </div>
                 </li>
 
@@ -315,7 +324,7 @@ get_header();
     </div>
 </section> -->
 
-<section class="wrapper mt-8">
+<section class="hidden md:block wrapper mt-8">
     <div class="flex">
 
         <div class="flex-1">

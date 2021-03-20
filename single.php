@@ -30,7 +30,7 @@ get_header();
                 <span class="block py-8 text-yellow-600"><?php echo get_the_date('F j, Y') ?></span>
                 <h1 class="my-4 text-5xl text-gray-200"><?php the_title() ?></h1>
                 <div class="px-4 text-gray-100">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. In beatae exercitationem iusto molestiae dignissimos voluptate atque, iure doloribus quisquam ipsa. Ullam, ipsam labore quo doloremque a porro dolorem rem itaque.
+                    <?php the_content() ?>
                 </div>
 
             <?php
@@ -57,7 +57,7 @@ get_header();
 
             if($related_cats_post->have_posts()):
                 ?>
-                    <h1 class="text-3xl text-gray-100 my-6">Related posts</h1>
+                    <h1 class="text-3xl text-gray-100 my-6">مقالات مشابهة</h1>
                 <?php
                 while($related_cats_post->have_posts()): $related_cats_post->the_post(); ?>
                     <div class="grid grid-cols-2 gap-4">
@@ -99,7 +99,7 @@ get_header();
             $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'category_name' => 'cat1',
+            'category_name' => 'أخبار متفرقة',
             'posts_per_page' => 6,
             );
             $arr_posts = new WP_Query( $args );
@@ -123,7 +123,9 @@ get_header();
                     <img src="<?php the_post_thumbnail_url(); ?>" alt="" class="w-12 h-12 rounded-full shadow-md">
                     <div class="p-1">
                         <h1 class="text-yellow-600 text-sm"><?php the_category() ?></h1>
-                        <p class="text-xs"> <?php the_title(); ?></p>
+                        <a class="text-xs" href="<?php the_permalink() ?>">
+                                <?php the_title(); ?>
+                        </a>
                     </div>
                 </li>
 

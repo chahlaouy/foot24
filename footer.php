@@ -11,16 +11,16 @@
      */
 ?>
 
-<footer class="wrapper mt-8 grid grid-cols-4 gap-4 p-12 bg-gray-900 text-gray-100">
+<footer class="wrapper mt-8 md:grid md:grid-cols-4 md:gap-4 p-2 md:p-12 bg-gray-900 text-gray-100">
 
     <div class="px-2 w-full">
-        <span class="border-b-2 border-red-500 py-3 text-xl">motafari9a</span>
+        <span class="border-b-2 border-red-500 py-3 text-xl">أخبار متفرقة</span>
         <?php
             $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'category_name' => 'cat2',
-            'posts_per_page' => 6,
+            'category_name' => 'أخبار متفرقة',
+            'posts_per_page' => 4,
             );
             $arr_posts = new WP_Query( $args );
 
@@ -51,16 +51,16 @@
                 endwhile;
             endif;
         ?>
-        <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">load more</button>
+        <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">اقرأ المزيد</button>
     </div>
     <div class="px-2 w-full">
-        <span class="border-b-2 border-red-500 py-3 text-xl">motafari9a</span>
+        <span class="border-b-2 border-red-500 py-3 text-xl">الأخبار العالمية</span>
         <?php
             $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'category_name' => 'cat2',
-            'posts_per_page' => 6,
+            'category_name' => 'الأخبار العالمية',
+            'posts_per_page' => 4,
             );
             $arr_posts = new WP_Query( $args );
 
@@ -91,17 +91,17 @@
                 endwhile;
             endif;
         ?>
-        <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">load more</button>
+        <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">اقرأ المزيد</button>
     </div>
     <div class="px-2 w-full">
     
-        <span class="border-b-2 border-red-500 py-3 text-xl">motafari9a</span>
+        <span class="border-b-2 border-red-500 py-3 text-xl">الأخبار الوطنية</span>
         <?php
             $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'category_name' => 'cat2',
-            'posts_per_page' => 6,
+            'category_name' => 'الأخبار الوطنية',
+            'posts_per_page' => 4,
             );
             $arr_posts = new WP_Query( $args );
 
@@ -132,7 +132,7 @@
                 endwhile;
             endif;
         ?>
-        <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">load more</button>
+        <button class="w-full py-2 text-gray-100 bg-green-500 rounded-lg mt-2">اقرأ المزيد</button>
     </div>
     
     
