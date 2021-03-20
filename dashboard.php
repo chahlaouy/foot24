@@ -219,28 +219,7 @@
                     </div>
                     
                 </div>
-                <!-- <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-
-                    <div class="w-full ">
-
-                    </div>
-
-                    <div class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5">
-                        <div class="flex flex-row items-center">
-                            
-                            <div class="flex-1 flex items-center justify-center pr-4">
-                                <div class=" p-5 bg-blue-600">
-                                    <img class="w-full rounded-full h-96 bg-cover object-cover bg-center" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
-                                </div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                                <h5 class="font-bold uppercase text-gray-600">Server Uptime</h5>
-                                <h3 class="font-bold text-3xl">152 days</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
+               
             </div>
 
         </div>
