@@ -85,11 +85,25 @@
     </nav>
     <section class="wrapper mx-auto" x-data="playerChoose()">
         <div class="fixed bottom-0 left-0 z-50 p-12" x-show="isAllowedToVote">
-            <div class="w-96 h-96 bg-gray-800 rounded-2xl text-gray-100 shadow-2xl p-4">
+            <div class="w-96 bg-gray-800 rounded-2xl text-gray-100 shadow-2xl p-8">
                 <div>
-                    <label for="" x-model="userInfo.username" class="block">Nom et prénom</label>
-                    <input type="text" class="w-full border border-gray-400 py-3 bg-">
+                    <label for=""  class="block">Nom et prénom</label>
+                    <input x-model="userInfo.username" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="Nom et prénom">
                 </div>
+                <div>
+                    <label for="" class="block">C.I.N</label>
+                    <input x-model="userInfo.cin" type="number" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="cin">
+                </div>
+                <div>
+                    <label for="" class="block">Télephone</label>
+                    <input x-model="userInfo.phone" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="telephone">
+                </div>
+                <button class="w-full bg-gray-100 text-gray-900 text-xl py-3 rounded-xl" @click="saveUserInfo()">submit</button>
+            </div>
+        </div>
+        <div class="fixed bottom-0 right-0 z-50 p-12" x-show="isChoosingIsCompleteMessage">
+            <div class="w-96 bg-red-600 rounded-2xl text-gray-100 shadow-2xl p-8 text-center" x-text="errorMessage">
+                
             </div>
         </div>
         <div class="w-full relative">
@@ -129,7 +143,7 @@
                                 Cancel
                             </a>    
                         </button>
-                        <button class="py-4 px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-4xl  rounded-2xl" @click="submitForm()">
+                        <button class="py-4 px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-4xl  rounded-2xl" @click="submitVoting()">
                             confirm
                         </button>
                     </div>
@@ -150,19 +164,57 @@
                 ],
 
                 userInfo: {
-                  username: false,
+                  username: "",
                   phone: "",
                   cin: "" 
                 },
+                isChoosingIsCompleteMessage: false,
                 isAllowedToVote: false,
-                submitForm(){
-                    if((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")){
-                        console.log("forward")
-                    }else{
-                        this.isAllowedToVote = true
-                    }
-                }
+                isChoosingIsComplete: false,
+                errorMessage: "",
+                get isUserRegistred(){
+                    return (this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")
+                },
+                submitVoting(){
+                    /**Check wether user is registred or not */
+                    if(this.isUserRegistred){
 
+                        /** another if to check wether the user choose or not */
+                        if(this.isChoosingIsComplete){
+                            console.log("submit voting to back end")
+                        }
+                        else{
+                            /** The user does not choose yet or information is incomplete */
+                            /**show a message to the user */
+                            this.isChoosingIsCompleteMessage = true
+                            this.errorMessage = "plz vote"
+                            setTimeout(() => {
+                                this.isChoosingIsCompleteMessage = false
+                            }, 1000);
+                        }
+                    }else{
+                        // if((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")){
+                        //     console.log("submit voting to back end")
+                        // }
+                        this.isAllowedToVote = true
+                        
+                    }
+                },
+
+                saveUserInfo(){
+                    if((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")){
+                        console.log("sending user data to backend");
+                        this.isAllowedToVote = false
+                    }else{
+                        console.log("user info incomplete")
+                        this.errorMessage = "plz complete the form"
+                        this.isChoosingIsCompleteMessage = true
+                        setTimeout(() => {
+                            this.isChoosingIsCompleteMessage = false
+                        }, 1000);
+                    }
+    
+                }
             }
         }
     </script>
