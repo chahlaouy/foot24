@@ -15,7 +15,11 @@
     <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> <!--Replace with your tailwind.css once created-->
 
 </head>
-
+<style>
+    .dir{
+        direction: rtl
+    }
+</style>
 
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
 
@@ -163,10 +167,57 @@
 
                 <!-- Player card -->
 
-                <div class="flex items-center justify-center">
-                    <div class="flex-1 flex items-center">
+                <div class="flex items-center justify-center p-6 w-full dir">
+                    <div class="flex-1 flex items-center px-24 relative">
+                        
+                        <div class="bg-white shadow-2xl rounded-2xl relative z-10">
+                            <h1 class="text-center text-red-600 text-3xl py-1">Player name</h1>
+                            <hr>
+                            <div class="flex items-stretch">
+                                <div class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-32">
+                                    <h1 class="text-4xl">2.5</h1>
+                                </div>
+                                <div class="py-1 pl-24 pr-2 w-96">
 
+                                    <div id="public">
+
+                                        <div class="flex w-full items-center justify-between">
+                                            <div>
+                                                <span class="text-xs">voting</span>
+                                                <h1 class='text-xl'>publique</h1>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm">2.5</span> 
+                                            </div>
+                                        </div>
+                                        <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
+                                    </div>
+
+                                    <div id="jouralist">
+
+                                        <div class="flex w-full items-center justify-between">
+                                            <div>
+                                                <span class="text-xs">voting</span>
+                                                <h1 class='text-xl'>journalist</h1>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm">2.5</span> 
+                                            </div>
+                                        </div>
+                                        <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
+                                    </div>
+
+                                    
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center w-48 h-48 rounded-full relative z-20 -mr-16 shadow-2xl">
+                            <img class="w-full rounded-full h-full bg-cover object-cover bg-center bg-top"  src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
+                        </div>
                     </div>
+                    
                 </div>
                 <!-- <div class="w-full md:w-1/2 xl:w-1/3 p-6">
 
