@@ -7,38 +7,57 @@ require_once(DIGIGATE_DIR_PATH . '/player/web/upload.php');
 
 $player = new Player($db);
 
-if (isset($_POST["name"])){
 
-    $imgUrl = uploadFile();
-    
-    $player->name = $_POST["name"];
+
+$target_dir = DIGIGATE_DIR_PATH . '/player/images/';
+$target_file = $target_dir . basename($_FILES["image"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// Check if file already exists
+if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+  }
+
+  if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+    echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
+    // return $target_file;
+    $player->name = $_POST["username"];
     $player->score = 0;
-    $player->imgUrl = $imgUrl;
+    $player->imgUrl = basename( $_FILES["image"]["name"]);
     $player->numberOfPublicVotes = 0;
     $player->numberOfJournalistVotes = 0;
     
     $player->createPlayer();
-}
+    echo json_encode(array("success" => "player saved"));
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+  }
 
 
 
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="post" enctype="multipart/form-data">
+
+
+// $file = $_FILES['image'];
+// $temp = $file['tmp_name'];
+
+// $path_to_upload = DIGIGATE_DIR_PATH . '/player/images/' . uniqid() . '.jpg';
+
+// $image = file_get_contents($temp);
+
+// $image= imagecreatefromstring($image);
+
+// if($image){
+//     imagejpeg($image, $path);
+//     imagedestroy($image);
+
     
-        Select image to upload:
-        <input type="text" name="name" id="name">
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="submit" value="Upload Image" name="submit">
-    </form>
-</body>
-</html>
+
+//     echo json_encode(array("success" => "player saved"));
+// }else{
+//     echo json_encode(array("fail" => "plz try again"));
+    
+// }
+
+

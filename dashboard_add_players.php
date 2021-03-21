@@ -26,7 +26,7 @@
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
 
 
-    <div class="flex flex-col md:flex-row" x-data="getPlayers()">
+    <div class="flex flex-col md:flex-row" >
 
         <!-- Side Nav bar -->
         <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48">
@@ -64,7 +64,12 @@
 
         </div>
 
-        <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+        <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5" x-data="getPlayers()" x-init=" fetch('http://localhost/wordpress/get-players/')
+                    .then(response => response.json())
+                        .then(data =>{
+                            this.players = data.data
+                            console.log(this.players)
+                })">
 
             <div class="bg-gray-800 pt-3">
                 <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
@@ -74,14 +79,14 @@
             </div>
             
             <!-- players list  -->
-            <!-- players list -->
+
             <div class="w-full flex items-center justify-around mt-24">
                 <template x-for="player in players">
 
                     <div>
                         <div class="w-32 h-32 bg-gray-800 rounded-full">
                             <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
-                            src="<?php echo get_template_directory_uri()  . '/assets/images/3.png'?>"
+                            :src="player.imgUrl"
                             
                             >
                         </div>
@@ -93,23 +98,20 @@
             <div class="flex items-center justify-center fixed bottom-0 right-0 p-8 z-50 shadow-2xl">
 
                 <div id="form" class="w-96">
-                    <!-- <form method="post" enctype="multipart/form-data"> -->
-                        <div>
-                            <label for="" class="block">Nom de joueur</label>
-                            <input type="text"
-                                class="w-full py-3 bg-gray-100 rounded-xl my-4 px-2 border border-gray-800" placeholder="Nom de joueur"
-                                x-model="newPlayer.name"
-                                >
-                        </div>
-                        <div>
-                            <label for="" class="block">Image Joueur</label>
-                            <input  type="file" name="file[]" multiple
-                                class="w-full py-3 bg-gray-100 rounded-xl my-4 px-2" placeholder="cin">
-                        </div>
-                        
-                        <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
-                            @click="savePlayer()">submit</button>
-                    <!-- </form> -->
+                    <div>
+                        <label for="" class="block">Nom de joueur</label>
+                        <input type="text" required id="name"
+                            class="w-full py-3 bg-gray-100 rounded-xl my-4 px-2 border border-gray-800" placeholder="Nom de joueur"
+                             >
+                    </div>
+                    <div>
+                        <label for="" class="block">Image Joueur</label>
+                        <input type="file" name="imgUrl" id="imgUrl"
+                            class="w-full py-3 bg-gray-100 rounded-xl my-4 px-2"  required>
+                    </div>
+                    
+                    <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
+                        id="btnUpload" @click()="fetchPlayers()">submit</button>
                 </div>
 
             </div>
@@ -122,7 +124,13 @@
 <script>
     function getPlayers(){
         return {
-            players: [],
+            players: [
+                {name: "اللاعب 1", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 2", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 3", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 4", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 5", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+            ],
             initialized: false,
             newPlayer: {
                 name: "",
@@ -132,54 +140,34 @@
                 fetch('http://localhost/wordpress/get-players/')
                     .then(response => response.json())
                         .then(data =>{
-                             players = data
-                        })
-            },
-            savePlayer(){
-                // var xhr = new XMLHttpRequest();
-                fetch('http://localhost/wordpress/create-player-api/', {
-                        method: 'POST',
-                        body: this.newPlayer,
-                    }).then((response) => {
-                        console.log(response)
-                    })
-                    // xhr.open("POST", 'http://localhost/wordpress/create-player-api/', true);
-                    // xhr.setRequestHeader('Content-Type', 'application/json');
-                    // xhr.send(JSON.stringify({
-                    //     name: this.newPlayer.name,
-                    //     imgUrl: this.newPlayer.name
-                    // })).then(()=>{
-                    //     console.log('hello')
-                    // });
-            }
-            
+                            this.players = data.data
+                            console.log(this.players)
+                })
+            }   
         }
     }
-
-    // const url = 'http://localhost/wordpress/create-player-api/'
-    // const form = document.querySelector('form')
-
-    // form.addEventListener('submit', (e) => {
-    //     e.preventDefault()
-
-    //     const files = document.querySelector('[type=file]').files
-    //     const formData = new FormData()
-
-    //     for (let i = 0; i < files.length; i++) {
-    //         let file = files[i]
- 
-    //         formData.append('files[]', file)
-    //     }
-
-    //     fetch(url, {
-    //         method: 'POST',
-    //         body: formData,
-    //     }).then((response) => {
-    //         console.log(response)
-    //     })
-    // })
-
+    const imgUrl = document.querySelector('#imgUrl')
+    const btn = document.querySelector('#btnUpload')
+    const name = document.getElementById("name").value;
+    btn.addEventListener('click', upload)
     
+    async function upload(){
+        const formData = new FormData();
+        formData.append('image', imgUrl.files[0])
+        formData.append('username', name)
+
+        try {
+            const response = await fetch('http://localhost/wordpress/create-player/',{
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json()
+            console.log(result);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 </script>
 </body>
 
