@@ -65,14 +65,16 @@
         </div>
 
         <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5" x-data="getPlayers()" x-init="
-        setTimeout(() => {
+            setTimeout(() => {
                 
-            fetch('http://localhost/wordpress/get-players/')
-                .then(response => response.json())
-                    .then(data =>{
-                        players = data.data
-                        console.log(players)
-            })
+                fetch('http://localhost/wordpress/get-players/')
+                    .then(response => response.json())
+                        .then(data =>{
+                            players = data.data
+                            players.forEach(p=>{
+                                p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
+                            })
+                })
             }, 3000);
         
         ">
@@ -92,7 +94,7 @@
                     <div>
                         <div class="w-32 h-32 bg-gray-800 rounded-full">
                             <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
-                            src="<?php ?>"
+                            :src="player.imgUrl"
                             
                             >
                         </div>
@@ -143,22 +145,36 @@
                 imgUrl: "",
             },
             fetchPlayers(){
+
+                setTimeout(() => {
+                
                 fetch('http://localhost/wordpress/get-players/')
                     .then(response => response.json())
                         .then(data =>{
                             this.players = data.data
-                            console.log(this.players)
-                })
+                            this.players.forEach(p=>{
+                                p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
+                                console.log(p.imgUrl)
+                            })
+                    })
+                }, 2000);
+                // fetch('http://localhost/wordpress/get-players/')
+                //     .then(response => response.json())
+                //         .then(data =>{
+                //             this.players = data.data
+                //             console.log(this.players)
+                // })
             }
              
         }
     }
     const imgUrl = document.querySelector('#imgUrl')
     const btn = document.querySelector('#btnUpload')
-    const name = document.getElementById("name").value;
+    
     btn.addEventListener('click', upload)
     
     async function upload(){
+        const name = document.getElementById("name").value;
         const formData = new FormData();
         formData.append('image', imgUrl.files[0])
         formData.append('username', name)

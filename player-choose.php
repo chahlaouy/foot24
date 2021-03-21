@@ -92,6 +92,8 @@
                         players = data.data
                         players.forEach(p=>{
                             p.disabled = false
+                            p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
+                            console.log(p.imgUrl)
                         })
                         console.log(players)
             })
@@ -272,7 +274,10 @@
 
                         /** another if to check wether the user choose or not */
                         if(this.isChoosingIsComplete){
-                            console.log("submit voting to back end")
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", 'http://localhost/wordpress/create-user/', true);
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(JSON.stringify(this.players));  
                         }
                         else{
                             /** The user does not choose yet or information is incomplete */
