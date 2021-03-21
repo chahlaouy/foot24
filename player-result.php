@@ -82,24 +82,26 @@
             </li>
         </ul>
     </nav>
-    <section class="wrapper mx-auto" x-data="getPlayers()">
+    <section class="wrapper mx-auto" x-data="getPlayers()" x-init="fetchPlayers()">
         <div class="w-full relative">
-            <div class="absolute w-full h-full z-20 bg-gray-900 bg-opacity-30"></div>
+            <!-- <div class="absolute w-full h-full z-20 bg-gray-900 bg-opacity-30"></div> -->
             <div class="w-full realtive z-10">
                 <img class="w-full"
                     src="<?php echo get_template_directory_uri() . '/assets/images/player-result.jpg'; ?>" alt="">
             </div>
-            <div class="flex justify-center absolute top-0 right-0 w-full h-full mt-24 z-40">
+            <div class="absolute top-0 right-0  mt-56 z-40">
+        
+
                 <div class="">
                     /** card begin */
                     <div class="flex items-center justify-center">
                         <div class="bg-white shadow-2xl rounded-2xl relative z-10">
-                            <h1 class="text-center text-red-600 text-3xl py-1">Player name</h1>
+                            <h1 class="text-center text-red-600 text-3xl py-1" x-text="playerOne.name"></h1>
                             <hr>
                             <div class="flex items-stretch">
                                 <div
                                     class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-32">
-                                    <h1 class="text-4xl">2.5</h1>
+                                    <h1 class="text-4xl" x-text="playerOne.totalScorePublic"></h1>
                                 </div>
                                 <div class="py-1 pl-24 pr-2 w-96">
 
@@ -111,7 +113,7 @@
                                                 <h1 class='text-xl'>publique</h1>
                                             </div>
                                             <div>
-                                                <span class="text-sm">2.5</span>
+                                                <span class="text-sm" x-text="playerOne.totalScorePublic"></span>
                                             </div>
                                         </div>
                                         <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
@@ -125,7 +127,7 @@
                                                 <h1 class='text-xl'>journalist</h1>
                                             </div>
                                             <div>
-                                                <span class="text-sm">2.5</span>
+                                                <span class="text-sm" x-text="playerOne.totalScoreJournalist">2.5</span>
                                             </div>
                                         </div>
                                         <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
@@ -143,46 +145,130 @@
                                 src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
                         </div>
                     </div>
+                    /**end card */
                 </div>
+                <div class="grid grid-cols-2 gap-12">
+                    <template x-for="player in players" class="">
+                        
+                        <div class="flex items-center justify-center">
+                            <div class="bg-white shadow-2xl rounded-2xl relative z-10">
+                                <h1 class="text-center text-red-600 text-3xl py-1" x-text="player.name"></h1>
+                                <hr>
+                                <div class="flex items-stretch">
+                                    <div
+                                        class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-32">
+                                        <h1 class="text-4xl" x-text="player.totalScorePublic"></h1>
+                                    </div>
+                                    <div class="py-1 pl-24 pr-2 w-96">
+
+                                        <div id="public">
+
+                                            <div class="flex w-full items-center justify-between">
+                                                <div>
+                                                    <span class="text-xs">voting</span>
+                                                    <h1 class='text-xl'>publique</h1>
+                                                </div>
+                                                <div>
+                                                    <span class="text-sm" x-text="player.totalScorePublic"></span>
+                                                </div>
+                                            </div>
+                                            <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
+                                        </div>
+
+                                        <div id="jouralist">
+
+                                            <div class="flex w-full items-center justify-between">
+                                                <div>
+                                                    <span class="text-xs">voting</span>
+                                                    <h1 class='text-xl'>journalist</h1>
+                                                </div>
+                                                <div>
+                                                    <span class="text-sm"
+                                                        x-text="player.totalScoreJournalist">2.5</span>
+                                                </div>
+                                            </div>
+                                            <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center justify-center w-48 h-48 rounded-full relative z-20 -mr-16 shadow-2xl">
+                                <img class="w-full rounded-full h-full bg-cover object-cover bg-center bg-top"
+                                    :src="player.imgUrl"
+                                    alt="">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            
             </div>
         </div>
     </section>
 
     <script>
-
-function getPlayers(){
+    function getPlayers() {
         return {
-            players: [
-                {name: "اللاعب 1", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 2", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 3", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 4", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 5", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+            playerOne: {
+                name: "اللاعب 1",
+                imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png",
+                totalScorePublic: '0',
+                totalScoreJournalist: '0'
+            },
+            players: [{
+                    name: "اللاعب 2",
+                    imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png",
+                    totalScorePublic: '0',
+                    totalScoreJournalist: '0'
+                },
+                {
+                    name: "اللاعب 3",
+                    imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png",
+                    totalScorePublic: '0',
+                    totalScoreJournalist: '0'
+                },
+                {
+                    name: "اللاعب 4",
+                    imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png",
+                    totalScorePublic: '0',
+                    totalScoreJournalist: '0'
+                },
+                {
+                    name: "اللاعب 5",
+                    imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png",
+                    totalScorePublic: '0',
+                    totalScoreJournalist: '0'
+                },
             ],
             initialized: false,
             newPlayer: {
                 name: "",
                 imgUrl: "",
             },
-            fetchPlayers(){
+            fetchPlayers() {
 
                 setTimeout(() => {
-                
-                fetch('http://localhost/wordpress/get-players/')
-                    .then(response => response.json())
-                        .then(data =>{
-                            this.players = data.data
-                            this.players.forEach(p=>{
-                                p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
+
+                    fetch('http://localhost/wordpress/get-players/')
+                        .then(response => response.json())
+                        .then(data => {
+                            this.players = data.data.filter((p, index) => index != 0)
+                            this.players.forEach((p, index) => {
+                                console.log(index)
+                                p.imgUrl = '<?php echo get_template_directory_uri() ?>' +
+                                    '/player/images/' + p.imgUrl
                                 console.log(p.imgUrl)
                             })
-                    })
+                        })
                 }, 2000);
             }
-             
+
         }
     }
-
     </script>
     <?php
 
