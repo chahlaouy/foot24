@@ -224,7 +224,7 @@ get_header();
 
             if ( $arr_posts->have_posts() ) :
                 ?>
-        <h1 class="bg-gray-900 text-center text-lg py-3 text-gray-100 border-2 border-red-500 rounded-lg">صور</h1>
+        <h1 class="bg-gray-900 text-center text-lg py-3 text-gray-100 border-2 border-red-500 rounded-lg mt-8 md:mt-0">صور</h1>
         <?php
                 while ( $arr_posts->have_posts() ) :
 
@@ -445,11 +445,11 @@ get_header();
 </section>
 
 
-<section class="hidden md:block wrapper mt-8">
-    <div class="flex items-center">
+<section class="block wrapper mt-8">
+    <div class="md:flex md:items-center">
 
-        <div class="flex-1 h-96 bg-gray-800 rounded-2xl">
-            <div class="px-16">
+        <div class="md:flex-1 h-96 bg-gray-800 rounded-2xl">
+            <div class="md:px-16">
 
                 <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500 mt-8">فيديوهات
                 </h1>
@@ -466,16 +466,16 @@ get_header();
             </div>
         </div>
 
-        <div class="flex-1 relative pr-24 h-96 rounded-2xl" x-data="getPlayers()">
+        <div class="md:flex-1 relative md:pr-24 h-96 rounded-2xl" x-data="getPlayers()">
 
    
 
             <!-- Slides -->
             <template x-for="p in players">
-                <div x-show="activePlayer === p[0]" class="relative z-10 font-bold text-5xl h-96 text-gray "
+                <div x-show="activePlayer === p[0]" class="relative z-10 font-bold text-5xl h-96 text-gray my-4 md:my-0 "
                     <div class="relative ">
                         <img :src="p[2]" class="w-full h-96 relative z-10 bg-cover bg-center object-cover rounded-2xl" alt="">
-                        <div class="flex  md:-mt-32 relative z-40 px-4 md:px-8">
+                        <div class="flex -mt-32 md:-mt-32 relative z-40 px-4 md:px-8">
                             <div class="text-gray-100 bg-red-500 py-2 px-1 text-xs">
                                 grade 1
                             </div>
@@ -495,7 +495,7 @@ get_header();
             </template>
 
             <!-- Prev/Next Arrows -->
-            <div class="z-40 absolute inset-0 flex pr-24">
+            <div class="z-40 absolute inset-0 flex md:pr-24">
                 <div class="flex items-center justify-start w-1/2">
                     <button
                         class="flex items-center justify-center bg-red-500 text-gray-100 hover:text-orange-500 font-bold hover:shadow-lg rounded-full w-12 h-12 -mr-6"

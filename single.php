@@ -14,7 +14,7 @@ get_header();
 
 ?>
 
-<section class="wrapper flex  mt-4">
+<section class="wrapper md:flex  mt-4">
     <div class="w-96">
 
     </div>
@@ -60,7 +60,7 @@ get_header();
                     <h1 class="text-3xl text-gray-100 my-6">مقالات مشابهة</h1>
                 <?php
                 while($related_cats_post->have_posts()): $related_cats_post->the_post(); ?>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="md:grid md:grid-cols-2 gap-4">
                         
                         <div class="flex items-center mt-2">
                             <img src="<?php the_post_thumbnail_url() ?>" alt=" random imgee"
@@ -91,7 +91,7 @@ get_header();
         ?>
 
     </div>
-    <div class="bg-gray-800 rounded text-gray-100 mr-2 p-1" style="width: 500px">
+    <div class="bg-gray-800 rounded text-gray-100 md:mr-2 p-1 w-500">
         <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500">أخر الأخبار
         </h1>
 

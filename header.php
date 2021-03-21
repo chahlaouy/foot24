@@ -33,7 +33,7 @@
     ?>
 
     <!-- Section NavBar -->
-    <section class="wrapper mx-auto  bg-gray-800 py-4 px-4">
+    <section class="wrapper mx-auto  bg-gray-800 md:p-4 p1">
         <img src="<?php echo get_template_directory_uri() . '/assets/images/coca.png'; ?>" class="w-full" alt="">
     </section>
     <nav class="md:hidden wrapper mx-auto py-4 px-5 bg-gray-900 text-gray-100">

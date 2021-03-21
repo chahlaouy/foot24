@@ -14,18 +14,18 @@ get_header();
 
 ?>
 
-<section class="wrapper flex mt-4">
+<section class="wrapper md:flex mt-4">
     <!-- <div class="w-96">
 
     </div> -->
     <div class="w-full">
-        <div class="grid grid-cols-3 gap-2 w-full">
+        <div class="md:grid md:grid-cols-3 md:gap-2 w-full">
         <?php 
             if(have_posts()){
                 while (have_posts()){
                     the_post();
                     ?>
-            <div class="wrapper antialiased text-gray-900 w-64">
+            <div class="wrapper antialiased text-gray-900 w-64 my-4 md:my-0">
                 <div>
                     <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
                         class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
@@ -69,7 +69,7 @@ get_header();
         ?>
         </div>
     </div>
-    <div class="bg-gray-800 rounded text-gray-100 mr-2 p-1" style="width: 500px">
+    <div class="bg-gray-800 rounded text-gray-100 mr-2 p-1 w-500">
         <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500">أخر الأخبار
         </h1>
 
