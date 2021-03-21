@@ -18,7 +18,7 @@ class Player{
 
     public function getPlayers(){
 
-        $query = 'select * from ' . $this->table . ' ORDER BY id ASC LIMIT 5';
+        $query = 'select * from ' . $this->table . ' ORDER BY id DESC LIMIT 5';
 
         $stmt = $this->conn->prepare($query);
 

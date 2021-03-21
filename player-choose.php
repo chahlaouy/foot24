@@ -84,10 +84,18 @@
         </ul>
     </nav>
     <section class="wrapper mx-auto" x-data="playerChoose()" x-init="
-        fetch('http://localhost/wordpress/get-players/')
-            .then(response => response.json())
-            .then(data => console.log(data))
-            
+        setTimeout(() => {
+                
+            fetch('http://localhost/wordpress/get-players/')
+                .then(response => response.json())
+                    .then(data =>{
+                        players = data.data
+                        players.forEach(p=>{
+                            p.disabled = false
+                        })
+                        console.log(players)
+            })
+        }, 3000);
             ">
         <div class="fixed bottom-0 left-0 z-50 p-12" x-show="isAllowedToVote">
             <div class="w-96 bg-gray-800 rounded-2xl text-gray-100 shadow-2xl p-8">
@@ -155,17 +163,17 @@
 
                     <!-- players list -->
                     <div class="w-full flex items-center justify-around mt-24">
-                        <template x-for="player in players" :key="player.playerId">
+                        <template x-for="player in players" :key="player.id">
 
                             <div>
                                 <div class="w-32 h-32 bg-gray-100 rounded-full">
                                     <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
-                                    :src="player.playerImgUrl"
-                                    @click="vote(player.playerId)"
-                                    x-show="player.playerScore == '0'"
+                                    :src="player.imgUrl"
+                                    @click="vote(player.id)"
+                                    x-show="player.score == '0'"
                                     >
                                 </div>
-                                <h1 class="mt-3 text-center text-xl py-2 px-4" x-text="player.playerName"></h1>
+                                <h1 class="mt-3 text-center text-xl py-2 px-4" x-text="player.name"></h1>
                             </div>
                         </template>
 
@@ -190,11 +198,11 @@
         function playerChoose(){
             return {
                 players: [
-                    {playerId: '1', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '1.png', playerScore: 0},
-                    {playerId: '2', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '2.png', playerScore: 0},
-                    {playerId: '3', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', playerScore: 0, disabled: false},
-                    {playerId: '4', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '4.png', playerScore: 0, disabled: false},
-                    {playerId: '5', playerName: 'Mahdi', playerImgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', playerScore: 0, disabled: false},
+                    {id: '1', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '1.png', score: 0},
+                    {id: '2', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '2.png', score: 0},
+                    {id: '3', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', score: 0},
+                    {id: '4', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '4.png', score: 0},
+                    {id: '5', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', score: 0},
                 ],
 
                 numberOfClicks: 0,
@@ -219,21 +227,21 @@
                     
                     this.numberOfClicks = this.numberOfClicks + 1
                     this.players.forEach(p => {
-                        if(p.playerId === id){
+                        if(p.id === id){
                             switch (this.numberOfClicks) {
                                 case 1:
-                                    p.playerScore = 5;
-                                    this.playerOne.imgUrl = p.playerImgUrl;
+                                    p.score = 5;
+                                    this.playerOne.imgUrl = p.imgUrl;
                                     this.playerOne.triggred = true;
                                     break;
                                 case 2:
-                                    p.playerScore = 3;
-                                    this.playerTwo.imgUrl = p.playerImgUrl;
+                                    p.score = 3;
+                                    this.playerTwo.imgUrl = p.imgUrl;
                                     this.playerTwo.triggred = true;
                                     break;
                                 case 3:
-                                    p.playerScore = 2
-                                    this.playerThree.imgUrl = p.playerImgUrl;
+                                    p.score = 2
+                                    this.playerThree.imgUrl = p.imgUrl;
                                     this.playerThree.triggred = true;
                                     break;
                             } 
