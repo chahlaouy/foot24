@@ -140,7 +140,7 @@ get_header();
         <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500 mt-8">البطولة التونسية 
         </h1>
         <div class="bg-gray-800 text-xs w-full p-4 text-gray-100">
-            <table class="w-full rounded-lg ">
+        <table class="w-full rounded-lg ">
                 <tr class="bg-gray-900 py-2 border border-gray-800">
                     <td class="p-2">الفريق</td>
                     <td class="p-2">نقاط</td>
@@ -151,25 +151,132 @@ get_header();
                     <td class="p-2">فارق</td>
                 </tr>
                 <tr class="bg-gray-800 my-2">
-                    <td class="p-2">الفريق</td>
-                    <td>نقاط</td>
-                    <td>ل</td>
-                    <td>ف</td>
-                    <td>ت</td>
-                    <td>خ</td>
-                    <td>فارق</td>
+                    <td class="p-2">الترجي الرياضي</td>
+                    <td>34</td>
+                    <td>12</td>
+                    <td>11</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>21</td>
                 </tr>
                 <tr class="bg-gray-900 my-2">
-                    <td class="p-2">الفريق</td>
-                    <td>نقاط</td>
-                    <td>ل</td>
-                    <td>ف</td>
-                    <td>ت</td>
-                    <td>خ</td>
-                    <td>فارق</td>
+                    <td class="p-2">الإتحاد المنستيري</td>
+                    <td>28</td>
+                    <td>12</td>
+                    <td>8</td>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>14</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">النادي الصفاقسي</td>
+                    <td>25</td>
+                    <td>13</td>
+                    <td>1</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>14</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">الملعب التونسي</td>
+                    <td>24</td>
+                    <td>13</td>
+                    <td>7</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>6</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">النادي الإفريقي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">النجم الساحلي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">اتحاد بن قردان </td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">مستقبل سليمان</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">هلال الشابة</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">شبيبة القيروان</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">النادي البنزرتي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">نجم المتلوي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">نادي حمام الانف</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">اتحاد تطاوين</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
                 </tr>
             </table>
-        </div>
     </div>
 </section>
 

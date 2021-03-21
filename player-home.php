@@ -91,12 +91,12 @@
             <div class="flex items-center justify-center -mt-40">
                 <button class="py-4 px-12 border-4 border-red-600 text-red-600 text-4xl ml-5 rounded-2xl">
                     <a href="/">
-                        Cancel
+                    الغاء
                     </a>    
                  </button>
                 <button class="py-4 px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-4xl  rounded-2xl">
                     <a href="/wordpress/player-choose">
-                        confirm
+                    تأكيد 
                     </a>   
                 </button>
             </div>

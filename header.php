@@ -37,8 +37,43 @@
         <img src="<?php echo get_template_directory_uri() . '/assets/images/coca.png'; ?>" class="w-full" alt="">
     </section>
     <nav class="md:hidden wrapper mx-auto py-4 px-5 bg-gray-900 text-gray-100">
-        <ul class=" flex items-center justify-between">
-            <li><ion-icon name="grid" class="text-3xl"></ion-icon></li>
+        <ul class=" flex  justify-between">
+            <li x-data="dropdown()">
+                <ion-icon name="grid" class="text-3xl" x-on:click="open"></ion-icon>
+                <div x-show="isOpen()" x-on:click.away="close">
+
+
+                    <?php 
+                    if (! empty($header_nav_items) && is_array($header_nav_items)){
+                    ?>
+                    <ul class="">
+                        <?php 
+                    foreach ($header_nav_items as $item) {
+                       if (! $item->menu_item_parent){
+                           $children_menu_items = get_menu_item_children($header_nav_items, $item->menu_item_parent);
+                           $has_children = ! empty($children_menu_items) && is_array($children_menu_items);
+                       }
+
+                       if (! $has_children){
+                           ?>
+                        <li class="px-2">
+                            <a href="<?php echo esc_url( $item->url); ?>"><?php echo esc_html( $item->title ) ?></a>
+                        </li>
+                        <?php
+                       } else {
+                           // here the drop down menu
+                       }
+                    }
+                ?>
+                    </ul>
+                    <?php
+                 }
+        ?>
+
+
+
+                </div>
+            </li>
             <li class="text-xl font-bold">Foot 24</li>
         </ul>
     </nav>
@@ -80,7 +115,7 @@
             }
         ?>
         <ul class="flex items-center">
-            <li>
+            <li x-data="dropdown()">
                 <a href="#" class="text-white p-2 bg-gray-800 bg-opacity-50 rounded ml-2 hover:text-red-500">
                     <ion-icon name="logo-facebook"></ion-icon>
                 </a>
@@ -97,6 +132,21 @@
             </li>
         </ul>
     </nav>
-
+    <script>
+    function dropdown() {
+        return {
+            show: false,
+            open() {
+                this.show = true
+            },
+            close() {
+                this.show = false
+            },
+            isOpen() {
+                return this.show === true
+            },
+        }
+    }
+    </script>
     <?php 
         get_template_part('template-parts/header/nav-bar');

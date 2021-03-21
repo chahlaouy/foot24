@@ -22,7 +22,8 @@ $data = json_decode(file_get_contents('php://input'));
 
 $player->name = $data->name;
 $player->imgUrl = $data->imgUrl;
-$player->score = 0;
+$player->scorePublic = 0;
+$player->scoreJournalist = 0;
 $player->numberOfPublicVotes = 0;
 $player->numberOfJournalistVotes = 0;
 

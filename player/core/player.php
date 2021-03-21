@@ -8,7 +8,8 @@ class Player{
     public $id;
     public $name;
     public $imgUrl;
-    public $score;
+    public $scorePublic;
+    public $scoreJournalist;
     public $numberOfPublicVotes;
     public $numberOfJournalistVotes;
 
@@ -31,8 +32,8 @@ class Player{
 
         /** Build the query */
 
-        $query = 'INSERT INTO players (name, score, imgUrl, numberOfPublicVotes, numberOfJournalistVotes) 
-           VALUES(:name, :score, :imgUrl, :numberOfPublicVotes, :numberOfJournalistVotes)';
+        $query = 'INSERT INTO players (name, scorePublic, scoreJournalist, imgUrl, numberOfPublicVotes, numberOfJournalistVotes) 
+           VALUES(:name, :scorePublic, :scoreJournalist, :imgUrl, :numberOfPublicVotes, :numberOfJournalistVotes)';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);
@@ -41,7 +42,8 @@ class Player{
 
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->imgUrl = htmlspecialchars(strip_tags($this->imgUrl));
-        $this->score = htmlspecialchars(strip_tags($this->score));
+        $this->scorePublic = htmlspecialchars(strip_tags($this->scorePublic));
+        $this->scoreJournalist = htmlspecialchars(strip_tags($this->scoreJournalist));
         $this->numberOfPublicVotes = htmlspecialchars(strip_tags($this->numberOfPublicVotes));
         $this->numberOfJournalistVotes = htmlspecialchars(strip_tags($this->numberOfJournalistVotes));
 
@@ -49,9 +51,66 @@ class Player{
 
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':imgUrl', $this->imgUrl);
-        $stmt->bindParam(':score', $this->score);
+        $stmt->bindParam(':scorePublic', $this->scorePublic);
+        $stmt->bindParam(':scoreJournalist', $this->scoreJournalist);
         $stmt->bindParam(':numberOfPublicVotes', $this->numberOfPublicVotes);
         $stmt->bindParam(':numberOfJournalistVotes', $this->numberOfJournalistVotes);
+        
+        if($stmt->execute()){
+            return true;
+            // echo json_encode(array('message' => 'Player added Succefully'));
+        }
+        
+        printf('error %s \n', $stmt->error);
+    }
+
+    /** update public score */
+    public function updatePlayerPublic(){
+
+        /** Build the query */
+
+        $query = 'UPDATE players SET  scorePublic = scorePublic + :scorePublic, numberOfPublicVotes = numberOfPublicVotes + 1  WHERE id = :id';
+        /** prepare the statement */
+
+        $stmt = $this->conn->prepare($query);
+
+        /** clean the data coming from our form */
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->scorePublic = htmlspecialchars(strip_tags($this->scorePublic));
+
+        /** binding of parameters */
+
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':scorePublic', $this->scorePublic);
+        
+        if($stmt->execute()){
+            return true;
+            // echo json_encode(array('message' => 'Player added Succefully'));
+        }
+        
+        printf('error %s \n', $stmt->error);
+    }
+
+    /**update journalist score */
+    public function updatePlayerJournalist(){
+
+        /** Build the query */
+
+        $query = 'UPDATE players SET  scoreJournalist = scoreJournalist + :scoreJournalist, numberOfJournalistVotes = numberOfJournalistVotes + 1 WHERE id = :id';
+        /** prepare the statement */
+
+        $stmt = $this->conn->prepare($query);
+
+        /** clean the data coming from our form */
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->scoreJournalist = htmlspecialchars(strip_tags($this->scoreJournalist));
+
+        /** binding of parameters */
+
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':scoreJournalist', $this->scoreJournalist);
         
         if($stmt->execute()){
             return true;
@@ -64,8 +123,7 @@ class Player{
 
         /** Build the query */
 
-        $query = 'UPDATE players (name, score, imgUrl, numberOfPublicVotes, numberOfJournalistVotes) 
-           VALUES(:name, :score, :imgUrl, :numberOfPublicVotes, :numberOfJournalistVotes) WHERE id = :id';
+        $query = 'UPDATE players SET name = :name, score = :score, imgUrl = :imgUrl, numberOfPublicVotes = :numberOfPublicVotes, numberOfJournalistVotes = :numberOfJournalistVotes WHERE id = :id';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);

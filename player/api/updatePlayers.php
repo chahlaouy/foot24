@@ -10,7 +10,7 @@ require_once(DIGIGATE_DIR_PATH . '/player/core/initialize.php');
 
 /**Instantiate the User Class */
 
-$palyer = new Player($db);
+$player = new Player($db);
 
 /** Get Raw Posted Data */
 
@@ -18,13 +18,9 @@ $data = json_decode(file_get_contents('php://input'));
 
 // echo json_encode(array('data' => $data));
 
-foreach ($data as $item) {
 
-    $player->name = $item->name;
-    $player->imgUrl = $item->imgUrl;
-    $player->score = $item->score;
-    $player->numberOfPublicVotes = $item->numberOfPublicVotes;
-    $player->numberOfJournalistVotes =  $item->numberOfJournalistVotes;
+    $player->scorePublic = $data->scorePublic;
+    $player->id = $data->id;
+    
 
-    $player->updatePlayer($item);
-}
+    $player->updatePlayerPublic($player);

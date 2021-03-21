@@ -31,7 +31,8 @@ if ($numberOfRows > 0){
             'id'    =>  $id,
             'name' =>  $name,
             'imgUrl' =>  $imgUrl,
-            'score' =>  $score,
+            'scorePublic' =>  $scorePublic,
+            'scoreJournalist' =>  $scoreJournalist,
             'numberOfPublicVotes' =>  $numberOfPublicVotes,
             'numberOfJournalistVotes' =>  $numberOfJournalistVotes,
         );

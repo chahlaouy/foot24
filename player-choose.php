@@ -102,18 +102,18 @@
         <div class="fixed bottom-0 left-0 z-50 p-12" x-show="isAllowedToVote">
             <div class="w-96 bg-gray-800 rounded-2xl text-gray-100 shadow-2xl p-8">
                 <div>
-                    <label for=""  class="block">Nom et prénom</label>
-                    <input x-model="userInfo.username" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="Nom et prénom">
+                    <label for=""  class="block">الإسم واللقب</label>
+                    <input x-model="userInfo.username" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="الإسم واللقب">
                 </div>
                 <div>
                     <label for="" class="block">C.I.N</label>
                     <input x-model="userInfo.cin" type="number" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="cin">
                 </div>
                 <div>
-                    <label for="" class="block">Télephone</label>
-                    <input x-model="userInfo.phone" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="telephone">
+                    <label for="" class="block">الهاتف</label>
+                    <input x-model="userInfo.phone" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2" placeholder="الهاتف">
                 </div>
-                <button class="w-full bg-gray-100 text-gray-900 text-xl py-3 rounded-xl" @click="saveUserInfo()">submit</button>
+                <button class="w-full bg-gray-100 text-gray-900 text-xl py-3 rounded-xl" @click="saveUserInfo()">تسجيل </button>
             </div>
         </div>
         <div class="fixed bottom-0 right-0 z-50 p-12" x-show="isChoosingIsCompleteMessage">
@@ -172,7 +172,7 @@
                                     <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
                                     :src="player.imgUrl"
                                     @click="vote(player.id)"
-                                    x-show="player.score == '0'"
+                                    x-show="player.scorePublic == '0'"
                                     >
                                 </div>
                                 <h1 class="mt-3 text-center text-xl py-2 px-4" x-text="player.name"></h1>
@@ -184,11 +184,11 @@
                     <div class="flex items-center justify-center mt-12">
                         <button class="py-4 px-12 border-4 border-red-600 text-red-600 text-4xl ml-5 rounded-2xl">
                             <a href="/">
-                                Cancel
+                            الغاء
                             </a>    
                         </button>
                         <button class="py-4 px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-4xl  rounded-2xl" @click="submitVoting()">
-                            confirm
+                        تأكيد 
                         </button>
                     </div>
                 </div>
@@ -200,11 +200,11 @@
         function playerChoose(){
             return {
                 players: [
-                    {id: '1', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '1.png', score: 0},
-                    {id: '2', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '2.png', score: 0},
-                    {id: '3', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', score: 0},
-                    {id: '4', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '4.png', score: 0},
-                    {id: '5', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + '3.png', score: 0},
+                    {id: '1', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '2', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '3', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '4', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '5', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
                 ],
 
                 numberOfClicks: 0,
@@ -232,17 +232,17 @@
                         if(p.id === id){
                             switch (this.numberOfClicks) {
                                 case 1:
-                                    p.score = 5;
+                                    p.scorePublic = 5;
                                     this.playerOne.imgUrl = p.imgUrl;
                                     this.playerOne.triggred = true;
                                     break;
                                 case 2:
-                                    p.score = 3;
+                                    p.scorePublic = 4;
                                     this.playerTwo.imgUrl = p.imgUrl;
                                     this.playerTwo.triggred = true;
                                     break;
                                 case 3:
-                                    p.score = 2
+                                    p.scorePublic = 3
                                     this.playerThree.imgUrl = p.imgUrl;
                                     this.playerThree.triggred = true;
                                     break;
@@ -279,16 +279,16 @@
                             var xhr = new XMLHttpRequest();
                             xhr.open("POST", 'http://localhost/wordpress/update-players/', true);
                             xhr.setRequestHeader('Content-Type', 'application/json');
-                            xhr.send(JSON.stringify(this.players));  
+                            xhr.send(JSON.stringify(this.players[0]));  
                         }
                         else{
                             /** The user does not choose yet or information is incomplete */
                             /**show a message to the user */
                             this.isChoosingIsCompleteMessage = true
-                            this.errorMessage = "plz vote"
+                            this.errorMessage = "الرجاء اختيار اللاعبين"
                             setTimeout(() => {
                                 this.isChoosingIsCompleteMessage = false
-                            }, 1000);
+                            }, 2000);
                         }
                     }else{
                         // if((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")){
@@ -312,7 +312,7 @@
                         
                         this.isAllowedToVote = false
                     }else{
-                        this.errorMessage = "plz complete the form"
+                        this.errorMessage = "الرجاء ادخال معلوماتك الخاصة"
                         this.isChoosingIsCompleteMessage = true
                         setTimeout(() => {
                             this.isChoosingIsCompleteMessage = false
