@@ -31,8 +31,8 @@ class Player{
 
         /** Build the query */
 
-        $query = 'INSERT INTO' . $this->table . 'SET name = :name , imgUrl = :imgUrl , score = :score , numberOfPublicVotes = :numberOfPublicVotes , numberOfJournalistVotes = :numberOfJournalistVotes';
-
+        $query = 'INSERT INTO players (name, score, imgUrl, numberOfPublicVotes, numberOfJournalistVotes) 
+           VALUES(:name, :score, :imgUrl, :numberOfPublicVotes, :numberOfJournalistVotes)';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);
@@ -47,17 +47,17 @@ class Player{
 
         /** binding of parameters */
 
-        $stmt->binParam(':name', $this->name);
-        $stmt->binParam(':imgUrl', $this->imgUrl);
-        $stmt->binParam(':score', $this->score);
-        $stmt->binParam(':numberOfPublicVotes', $this->numberOfPublicVotes);
-        $stmt->binParam(':numberOfJournalistVotes', $this->numberOfJournalistVotes);
-
+        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':imgUrl', $this->imgUrl);
+        $stmt->bindParam(':score', $this->score);
+        $stmt->bindParam(':numberOfPublicVotes', $this->numberOfPublicVotes);
+        $stmt->bindParam(':numberOfJournalistVotes', $this->numberOfJournalistVotes);
+        
         if($stmt->execute()){
             return true;
             // echo json_encode(array('message' => 'Player added Succefully'));
         }
-
+        
         printf('error %s \n', $stmt->error);
     }
 

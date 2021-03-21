@@ -83,7 +83,12 @@
             </li>
         </ul>
     </nav>
-    <section class="wrapper mx-auto" x-data="playerChoose()">
+    <section class="wrapper mx-auto" x-data="playerChoose()" x-init="
+        fetch('http://localhost/wordpress/get-players/')
+            .then(response => response.json())
+            .then(data => console.log(data))
+            
+            ">
         <div class="fixed bottom-0 left-0 z-50 p-12" x-show="isAllowedToVote">
             <div class="w-96 bg-gray-800 rounded-2xl text-gray-100 shadow-2xl p-8">
                 <div>
@@ -205,7 +210,7 @@
                     imgUrl: "",
                     triggred: false
                 },
-
+                
                 vote(id){
                     console.log(this.numberOfClicks)
                     if (this.numberOfClicks === 3){
@@ -281,7 +286,15 @@
 
                 saveUserInfo(){
                     if((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")){
-                        console.log("sending user data to backend");
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", 'http://localhost/wordpress/create-user/', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(JSON.stringify({
+                            name: this.userInfo.username,
+                            phone: this.userInfo.phone,
+                            cin: this.userInfo.cin 
+                        }));
+                        
                         this.isAllowedToVote = false
                     }else{
                         this.errorMessage = "plz complete the form"

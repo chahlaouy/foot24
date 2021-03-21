@@ -14,20 +14,18 @@ require_once(DIGIGATE_DIR_PATH . '/player/core/initialize.php');
 
 /**Instantiate the User Class */
 
-$player = new Player($db);
+$user = new user($db);
 
 /** Get Raw Posted Data */
 
 $data = json_decode(file_get_contents('php://input'));
 
-$player->name = $data->name;
-$player->imgUrl = $data->imgUrl;
-$player->score = 0;
-$player->numberOfPublicVotes = 0;
-$player->numberOfJournalistVotes = 0;
+$user->name = $data->name;
+$user->phone = $data->phone;
+$user->cin = $data->cin;
 
 
-if ($player->createPlayer()){
+if ($user->createUser()){
     echo json_encode(array('message' ,'user Created Successfully'));
 }else{
     echo json_encode(array('message' ,'there wa an error'));

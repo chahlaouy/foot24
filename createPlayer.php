@@ -1,25 +1,27 @@
+<?php /* Template Name: create_player */ ?>
+
 <?php
 
 require_once(DIGIGATE_DIR_PATH . '/player/core/initialize.php');
 require_once(DIGIGATE_DIR_PATH . '/player/web/upload.php');
 
-$player = new Player();
+$player = new Player($db);
 
-// if (isset($_POST['name']) && isset())
+if (isset($_POST["name"])){
 
-$imgUrl = uploadFile();
-
-if(isset($_POST["name"])){
-
+    $imgUrl = uploadFile();
+    
     $player->name = $_POST["name"];
+    $player->score = 0;
     $player->imgUrl = $imgUrl;
     $player->numberOfPublicVotes = 0;
     $player->numberOfJournalistVotes = 0;
-    $player->score = $score;
-
+    
     $player->createPlayer();
-
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +34,9 @@ if(isset($_POST["name"])){
 </head>
 <body>
     <form action="" method="post" enctype="multipart/form-data">
+    
         Select image to upload:
+        <input type="text" name="name" id="name">
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input type="submit" value="Upload Image" name="submit">
     </form>
