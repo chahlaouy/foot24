@@ -118,6 +118,7 @@
                     <div class="w-full flex items-center justify-around">
                         <div class="">
                             <img 
+                            class="w-48 h-48 bg-cover bg-center object-cover rounded-full shadow-2xl"
                             :src="playerTwo.imgUrl" 
                             x-show="playerTwo.triggred"
                             >
@@ -128,14 +129,16 @@
                         </div>
                         <div class="mx-32">
                             <img 
+                            class="w-72 h-72 bg-cover bg-center object-cover rounded-full shadow-2xl"
                             :src="playerOne.imgUrl" alt="" 
                             x-show="playerOne.triggred">
-                            <img class="w-64 h-64 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" 
+                            <img class="w-72 h-72 bg-cover bg-center object-cover rounded-full shadow-2xl" src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" 
                             x-show="!playerOne.triggred"
                             >
                         </div>
                         <div class="">
                             <img 
+                            class="w-48 h-48 bg-cover bg-center object-cover rounded-full shadow-2xl"
                             :src="playerThree.imgUrl" alt="" 
                             x-show="playerThree.triggred"
                             >
@@ -171,6 +174,9 @@
                         </button>
                         <button class="py-4 px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-4xl  rounded-2xl" @click="submitVoting()">
                             confirm
+                            <?php $actual_link = "$_SERVER[REQUEST_URI]"; 
+                            echo $actual_link; 
+                            ?>
                         </button>
                     </div>
                 </div>
@@ -204,7 +210,11 @@
                 },
 
                 vote(id){
-                    console.log(id)
+                    console.log(this.numberOfClicks)
+                    if (this.numberOfClicks === 3){
+                        return
+                    }
+                    
                     this.numberOfClicks = this.numberOfClicks + 1
                     this.players.forEach(p => {
                         if(p.playerId === id){
@@ -227,7 +237,7 @@
                             } 
                         }
                     })
-                    console.log(this.players)
+
                 },
                 userInfo: {
                   username: "",
@@ -236,7 +246,12 @@
                 },
                 isChoosingIsCompleteMessage: false,
                 isAllowedToVote: false,
-                isChoosingIsComplete: false,
+                // isChoosingIsComplete: false,
+                get isChoosingIsComplete(){
+
+                    return this.numberOfClicks === 3
+                },
+
                 errorMessage: "",
                 get isUserRegistred(){
                     return (this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")
