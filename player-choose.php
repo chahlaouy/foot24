@@ -172,7 +172,7 @@
                                     <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
                                     :src="player.imgUrl"
                                     @click="vote(player.id)"
-                                    x-show="player.scorePublic == '0'"
+                                    x-show="player.showPlayer == '0'"
                                     >
                                 </div>
                                 <h1 class="mt-3 text-center text-xl py-2 px-4" x-text="player.name"></h1>
@@ -200,11 +200,11 @@
         function playerChoose(){
             return {
                 players: [
-                    {id: '1', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
-                    {id: '2', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
-                    {id: '3', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
-                    {id: '4', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
-                    {id: '5', name: 'Mahdi', imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '1', name: "اللاعب 1", imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '2', name: "اللاعب 2", imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '3', name: "اللاعب 3", imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '4', name: "اللاعب 4", imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
+                    {id: '5', name: "اللاعب 5", imgUrl: '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', scorePublic: 0},
                 ],
 
                 numberOfClicks: 0,
@@ -233,16 +233,19 @@
                             switch (this.numberOfClicks) {
                                 case 1:
                                     p.scorePublic = 5;
+                                    p.showPlayer = 1;
                                     this.playerOne.imgUrl = p.imgUrl;
                                     this.playerOne.triggred = true;
                                     break;
                                 case 2:
-                                    p.scorePublic = 4;
+                                    p.scorePublic = 3;
+                                    p.showPlayer = 1;
                                     this.playerTwo.imgUrl = p.imgUrl;
                                     this.playerTwo.triggred = true;
                                     break;
                                 case 3:
-                                    p.scorePublic = 3
+                                    p.scorePublic = 2;
+                                    p.showPlayer = 1;
                                     this.playerThree.imgUrl = p.imgUrl;
                                     this.playerThree.triggred = true;
                                     break;
@@ -279,7 +282,7 @@
                             var xhr = new XMLHttpRequest();
                             xhr.open("POST", 'http://localhost/wordpress/update-players/', true);
                             xhr.setRequestHeader('Content-Type', 'application/json');
-                            xhr.send(JSON.stringify(this.players[0]));  
+                            xhr.send(JSON.stringify(this.players));  
                         }
                         else{
                             /** The user does not choose yet or information is incomplete */

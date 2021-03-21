@@ -26,6 +26,9 @@ $player->scorePublic = 0;
 $player->scoreJournalist = 0;
 $player->numberOfPublicVotes = 0;
 $player->numberOfJournalistVotes = 0;
+$player->totalScorePublic = 0;
+$player->showPlayer = 0;
+$player->totalScoreJournalist = 0;
 
 
 if ($player->createPlayer()){

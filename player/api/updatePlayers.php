@@ -18,9 +18,13 @@ $data = json_decode(file_get_contents('php://input'));
 
 // echo json_encode(array('data' => $data));
 
+foreach ($data as $item){
 
-    $player->scorePublic = $data->scorePublic;
-    $player->id = $data->id;
+    $player->scorePublic = $item->scorePublic;
+    $player->id = $item->id;
     
-
+    
     $player->updatePlayerPublic($player);
+}
+
+

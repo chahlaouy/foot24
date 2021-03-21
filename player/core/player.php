@@ -12,6 +12,11 @@ class Player{
     public $scoreJournalist;
     public $numberOfPublicVotes;
     public $numberOfJournalistVotes;
+    public $totalScorePublic;
+    public $totalScoreJournalist;
+    public $showPlayer;
+
+
 
     public function __construct($db){
         $this->conn = $db;
@@ -32,8 +37,8 @@ class Player{
 
         /** Build the query */
 
-        $query = 'INSERT INTO players (name, scorePublic, scoreJournalist, imgUrl, numberOfPublicVotes, numberOfJournalistVotes) 
-           VALUES(:name, :scorePublic, :scoreJournalist, :imgUrl, :numberOfPublicVotes, :numberOfJournalistVotes)';
+        $query = 'INSERT INTO players (name, scorePublic, scoreJournalist, imgUrl, numberOfPublicVotes, numberOfJournalistVotes, showPlayer) 
+           VALUES(:name, :scorePublic, :scoreJournalist, :imgUrl, :numberOfPublicVotes, :numberOfJournalistVotes, 0)';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);
@@ -69,7 +74,7 @@ class Player{
 
         /** Build the query */
 
-        $query = 'UPDATE players SET  scorePublic = scorePublic + :scorePublic, numberOfPublicVotes = numberOfPublicVotes + 1  WHERE id = :id';
+        $query = 'UPDATE players SET  scorePublic = scorePublic + :scorePublic, numberOfPublicVotes = numberOfPublicVotes + 1, totalScorePublic= (scorePublic / numberOfPublicVotes), showPlayer= 0   WHERE id = :id';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);
@@ -97,7 +102,7 @@ class Player{
 
         /** Build the query */
 
-        $query = 'UPDATE players SET  scoreJournalist = scoreJournalist + :scoreJournalist, numberOfJournalistVotes = numberOfJournalistVotes + 1 WHERE id = :id';
+        $query = 'UPDATE players SET  scoreJournalist = scoreJournalist + :scoreJournalist, numberOfJournalistVotes = numberOfJournalistVotes + 1, totalScoreJournalist= (scoreJournalist / numberOfJournalistVotes), showPlayer= 0   WHERE id = :id';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);

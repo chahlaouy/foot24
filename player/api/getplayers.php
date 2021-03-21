@@ -35,6 +35,9 @@ if ($numberOfRows > 0){
             'scoreJournalist' =>  $scoreJournalist,
             'numberOfPublicVotes' =>  $numberOfPublicVotes,
             'numberOfJournalistVotes' =>  $numberOfJournalistVotes,
+            'totalScorePublic' =>  $totalScorePublic,
+            'totalScoreJournalist' =>  $totalScoreJournalist,
+            'showPlayer' =>  $showPlayer,
         );
 
         array_push($post_arr['data'], $post_item);

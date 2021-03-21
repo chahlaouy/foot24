@@ -82,15 +82,16 @@
             </li>
         </ul>
     </nav>
-    <section class="wrapper mx-auto">
+    <section class="wrapper mx-auto" x-data="getPlayers()">
         <div class="w-full relative">
             <div class="absolute w-full h-full z-20 bg-gray-900 bg-opacity-30"></div>
             <div class="w-full realtive z-10">
                 <img class="w-full"
                     src="<?php echo get_template_directory_uri() . '/assets/images/player-result.jpg'; ?>" alt="">
             </div>
-            <div class="flex justify-center absolute top-0 right-0 w-full h-full mt-32 z-40">
+            <div class="flex justify-center absolute top-0 right-0 w-full h-full mt-24 z-40">
                 <div class="">
+                    /** card begin */
                     <div class="flex items-center justify-center">
                         <div class="bg-white shadow-2xl rounded-2xl relative z-10">
                             <h1 class="text-center text-red-600 text-3xl py-1">Player name</h1>
@@ -147,6 +148,42 @@
         </div>
     </section>
 
+    <script>
+
+function getPlayers(){
+        return {
+            players: [
+                {name: "اللاعب 1", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 2", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 3", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 4", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {name: "اللاعب 5", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+            ],
+            initialized: false,
+            newPlayer: {
+                name: "",
+                imgUrl: "",
+            },
+            fetchPlayers(){
+
+                setTimeout(() => {
+                
+                fetch('http://localhost/wordpress/get-players/')
+                    .then(response => response.json())
+                        .then(data =>{
+                            this.players = data.data
+                            this.players.forEach(p=>{
+                                p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
+                                console.log(p.imgUrl)
+                            })
+                    })
+                }, 2000);
+            }
+             
+        }
+    }
+
+    </script>
     <?php
 
 // get_footer();
