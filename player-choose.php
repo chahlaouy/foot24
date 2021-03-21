@@ -174,9 +174,6 @@
                         </button>
                         <button class="py-4 px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-4xl  rounded-2xl" @click="submitVoting()">
                             confirm
-                            <?php $actual_link = "$_SERVER[REQUEST_URI]"; 
-                            echo $actual_link; 
-                            ?>
                         </button>
                     </div>
                 </div>

@@ -5,8 +5,9 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: Application/json');
 
+// define('DIGIGATE_DIR_PATH', untrailingslashit(get_template_directory()));
 /** Initializing our api */
-include_once('../core/initialize.php');
+require_once(DIGIGATE_DIR_PATH . '/player/core/initialize.php');
 
 /**Instantiate the Player Class */
 
@@ -14,7 +15,7 @@ $player = new Player($db);
 
 /** query the players table */
 
-$results = $post->getPlayers();
+$results = $player->getPlayers();
 
 /** get the number of rows */
 
@@ -34,5 +35,12 @@ if ($numberOfRows > 0){
             'numberOfPublicVotes' =>  $numberOfPublicVotes,
             'numberOfJournalistVotes' =>  $numberOfJournalistVotes,
         );
+
+        array_push($post_arr['data'], $post_item);
     }
+
+    /** covert to json */
+    echo json_encode($post_arr);
+}else{
+    echo json_encode(array('message' => 'No Players in data base'));
 }
