@@ -13,38 +13,51 @@
 get_header();
 
 ?>
+<section class="fixed bottom right-0 bottom-0 p-4 z-50">
+    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-72 flex items-center justify-between">
+        <div class="p-2">
+            <div class="flex items-center justify-center">
+                <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-12" alt="">
+            </div>
+            <h1 class="text-sm text-center">الترجي الرياضي</h1>
+        </div>
+        <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
+            <h1 class="text-lg font-bold">7</h1>
+            <h1 class="text-lg font-bold">-</h1>
+            <h1 class="text-lg font-bold">1</h1>
+        </div>
+        <div class="p-2">
+            <div class="flex items-center justify-center">
+                <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-12" alt="">
+            </div>
+            <h1 class="text-sm text-center">شبيبة القيروان</h1>
+        </div>
+    </div>
+</section>
+<section class="wrapper mx-auto bg-gray-100 w-full relative" style="height: 600px">
 
-<section class="wrapper mx-auto h-96 bg-gray-100 w-full relative">
+    <div class="h-full">
 
-    <div class="h-full flex flex-col justify-center items-center">
-
-        <div class="w-full mx-auto relative z-50" x-data="{ activeSlide: 1,
-
-            slides: [
-            
-                [1, '<?php echo 'الترجي الرياضي يستعيد خدمات رائد الفادع'?>'],
-                [2, '<?php echo 'كأس الكاف : تصدي أيمن دحمان ضمن قائمة الأفضل'?>']
-             ]
-
-        }">
+        <div class="w-full mx-auto relative z-40" x-data="getSlides()">
             <!-- Slides -->
-            <template x-for="slide in slides" :key="slide">
+            <template x-for="slide in slides">
                 <div x-show="activeSlide === slide[0]"
-                    class="relative z-10 font-bold text-5xl h-96 flex items-center justify-start text-gray bg-cover bg-center bg-top object-fill"
-                    style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/foot-slider.jpg'; ?>)">
-                    <div class="absolute top-0 left-0 z-20 bg-gray-800 bg-opacity-50 w-full h-96">
-                    </div>
-                    <div class="relative z-40 pr-16">
-                        <div class="flex">
+                    class="relative z-10 font-bold text-5xl h-full text-gray " style="height: 600px" 
+                    >
+                    <div class="relative ">
+                        <div class="absolute top-0 left-0 z-20 bg-gray-800 bg-opacity-50 w-full h-full" style="height: 600px; width: 100%">
+                        </div>
+                        <img :src="slide[2]" class="w-full relative z-10 bg-cover bg-center object-cover" alt="" style="height: 600px">
+                        <div class="flex -mt-96 md:-mt-64 relative z-40 px-4 md:px-8">
                             <div class="text-gray-100 bg-red-500 py-2 px-1 text-xs">
                                 الأخبار الوطنية
                             </div>
-                            <div class="text-gray-100 bg-green py-2 px-1 text-xs">
-                                19 mars 2021
+                            <div class="text-gray-800 bg-green py-2 px-1 text-xs" x-text="slide[3]">
+                                
                             </div>
 
                         </div>
-                        <div class="text-white mt-3" x-text="slide[1]">
+                        <div class="text-white mt-3 px-4 md:px-8 relative z-40" x-text="slide[1]">
 
                         </div>
 
@@ -221,7 +234,9 @@ get_header();
                 <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
                     class="w-full h-32  object-cover object-center rounded-lg shadow-md">
 
-                <h1 class="text-sm text-center mt-3"> <?php the_title() ?></h1>
+                <h1 class="text-sm text-center mt-3"> 
+                    <a href="<?php the_permalink() ?>"><?php the_title() ?></a>
+                </h1>
             </div>
 
         </div>
@@ -294,22 +309,130 @@ get_header();
                     <td class="p-2">فارق</td>
                 </tr>
                 <tr class="bg-gray-800 my-2">
-                    <td class="p-2">الفريق</td>
-                    <td>نقاط</td>
-                    <td>ل</td>
-                    <td>ف</td>
-                    <td>ت</td>
-                    <td>خ</td>
-                    <td>فارق</td>
+                    <td class="p-2">الترجي الرياضي</td>
+                    <td>34</td>
+                    <td>12</td>
+                    <td>11</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>21</td>
                 </tr>
                 <tr class="bg-gray-900 my-2">
-                    <td class="p-2">الفريق</td>
-                    <td>نقاط</td>
-                    <td>ل</td>
-                    <td>ف</td>
-                    <td>ت</td>
-                    <td>خ</td>
-                    <td>فارق</td>
+                    <td class="p-2">الإتحاد المنستيري</td>
+                    <td>28</td>
+                    <td>12</td>
+                    <td>8</td>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>14</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">النادي الصفاقسي</td>
+                    <td>25</td>
+                    <td>13</td>
+                    <td>1</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>14</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">الملعب التونسي</td>
+                    <td>24</td>
+                    <td>13</td>
+                    <td>7</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>6</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">النادي الإفريقي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">النجم الساحلي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">اتحاد بن قردان	</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">مستقبل سليمان</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">هلال الشابة</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">شبيبة القيروان</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">النادي البنزرتي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-900 my-2">
+                    <td class="p-2">نجم المتلوي</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">نادي حمام الانف</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
+                </tr>
+                <tr class="bg-gray-800 my-2">
+                    <td class="p-2">اتحاد تطاوين</td>
+                    <td>23</td>
+                    <td>13</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>15</td>
                 </tr>
             </table>
         </div>
@@ -318,11 +441,6 @@ get_header();
 
 </section>
 
-<!-- <section class="wrapper mt-8">
-    <div class="grid grid-cols-2 gap-3 w-full">
-        
-    </div>
-</section> -->
 
 <section class="hidden md:block wrapper mt-8">
     <div class="flex">
@@ -347,6 +465,55 @@ get_header();
     </div>
 
 </section>
+
+
+<script>
+// { activeSlide: 1,
+
+// slides: [
+
+//   
+//  ]
+
+// }
+
+    function getSlides(){
+        return {
+            slides: [
+                <?php
+                    $args = array(
+                    'post_type' => 'post',
+                    'post_status' => 'publish',
+                    'category_name' => 'الأخبار الوطنية',
+                    'posts_per_page' => 6,
+                    );
+                    $arr_posts = new WP_Query( $args );
+
+                    if ( $arr_posts->have_posts() ) :
+                        $i = 1;
+                        while ( $arr_posts->have_posts() ) :
+
+                            $arr_posts->the_post();
+                            $title = the_title('','',false);
+                            $imageid = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' );
+                            $featimage = $imageid['0'];
+                            $date = get_the_date('F j, Y');
+                            $open = '[';
+                            $close = '],';
+                            $qu = '"';
+                            $v = ',';
+                            echo $open . $i . $v . $qu . $title  . $qu . $v . $qu . $featimage . $qu . $v . $qu . $date . $qu. $close;
+                            $i++;
+                        endwhile;
+                    endif;
+                ?>
+            ],
+            activeSlide: 1
+        }
+    }
+
+
+</script>
 
 <?php
 	get_footer(); 

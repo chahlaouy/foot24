@@ -81,6 +81,7 @@ class Player{
 
         /** binding of parameters */
 
+        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':imgUrl', $this->imgUrl);
         $stmt->bindParam(':score', $this->score);

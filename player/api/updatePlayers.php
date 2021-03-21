@@ -16,7 +16,15 @@ $palyer = new Player($db);
 
 $data = json_decode(file_get_contents('php://input'));
 
+// echo json_encode(array('data' => $data));
+
 foreach ($data as $item) {
+
+    $player->name = $item->name;
+    $player->imgUrl = $item->imgUrl;
+    $player->score = $item->score;
+    $player->numberOfPublicVotes = $item->numberOfPublicVotes;
+    $player->numberOfJournalistVotes =  $item->numberOfJournalistVotes;
 
     $player->updatePlayer($item);
 }

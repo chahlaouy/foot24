@@ -274,8 +274,10 @@
 
                         /** another if to check wether the user choose or not */
                         if(this.isChoosingIsComplete){
+                            
+                            console.log(this.players)
                             var xhr = new XMLHttpRequest();
-                            xhr.open("POST", 'http://localhost/wordpress/create-user/', true);
+                            xhr.open("POST", 'http://localhost/wordpress/update-players/', true);
                             xhr.setRequestHeader('Content-Type', 'application/json');
                             xhr.send(JSON.stringify(this.players));  
                         }
