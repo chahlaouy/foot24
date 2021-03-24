@@ -93,7 +93,7 @@
         
 
                 <div class="">
-                    /** card begin */
+                    /** player one */
                     <div class="flex items-center justify-center">
                         <div class="bg-white shadow-2xl rounded-2xl relative z-10">
                             <h1 class="text-center text-red-600 text-3xl py-1" x-text="playerOne.name"></h1>
@@ -142,12 +142,12 @@
                         <div
                             class="flex items-center justify-center w-48 h-48 rounded-full relative z-20 -mr-16 shadow-2xl">
                             <img class="w-full rounded-full h-full bg-cover object-cover bg-center bg-top"
-                                src="<?php echo get_template_directory_uri() . '/assets/images/profile.png'; ?>" alt="">
+                                :src="playerOne.imgUrl" alt="">
                         </div>
                     </div>
-                    /**end card */
+
                 </div>
-                <div class="grid grid-cols-2 gap-12">
+                <div class="grid grid-cols-2 gap-12 mt-12">
                     <template x-for="player in players" class="">
                         
                         <div class="flex items-center justify-center">
@@ -253,16 +253,23 @@
 
                 setTimeout(() => {
 
-                    fetch('http://localhost/wordpress/get-players/')
+                    fetch('http://wp.foot24.online/get-players/')
                         .then(response => response.json())
                         .then(data => {
-                            this.players = data.data.filter((p, index) => index != 0)
-                            this.players.forEach((p, index) => {
+                            
+                            let arr =data.data
+                            arr.forEach((p, index) => {
                                 console.log(index)
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' +
                                     '/player/images/' + p.imgUrl
                                 console.log(p.imgUrl)
                             })
+                            this.playerOne = arr[0];
+                            console.log(this.playerOne)
+                            this.players = arr.filter((p, index) => index != 0)
+
+
+
                         })
                 }, 2000);
             }

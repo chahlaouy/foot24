@@ -25,12 +25,44 @@
     <?php wp_head(); ?>
 </head>
 
-<body class="bg-gray-700">
-
+<body class="bg-white">
     <nav class="md:hidden wrapper mx-auto py-4 px-5 bg-gray-900 text-gray-100">
-        <ul class=" flex items-center justify-between">
-            <li>
-                <ion-icon name="grid" class="text-3xl"></ion-icon>
+        <ul class=" flex  justify-between">
+            <li x-data="dropdown()">
+                <ion-icon name="grid" class="text-3xl" x-on:click="open"></ion-icon>
+                <div x-show="isOpen()" x-on:click.away="close">
+
+
+                    <?php 
+                    if (! empty($header_nav_items) && is_array($header_nav_items)){
+                    ?>
+                    <ul class="">
+                        <?php 
+                    foreach ($header_nav_items as $item) {
+                       if (! $item->menu_item_parent){
+                           $children_menu_items = get_menu_item_children($header_nav_items, $item->menu_item_parent);
+                           $has_children = ! empty($children_menu_items) && is_array($children_menu_items);
+                       }
+
+                       if (! $has_children){
+                           ?>
+                        <li class="px-2">
+                            <a href="<?php echo esc_url( $item->url); ?>"><?php echo esc_html( $item->title ) ?></a>
+                        </li>
+                        <?php
+                       } else {
+                           // here the drop down menu
+                       }
+                    }
+                ?>
+                    </ul>
+                    <?php
+                 }
+        ?>
+
+
+
+                </div>
             </li>
             <li class="text-xl font-bold">Foot 24</li>
         </ul>
@@ -88,13 +120,13 @@
                 <img class="w-full" src="<?php echo get_template_directory_uri() . '/assets/images/player-home.jpg'; ?>"
                     alt="">
             </div>
-            <div class="flex items-center justify-center -mt-40">
-                <button class="py-4 px-12 border-4 border-red-600 text-red-600 text-4xl ml-5 rounded-2xl">
+            <div class="flex items-center justify-center  md:-mt-40">
+                <button class="py-2 px-4 md:py-4 md:px-12 border-4 border-red-600 text-red-600 text-xl md:text-4xl ml-5 rounded-2xl">
                     <a href="/">
                     الغاء
                     </a>    
                  </button>
-                <button class="py-4 px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-4xl  rounded-2xl">
+                <button class="py-2 px-4 md:py-4 md:px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-xl md:text-4xl  rounded-2xl">
                     <a href="/wordpress/player-choose">
                     تأكيد 
                     </a>   
@@ -102,7 +134,22 @@
             </div>
         </div>
     </section>
-
+    <script>
+        function dropdown() {
+            return {
+                show: false,
+                open() {
+                    this.show = true
+                },
+                close() {
+                    this.show = false
+                },
+                isOpen() {
+                    return this.show === true
+                },
+            }
+        }
+    </script>
     <?php
 
 // get_footer();

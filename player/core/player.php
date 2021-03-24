@@ -33,12 +33,12 @@ class Player{
         return $stmt;
     }
 
-    public function createPlayer(){
+    public function createPlayer(){ 
 
         /** Build the query */
 
-        $query = 'INSERT INTO players (name, scorePublic, scoreJournalist, imgUrl, numberOfPublicVotes, numberOfJournalistVotes, showPlayer) 
-           VALUES(:name, :scorePublic, :scoreJournalist, :imgUrl, :numberOfPublicVotes, :numberOfJournalistVotes, 0)';
+        $query = 'INSERT INTO players (name, scorePublic, scoreJournalist, imgUrl, numberOfPublicVotes, numberOfJournalistVotes, totalScorePublic, totalScoreJournalist, showPlayer) 
+           VALUES(:name, 0, 0, :imgUrl, 0, 0, 0, 0, 0)';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);
@@ -47,19 +47,11 @@ class Player{
 
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->imgUrl = htmlspecialchars(strip_tags($this->imgUrl));
-        $this->scorePublic = htmlspecialchars(strip_tags($this->scorePublic));
-        $this->scoreJournalist = htmlspecialchars(strip_tags($this->scoreJournalist));
-        $this->numberOfPublicVotes = htmlspecialchars(strip_tags($this->numberOfPublicVotes));
-        $this->numberOfJournalistVotes = htmlspecialchars(strip_tags($this->numberOfJournalistVotes));
 
         /** binding of parameters */
 
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':imgUrl', $this->imgUrl);
-        $stmt->bindParam(':scorePublic', $this->scorePublic);
-        $stmt->bindParam(':scoreJournalist', $this->scoreJournalist);
-        $stmt->bindParam(':numberOfPublicVotes', $this->numberOfPublicVotes);
-        $stmt->bindParam(':numberOfJournalistVotes', $this->numberOfJournalistVotes);
         
         if($stmt->execute()){
             return true;

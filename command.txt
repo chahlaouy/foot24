@@ -1,0 +1,13 @@
+CREATE TABLE players (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(50), imgUrl VARCHAR(50), scorePublic INT, scoreJournalist INT, numberOfPublicVotes INT, numberOfJournalistVotes INT, totalScorePublic FLOAT, totalScoreJournalist FlOAT, showPlayer INT, PRIMARY KEY(id));
+CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(50), cin INT, phone INT, PRIMARY KEY(id));
+CREATE TABLE ads (id INT NOT NULL AUTO_INCREMENT, url VARCHAR(50), imgUrl VARCHAR(50, phone INT, PRIMARY KEY(id));
+
+CREATE USER 'foot24-admin'@'localhost' IDENTIFIED BY 'P@$$w0rdFOOT24';
+GRANT ALL PRIVILEGES ON api_foot24. * TO 'foot24-admin'@'localhost';
+FLUSH PRIVILEGES;
+
+SET GLOBAL validate_password_number_count = 0;
+
+show VARIABLES
+
+http://wp.foot24.online/

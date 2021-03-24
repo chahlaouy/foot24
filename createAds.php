@@ -1,15 +1,15 @@
-<?php /* Template Name: create_player */ ?>
+<?php /* Template Name: create_ads */ ?>
 
 <?php
 
 require_once(DIGIGATE_DIR_PATH . '/player/core/initialize.php');
 require_once(DIGIGATE_DIR_PATH . '/player/web/upload.php');
 
-$player = new Player($db);
+$ad = new Ad($db);
 
 
 
-$target_dir = DIGIGATE_DIR_PATH . '/player/images/';
+$target_dir = DIGIGATE_DIR_PATH . '/assets/ads/';
 $target_file = $target_dir . basename($_FILES["image"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -22,15 +22,11 @@ if (file_exists($target_file)) {
   if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
     echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
     // return $target_file;
-    $player->name = $_POST["username"];
-    $player->imgUrl = basename( $_FILES["image"]["name"]);
+    $ad->url = $_POST["linkUrl"];
+    $ad->imgUrl = basename( $_FILES["image"]["name"]);
     
-    $player->createPlayer();
+    $ad->createAd();
     echo json_encode(array("success" => "player saved"));
   } else {
-    echo json_encode(array("fail" => "error"));
+    echo "Sorry, there was an error uploading your file.";
   }
-
-
-
-

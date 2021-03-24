@@ -40,11 +40,9 @@ class User{
         $stmt->bindParam(':phone', $this->phone);
         
         if($stmt->execute()){
-            printf('error %s \n', $stmt->error);
             return true;
             // echo json_encode(array('message' => 'Player added Succefully'));
         }
-        
-        printf('error %s \n', $stmt->error);
+        return false;
     }
 }

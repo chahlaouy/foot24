@@ -1,9 +1,5 @@
+
 <?php
-
-// define('DIGIGATE_DIR_PATH', untrailingslashit(get_template_directory()));
-
-/**headers */
-
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: Application/json');
 header('Access-Control-Allow-Methods: POST');
@@ -14,20 +10,21 @@ require_once(DIGIGATE_DIR_PATH . '/player/core/initialize.php');
 
 /**Instantiate the User Class */
 
-$user = new User($db);
+$player = new Player($db);
 
 /** Get Raw Posted Data */
 
 $data = json_decode(file_get_contents('php://input'));
 
-$user->name = $data->name;
-$user->phone = $data->phone;
-$user->cin = $data->cin;
+// echo json_encode(array('data' => $data));
 
+foreach ($data as $item){
 
-if ($user->createUser()){
-    echo json_encode(array('success' ,'user Created Successfully'));
-}else{
-    echo json_encode(array('fail ' ,'there wa an error'));
+    $player->scoreJournalist = $item->scoreJournalist;
+    $player->id = $item->id;
+    
+    
+    $player->updatePlayerJournalist($player);
 }
-/** To Be continued */
+
+

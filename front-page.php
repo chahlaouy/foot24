@@ -469,15 +469,16 @@ get_header();
         <div class="md:flex-1 relative md:pr-24 h-96 rounded-2xl" x-data="getPlayers()">
 
    
-
+        <h1 class="bg-gray-900 text-center text-lg py-3 rounded-lg text-gray-100 border-2 border-red-500 mt-8">Player of the month
+                </h1>
             <!-- Slides -->
-            <template x-for="p in players">
+            <template x-for="p in splayers">
                 <div x-show="activePlayer === p[0]" class="relative z-10 font-bold text-5xl h-96 text-gray my-4 md:my-0 "
                     <div class="relative ">
                         <img :src="p[2]" class="w-full h-96 relative z-10 bg-cover bg-center object-cover rounded-2xl" alt="">
                         <div class="flex -mt-32 md:-mt-32 relative z-40 px-4 md:px-8">
                             <div class="text-gray-100 bg-red-500 py-2 px-1 text-xs">
-                                grade 1
+                                Score
                             </div>
                             <div class="text-gray-800 bg-green py-2 px-1 text-xs" x-text="p[3]">
 
@@ -567,6 +568,13 @@ get_header();
 
     function getPlayers(){
         return {
+            splayers:[
+                [0, 'Anis Badri' , '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'j1.jpg', '2.5'],
+                [1, 'zouhaier dhawedi' , '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'j2.jpg', '4'],
+                [2, 'Taha yassine khenissi' , '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'j3.jpg', '3'],
+                [3, 'Iheb msakni' , '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'j4.jpg', '2.5'],
+                [4, 'Colibaly' , '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'j5.jpg', '1.5'],
+            ],
             players: [
                 [1, 'foulen ben foulen' , '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'messi.jpg', '2.5'],
                 [2, 'foulen ben foulen' , '<?php echo get_template_directory_uri() ?>' + '/assets/images/' + 'profile.png', '2'],

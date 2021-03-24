@@ -18,13 +18,17 @@
 // $conn->close();
 
 
+    // $servername = "localhost";
+    // $username = "foot24-admin";
+    // $password = 'P@$$w0rdFOOT24';
+    // $dbname = "api_foot24";
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $password = '';
     $dbname = "laravel";
 
 
-    $db = new PDO('mysql:host=127.0.0.1;dbname=' . $dbname . ';charset=utf8', $username, $password);
+    $db = new PDO('mysql:host=localhost;dbname=' . $dbname . ';charset=utf8', $username, $password);
 
 
     // set attributes
