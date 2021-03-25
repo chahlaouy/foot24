@@ -131,7 +131,6 @@
                                 p.disabled = false
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
                             })
-                            console.log(players)
                         }
 
             })
@@ -141,13 +140,13 @@
             <div class="w-72 md:w-96 bg-gray-800 rounded-2xl text-gray-100 shadow-2xl p-8">
                 <div>
                     <label for="" class="block">الإسم واللقب</label>
-                    <input x-model="userInfo.username" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2"
+                    <input x-model="userInfo.username" type="text" class="w-full py-3 bg-gray-700 rounded-xl my-4 px-2"
                         placeholder="الإسم واللقب">
                 </div>
                 <div>
                     <label for="" class="block">C.I.N</label>
-                    <input x-model="userInfo.cin" type="number" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2"
-                        placeholder="cin">
+                    <input x-model="userInfo.cin" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2"
+                        placeholder="cin" onkeypress="return onlyNumberKey(event)">
                 </div>
                 <div>
                     <label for="" class="block">الهاتف</label>
@@ -301,7 +300,6 @@
             },
 
             vote(id) {
-                console.log(this.numberOfClicks)
                 if (this.numberOfClicks === 3) {
                     return
                 }
@@ -357,7 +355,7 @@
                     /** another if to check wether the user choose or not */
                     if (this.isChoosingIsComplete) {
 
-                        // console.log(this.players)
+
                         fetch('http://localhost/wordpress/update-players/', {
                             method: 'POST',
                             body: JSON.stringify(this.players),
@@ -396,6 +394,13 @@
 
             saveUserInfo() {
                 if ((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")) {
+                    if(this.userInfo.cin.length != 8 ){
+                        this.errorMessage = "هناك  خطآ في رقم البطاقة";
+                        setTimeout(() => {
+                            this.errorMessage = ""
+                        }, 1500);
+                        return
+                    }
                     this.showLoader = true;
                     const formData = new FormData();
                     formData.append('cin', this.userInfo.cin);
@@ -406,7 +411,6 @@
                     })
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data)
                             if(data.found == 'no'){
                                 fetch('http://localhost/wordpress/create-user/',{
                                     method: 'POST',
@@ -423,7 +427,6 @@
                                     .then(data=> {
 
                                         /** if user saved show message done */
-                                        console.log(data)
                                         if(data[0]=="success"){
 
                                             this.successMessage = "تم تسجيل البينات بنجاح"
@@ -480,5 +483,14 @@
                     return this.show === true
                 },
             }
+        }
+
+        function onlyNumberKey(evt){
+
+            // Only ASCII charactar in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
         }
     </script>
