@@ -23,8 +23,13 @@ foreach ($data as $item){
     $player->scorePublic = $item->scorePublic;
     $player->id = $item->id;
     
-    
-    $player->updatePlayerPublic($player);
+    $res = $player->updatePlayerPublic($player);
+}
+if($res){
+     echo json_encode(array('success' => 'success'));
+}else{
+    echo json_encode(array('fail' => 'fail'));
+
 }
 
 

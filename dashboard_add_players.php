@@ -1,10 +1,10 @@
 <?php /* Template Name: dashboard_add_players */ ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Player Of the Month</title>
@@ -15,15 +15,10 @@
     <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js" defer></script>
     <!--Replace with your tailwind.css once created-->
-
+    <?php wp_head(); ?>
 </head>
-<style>
-.dir {
-    direction: rtl
-}
-</style>
 
-<body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+<body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12" style="direction: ltr ! important">
 
 
     <div class="flex flex-col md:flex-row" >
@@ -105,6 +100,16 @@
                 </template>
 
             </div>
+
+            <div class="fixed bottom-80 right-0 z-50 p-8" x-show="errorMessage != ''">
+                <div class="w-96 bg-red-600 rounded-2xl text-gray-100 shadow-2xl p-8 text-center" x-text="errorMessage">
+                </div>
+            </div>
+            <div class="fixed bottom-80 right-0 z-50 p-8" x-show="successMessage != ''">
+                <div class="w-96 bg-green-500 rounded-2xl text-gray-100 shadow-2xl p-8 text-center" x-text="successMessage">
+                </div>
+            </div>
+
             <div class="flex items-center justify-center fixed bottom-0 right-0 p-8 z-50 shadow-2xl">
 
                 <div id="form" class="w-96">
@@ -142,6 +147,8 @@
 
         </div>
     </div>
+
+    
 <script>
     function getPlayers(){
         return {
@@ -157,8 +164,11 @@
                 name: "",
                 image: null
             },
+            successMessage: "",
+            errorMessage: "",
             showLoader: false,
             savePlayer(){
+                this.showLoader = true;
                 const imgUrl = document.querySelector('#imgUrl')
                 const formData = new FormData();
                 formData.append('image', imgUrl.files[0])
@@ -168,11 +178,18 @@
                     
                     fetch('http://localhost/wordpress/create-player/', {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        headers : {}
                     })
                         .then(response => response.json())
-                        .then(console.log)
-                        this.fetchPlayers();
+                        .then(data => {
+                            this.successMessage = "تم تسجيل البينات بنجاح"
+                            setTimeout(() => {
+                                this.successMessage = ""
+                            }, 1500);
+                            this.fetchPlayers();
+                            this.showLoader = false;
+                        })
                 } catch (error) {
                     console.log(error)
                 }
@@ -184,40 +201,18 @@
                 fetch('http://localhost/wordpress/get-players/')
                     .then(response => response.json())
                         .then(data =>{
-                            this.players = data.data
-                            this.players.forEach(p=>{
-                                p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
-                                console.log(p.imgUrl)
-                            })
+                            if (data.data != undefined){
+                                this.players = data.data
+                                this.players.forEach(p=>{
+                                    p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
+                                })
+                            }
                     })
                 }, 2000);
             }
              
         }
     }
-    // const imgUrl = document.querySelector('#imgUrl')
-    // const btn = document.querySelector('#btnUpload')
-    
-    // btn.addEventListener('click', upload)
-    
-    // async function upload(){
-    //     const name = document.getElementById("name").value;
-    //     const formData = new FormData();
-    //     formData.append('image', imgUrl.files[0])
-    //     formData.append('username', name)
-
-    //     try {
-    //         const response = await fetch('http://localhost/wordpress/create-player/',{
-    //             method: 'POST',
-    //             body: formData
-    //         });
-
-    //         const result = await response.json()
-    //         console.log(result);
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
 </script>
 </body>
 

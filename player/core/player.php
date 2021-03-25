@@ -58,7 +58,7 @@ class Player{
             // echo json_encode(array('message' => 'Player added Succefully'));
         }
         
-        printf('error %s \n', $stmt->error);
+        return false;
     }
 
     /** update public score */
@@ -83,10 +83,8 @@ class Player{
         
         if($stmt->execute()){
             return true;
-            // echo json_encode(array('message' => 'Player added Succefully'));
         }
-        
-        printf('error %s \n', $stmt->error);
+        return false;
     }
 
     /**update journalist score */

@@ -124,13 +124,12 @@
             fetch('http://localhost/wordpress/get-players/')
                 .then(response => response.json())
                     .then(data =>{
-                        if (data.data == undefined >0){
+                        if (data.data != undefined){
                         
                             players = data.data
                             players.forEach(p=>{
                                 p.disabled = false
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
-                                console.log(p.imgUrl)
                             })
                             console.log(players)
                         }
@@ -174,6 +173,10 @@
         </div>
         <div class="fixed bottom-0 right-0 z-50 p-4 md:p-12" x-show="successMessage != ''">
             <div class="w-72 md:w-96 bg-green-500 rounded-2xl text-gray-100 shadow-2xl p-8 text-center" x-text="successMessage">
+            </div>
+        </div>
+        <div class="fixed bottom-0 right-0 z-50 p-4 md:p-12" x-show="finalMessage != ''">
+            <div class="w-72 md:w-96 bg-green-500 rounded-2xl text-gray-100 shadow-2xl p-8 text-center" x-text="finalMessage">
             </div>
         </div>
         <div class="w-full relative">
@@ -345,6 +348,7 @@
 
             errorMessage: "",
             successMessage: "",
+            finalMessage: "",
             isUserRegistred: false,
             submitVoting() {
                 /**Check wether user is registred or not */
@@ -363,25 +367,28 @@
                         })
                             .then(response => response.json())
                             .then(data => {
-                                console.log(data)
+                                if(data.success == 'success'){
+                                    this.finalMessage = " تم التصويت بنجاح سيقع تحويلك لصفحة إحصائيات"
+                                    setTimeout(() => {
+                                        this.finalMessage = ""
+                                        window.location.href = "http://localhost/wordpress/player-result/";
+                                        // window.location.href = "http://wp.foot24.online/player-result/";
+                                    }, 1500);
+                                }else{
+
+                                    this.finalMessage = ""
+                                    window.location.href = "http://localhost/wordpress/player-result/";
+                                }
                             })
-                        // xhr.open("POST", 'http://wp.foot24.online/update-players/', true);
-                        // window.location.href = "http://wp.foot24.online/player-result/";
-                        // window.location.href = "http://localhost/wordpress/player-result/";
                     } else {
                         /** The user does not choose yet or information is incomplete */
                         /**show a message to the user */
-                        // this.isChoosingIsCompleteMessage = true
                         this.errorMessage = "الرجاء اختيار اللاعبين"
                         setTimeout(() => {
                             this.errorMessage = ""
-                            // this.isChoosingIsCompleteMessage = false
                         }, 2000);
                     }
                 } else {
-                    // if((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")){
-                    //     console.log("submit voting to back end")
-                    // }
                     this.isAllowedToVote = true
 
                 }
@@ -390,41 +397,59 @@
             saveUserInfo() {
                 if ((this.userInfo.username != "") && (this.userInfo.phone != "") && (this.userInfo.cin != "")) {
                     this.showLoader = true;
-
-                        
-                    fetch('http://localhost/wordpress/create-user/',{
+                    const formData = new FormData();
+                    formData.append('cin', this.userInfo.cin);
+                    fetch('http://localhost/wordpress/get-single-user/',{
                         method: 'POST',
-                        body: JSON.stringify({
-                            name: this.userInfo.username,
-                            phone: this.userInfo.phone,
-                            cin: this.userInfo.cin
-                        }),
-                        headers: {
-                            'Content-Type': 'Application/json'
-                        },
+                        body: formData,
+                        headers: {}
                     })
                         .then(response => response.json())
-                        .then(data=> {
-
-                            /** if user saved show message done */
+                        .then(data => {
                             console.log(data)
-                            if(data[0]=="success"){
+                            if(data.found == 'no'){
+                                fetch('http://localhost/wordpress/create-user/',{
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        name: this.userInfo.username,
+                                        phone: this.userInfo.phone,
+                                        cin: this.userInfo.cin
+                                    }),
+                                    headers: {
+                                        'Content-Type': 'Application/json'
+                                    },
+                                })
+                                    .then(response => response.json())
+                                    .then(data=> {
 
-                                this.successMessage = "تم تسجيل البينات بنجاح"
-                                setTimeout(() => {
-                                    this.successMessage = ""
-                                }, 1500);
-                                this.isUserRegistred = true
-                            }
-                            
-                            /** if user not saved show message not done */
-                            else{
-                                this.errorMessage = "هناك خطأ  الرجاء اعادة المحاولة"
+                                        /** if user saved show message done */
+                                        console.log(data)
+                                        if(data[0]=="success"){
+
+                                            this.successMessage = "تم تسجيل البينات بنجاح"
+                                            setTimeout(() => {
+                                                this.successMessage = ""
+                                            }, 1500);
+                                            this.isUserRegistred = true
+                                        }
+                                        
+                                        /** if user not saved show message not done */
+                                        else{
+                                            this.errorMessage = "هناك خطأ  الرجاء اعادة المحاولة"
+                                            setTimeout(() => {
+                                                this.errorMessage = ""
+                                            }, 1500);
+                                        }
+                                    })
+                            }else{
+                                this.errorMessage = "لا يسمح لك بالتصويت مرتين"
                                 setTimeout(() => {
                                     this.errorMessage = ""
-                                }, 1500);
+                                }, 1500); 
                             }
                         })
+
+
 
 
                     
