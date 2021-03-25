@@ -152,7 +152,7 @@ class Player{
 
         /** Build the query */
 
-        $query = 'DELETE * FROM players WHERE id = :id';
+        $query = 'DELETE FROM players WHERE id = :id';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);

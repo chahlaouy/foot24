@@ -101,7 +101,7 @@
                         <h1 class="mt-3 text-center text-xl py-2 px-4 text-gray-800" x-text="player.name"></h1>
                         <div class="flex items-center mt-4" x-show="showButtons">
                             <button class="py-2 px-4 bg-red-500 text-gray-100 mr-2 rounded" @click="destroyPlayer(player.id)">Supprimer</button>
-                            <button class="py-2 px-4 bg-green-500 text-gray-100 rounded" @click="updatePlayer">Modifier</button>
+                            <button class="py-2 px-4 bg-green-500 text-gray-100 rounded" @click="updatePlayer(player)">Modifier</button>
                         </div>
                     </div>
                 </template>
@@ -192,6 +192,8 @@
                         .then(response => response.json())
                         .then(data => {
                             this.successMessage = "تم تسجيل البينات بنجاح"
+                            this.newPlayer.name = ""
+                            this.newPlayer.image = null
                             setTimeout(() => {
                                 this.successMessage = ""
                             }, 1500);
@@ -222,8 +224,8 @@
                 this.showLoader = true;
                 const formData = new FormData();
                 formData.append('id', id);
-                fetch('http://localhost/wordpress/get-players/',{
-                    methd: 'POST',
+                fetch('http://localhost/wordpress/destroy-player/',{
+                    method: 'POST',
                     body: formData,
                     headers:{}
                 })
@@ -243,6 +245,39 @@
                             }, 1500);
                         }
                     })
+            },
+
+            updatePlayer(player){
+                this.newPlayer.name = player.name;
+
+                if (this.newPlayer.image = null){
+                    this.showLoader = true;
+                    const formData = new FormData();
+                    formData.append('id', player.id);
+                    formData.append('name', newPlayer.name);
+                    formData.append('image', player.imgUrl);
+                    fetch('http://localhost/wordpress/update-player/',{
+                        method: 'POST',
+                        body: formData,
+                        headers:{}
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if(data.success == 'success'){
+                                this.successMessage = "تم التعديل بنجاح"
+                                setTimeout(() => {
+                                    this.successMessage = ""
+                                    this.fetchPlayers();
+                                    this.showLoader = false;
+                                }, 1500);
+                            }else{
+                                this.errorMessage = "هناك  خطآ يرجي اعادة المحاولة"
+                                setTimeout(() => {
+                                    this.errorMessage = ""
+                                }, 1500);
+                            }
+                        })
+                }
             }
              
         }
