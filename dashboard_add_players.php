@@ -91,12 +91,14 @@
                 <template x-for="player in players">
 
                     <div>
-                        <div class="w-32 h-32 bg-gray-800 rounded-full">
-                            <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
-                            :src="player.imgUrl"
-                            
-                            >
-                            
+                        <div class="flex items-center justify-center">
+                            <div class="w-32 h-32 bg-gray-800 rounded-full">
+                                <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
+                                :src="player.imgUrl"
+                                
+                                >
+                                
+                            </div>
                         </div>
                         <h1 class="mt-3 text-center text-xl py-2 px-4 text-gray-800" x-text="player.name"></h1>
                         <div class="flex items-center mt-4" x-show="showButtons">
@@ -202,6 +204,7 @@
                     })
                         .then(response => response.json())
                         .then(data => {
+                            
                             this.successMessage = "تم تسجيل البينات بنجاح"
                             this.newPlayer.name = ""
                             this.newPlayer.image = null
@@ -224,9 +227,19 @@
                         .then(data =>{
                             if (data.data != undefined){
                                 this.players = data.data
+                                this.showButtons = true
                                 this.players.forEach(p=>{
                                     p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
                                 })
+                            }else{
+                                this.players = [
+                                        {id: 1, name: "اللاعب 1", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                                        {id: 2, name: "اللاعب 2", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                                        {id: 3,name: "اللاعب 3", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                                        {id: 4,name: "اللاعب 4", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                                        {id: 5,name: "اللاعب 5", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                                ]
+                                this.showButtons = false
                             }
                     })
                 }, 2000);
