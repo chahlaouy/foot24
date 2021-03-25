@@ -114,11 +114,40 @@ class Player{
         
         printf('error %s \n', $stmt->error);
     }
-    public function updatePlayer(){
+
+
+
+    public function updatePlayerWithNoImage(){
 
         /** Build the query */
 
-        $query = 'UPDATE players SET name = :name, score = :score, imgUrl = :imgUrl, numberOfPublicVotes = :numberOfPublicVotes, numberOfJournalistVotes = :numberOfJournalistVotes WHERE id = :id';
+        $query = 'UPDATE players SET name = :name WHERE id = :id';
+        /** prepare the statement */
+
+        $stmt = $this->conn->prepare($query);
+
+        /** clean the data coming from our form */
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->name = htmlspecialchars(strip_tags($this->name));
+
+        /** binding of parameters */
+
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':name', $this->name);
+        
+        if($stmt->execute()){
+            return true;
+            // echo json_encode(array('message' => 'Player added Succefully'));
+        }
+        
+        return false;
+    }
+    public function updatePlayerWithImage(){
+
+        /** Build the query */
+
+        $query = 'UPDATE players SET name = :name, imgUrl = :imgUrl WHERE id = :id';
         /** prepare the statement */
 
         $stmt = $this->conn->prepare($query);
@@ -128,26 +157,24 @@ class Player{
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->imgUrl = htmlspecialchars(strip_tags($this->imgUrl));
-        $this->score = htmlspecialchars(strip_tags($this->score));
-        $this->numberOfPublicVotes = htmlspecialchars(strip_tags($this->numberOfPublicVotes));
-        $this->numberOfJournalistVotes = htmlspecialchars(strip_tags($this->numberOfJournalistVotes));
 
         /** binding of parameters */
 
         $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':imgUrl', $this->imgUrl);
-        $stmt->bindParam(':score', $this->score);
-        $stmt->bindParam(':numberOfPublicVotes', $this->numberOfPublicVotes);
-        $stmt->bindParam(':numberOfJournalistVotes', $this->numberOfJournalistVotes);
+
         
         if($stmt->execute()){
             return true;
             // echo json_encode(array('message' => 'Player added Succefully'));
         }
         
-        printf('error %s \n', $stmt->error);
+        return false;
     }
+
+
+
     public function destroyPlayer(){
 
         /** Build the query */

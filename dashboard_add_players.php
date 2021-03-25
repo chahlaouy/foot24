@@ -101,7 +101,7 @@
                         <h1 class="mt-3 text-center text-xl py-2 px-4 text-gray-800" x-text="player.name"></h1>
                         <div class="flex items-center mt-4" x-show="showButtons">
                             <button class="py-2 px-4 bg-red-500 text-gray-100 mr-2 rounded" @click="destroyPlayer(player.id)">Supprimer</button>
-                            <button class="py-2 px-4 bg-green-500 text-gray-100 rounded" @click="updatePlayer(player)">Modifier</button>
+                            <button class="py-2 px-4 bg-green-500 text-gray-100 rounded" @click="setPlayerDataForUpdate(player)">Modifier</button>
                         </div>
                     </div>
                 </template>
@@ -136,9 +136,16 @@
                     <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
                         id="btnUpload" 
                         @click()="savePlayer"
-                        x-show="!showLoader"
+                        x-show="!showLoader && playerID == ''"
                     >
                         Enregistrer
+                    </button>
+                    <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
+                        id="btnUpload" 
+                        @click()="updatePlayer"
+                        x-show="playerID != ''"
+                    >
+                        Modifier
                     </button>
                     <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl flex items-center justify-center"
                         x-show="showLoader"
@@ -167,6 +174,7 @@
                 {id: 5,name: "اللاعب 5", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
             ],
             showButtons: false,
+            playerID: "",
             initialized: false,
             newPlayer: {
                 name: "",
@@ -176,6 +184,9 @@
             errorMessage: "",
             showLoader: false,
             savePlayer(){
+                if ((this.newPlayer.image == null) && this.newPlayer.name == ""){
+                    return
+                }
                 this.showLoader = true;
                 const imgUrl = document.querySelector('#imgUrl')
                 const formData = new FormData();
@@ -224,10 +235,10 @@
                 this.showLoader = true;
                 const formData = new FormData();
                 formData.append('id', id);
-                fetch('http://localhost/wordpress/destroy-player/',{
+                fetch('http://localhost/wordpress/destroy-player/', {
                     method: 'POST',
                     body: formData,
-                    headers:{}
+                    // headers:{}
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -246,20 +257,27 @@
                         }
                     })
             },
-
-            updatePlayer(player){
-                this.newPlayer.name = player.name;
-
-                if (this.newPlayer.image = null){
+            updatePlayer(){
+                if ((this.newPlayer.image == null) && this.newPlayer.name == ""){
+                    return
+                }
+                if (this.newPlayer.image == null){
                     this.showLoader = true;
-                    const formData = new FormData();
-                    formData.append('id', player.id);
-                    formData.append('name', newPlayer.name);
-                    formData.append('image', player.imgUrl);
-                    fetch('http://localhost/wordpress/update-player/',{
+                    // const formData = new FormData();
+                    // formData.append('id', this.playerID);
+                    // formData.append('name', this.newPlayer.name);
+                    // this.playerID = ""
+                    // formData.append('image', "no-image");
+                    fetch('http://localhost/wordpress/player-update/', {
                         method: 'POST',
-                        body: formData,
-                        headers:{}
+                        body: JSON.stringify({
+                            id: this.playerID,
+                            name: this.newPlayer.name,
+                            image: "no-image"
+                        }),
+                        headers:{
+                            "Content-Type": "application/json",
+                        }
                     })
                         .then(response => response.json())
                         .then(data => {
@@ -269,6 +287,8 @@
                                     this.successMessage = ""
                                     this.fetchPlayers();
                                     this.showLoader = false;
+                                    this.playerID = "";
+                                    this.fetchPlayers();
                                 }, 1500);
                             }else{
                                 this.errorMessage = "هناك  خطآ يرجي اعادة المحاولة"
@@ -278,6 +298,45 @@
                             }
                         })
                 }
+                else{
+                    this.showLoader = true;
+                        const imgUrl = document.querySelector('#imgUrl')
+                        const formData = new FormData();
+                        formData.append('id', this.playerID)
+                        formData.append('image', imgUrl.files[0])
+                        formData.append('username', this.newPlayer.name);
+                        console.log(formData)
+
+                        try {
+                            
+                            fetch('http://localhost/wordpress/update-player-with-image/', {
+                                method: 'POST',
+                                body: formData,
+                                headers : {}
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    this.successMessage = "تم تسجيل البينات بنجاح"
+                                    this.newPlayer.name = ""
+                                    this.newPlayer.image = null
+                                    setTimeout(() => {
+                                        this.successMessage = ""
+                                    }, 1500);
+                                    this.fetchPlayers();
+                                    this.showLoader = false;
+                                })
+                        } catch (error) {
+                            console.log(error)
+                        }
+                    }
+                    /**end */
+            },
+            setPlayerDataForUpdate(player){
+                this.newPlayer.name = player.name;
+                this.newPlayer.image = null;
+                this.playerID = player.id;
+                console.log( this.playerID)
+
             }
              
         }
