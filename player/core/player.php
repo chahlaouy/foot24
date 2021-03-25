@@ -148,6 +148,31 @@ class Player{
         
         printf('error %s \n', $stmt->error);
     }
+    public function destroyPlayer(){
+
+        /** Build the query */
+
+        $query = 'DELETE * FROM players WHERE id = :id';
+        /** prepare the statement */
+
+        $stmt = $this->conn->prepare($query);
+
+        /** clean the data coming from our form */
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+
+        /** binding of parameters */
+
+        $stmt->bindParam(':id', $this->id);
+        
+        if($stmt->execute()){
+            return true;
+            // echo json_encode(array('message' => 'Player added Succefully'));
+        }
+        
+       return false;
+    }
 
     
 

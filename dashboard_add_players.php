@@ -66,7 +66,9 @@
                     .then(response => response.json())
                         .then(data =>{
                             if (data.data != undefined){
+                                showButtons = true
                                 players = data.data
+                                console.log(players)
                                 players.forEach(p=>{
                                     p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
                                 })
@@ -94,8 +96,13 @@
                             :src="player.imgUrl"
                             
                             >
+                            
                         </div>
                         <h1 class="mt-3 text-center text-xl py-2 px-4 text-gray-800" x-text="player.name"></h1>
+                        <div class="flex items-center mt-4" x-show="showButtons">
+                            <button class="py-2 px-4 bg-red-500 text-gray-100 mr-2 rounded" @click="destroyPlayer(player.id)">Supprimer</button>
+                            <button class="py-2 px-4 bg-green-500 text-gray-100 rounded" @click="updatePlayer">Modifier</button>
+                        </div>
                     </div>
                 </template>
 
@@ -153,12 +160,13 @@
     function getPlayers(){
         return {
             players: [
-                {name: "اللاعب 1", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 2", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 3", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 4", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
-                {name: "اللاعب 5", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {id: 1, name: "اللاعب 1", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {id: 2, name: "اللاعب 2", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {id: 3,name: "اللاعب 3", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {id: 4,name: "اللاعب 4", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
+                {id: 5,name: "اللاعب 5", imgUrl: "<?php echo get_template_directory_uri() ?>" + "/assets/images/profile.png"},
             ],
+            showButtons: false,
             initialized: false,
             newPlayer: {
                 name: "",
@@ -209,6 +217,32 @@
                             }
                     })
                 }, 2000);
+            },
+            destroyPlayer(id){
+                this.showLoader = true;
+                const formData = new FormData();
+                formData.append('id', id);
+                fetch('http://localhost/wordpress/get-players/',{
+                    methd: 'POST',
+                    body: formData,
+                    headers:{}
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.success == 'success'){
+                            this.successMessage = "تم الحذف بنجاح"
+                            setTimeout(() => {
+                                this.successMessage = ""
+                                this.fetchPlayers();
+                                this.showLoader = false;
+                            }, 1500);
+                        }else{
+                            this.errorMessage = "هناك  خطآ يرجي اعادة المحاولة"
+                            setTimeout(() => {
+                                this.errorMessage = ""
+                            }, 1500);
+                        }
+                    })
             }
              
         }
