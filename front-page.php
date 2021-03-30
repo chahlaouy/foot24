@@ -13,37 +13,22 @@
 get_header();
 
 ?>
-<section class="fixed bottom right-0 bottom-0 p-4 z-50">
-    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-72 flex items-center justify-between">
-        <div class="p-2">
-            <div class="flex items-center justify-center">
-                <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-12" alt="">
-            </div>
-            <h1 class="text-sm text-center">الترجي الرياضي</h1>
-        </div>
-        <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
-            <h1 class="text-lg font-bold">7</h1>
-            <h1 class="text-lg font-bold">-</h1>
-            <h1 class="text-lg font-bold">1</h1>
-        </div>
-        <div class="p-2">
-            <div class="flex items-center justify-center">
-                <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-12" alt="">
-            </div>
-            <h1 class="text-sm text-center">شبيبة القيروان</h1>
-        </div>
-    </div>
-</section>
+
 <section class="wrapper mx-auto bg-gray-100 w-full relative" style="height: 600px">
 
     <div class="h-full">
 
-        <div class="w-full mx-auto relative z-40" x-data="getSlides()">
+        <div class="w-full mx-auto relative z-40" x-data="getSlides()" x-init="
+            setInterval(function(){
+                activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1
+                
+                }, 3000);
+        ">
             <!-- Slides -->
             <template x-for="slide in slides">
-                <div x-show="activeSlide === slide[0]" class="relative z-10 font-bold text-5xl h-full text-gray "
+                <div x-show="activeSlide === slide[0]" class="relative z-10 font-bold text-5xl h-full text-gray"
                     style="height: 600px">
-                    <div class="relative ">
+                    <div class="relative" >
                         <div class="absolute top-0 left-0 z-20 bg-gray-800 bg-opacity-50 w-full h-full"
                             style="height: 600px; width: 100%">
                         </div>
@@ -72,14 +57,14 @@ get_header();
             <div class="z-40 absolute inset-0 flex">
                 <div class="flex items-center justify-start w-1/2">
                     <button
-                        class="flex items-center justify-center bg-red-500 text-gray-100 hover:text-orange-500 font-bold hover:shadow-lg rounded-full w-12 h-12 -mr-6"
+                        class="flex items-center justify-center bg-green-400 text-gray-100 hover:text-orange-500 font-bold hover:shadow-lg rounded-full w-12 h-12 mr-6"
                         x-on:click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1">
                         <ion-icon name="chevron-forward-outline" class="text-xl"></ion-icon>
                     </button>
                 </div>
                 <div class="flex items-center justify-end w-1/2">
                     <button
-                        class="flex items-center justify-center bg-red-500 text-gray-100 hover:text-gray-100 font-bold hover:shadow rounded-full w-12 h-12 -ml-6"
+                        class="flex items-center justify-center bg-green-400 text-gray-100 hover:text-gray-100 font-bold hover:shadow rounded-full w-12 h-12 ml-6"
                         x-on:click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1">
                         <ion-icon name="chevron-back-outline" class="text-xl"></ion-icon>
                     </button>
@@ -89,6 +74,76 @@ get_header();
 
     </div>
 </section>
+
+
+<!-- Section Slider news 1 -->
+
+<section class="wrapper mx-auto relative z-30 py-8 md:flex md:items-center md:justify-around mt-16">
+    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-80  border-2 border-gray-300">
+        <h1 class="text-center text-lg font-bold"> " </h1>
+        <div class="flex items-center justify-between">
+            <div class="p-2">
+                <div class="flex items-center justify-center">
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-16" alt="">
+                </div>
+                <h1 class="text-sm text-center">الترجي الرياضي</h1>
+            </div>
+            <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
+                <h1 class="text-lg font-bold">7</h1>
+                <h1 class="text-lg font-bold">-</h1>
+                <h1 class="text-lg font-bold">1</h1>
+            </div>
+            <div class="p-2">
+                <div class="flex items-center justify-center">
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-16" alt="">
+                </div>
+                <h1 class="text-sm text-center">شبيبة القيروان</h1>
+            </div>
+        </div>
+        <h1 class="text-center text-xs font-bold"> Stades Rades: 20:00 </h1>
+    </div>
+    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-72 flex items-center justify-between">
+        <div class="p-2">
+            <div class="flex items-center justify-center">
+                <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-12" alt="">
+            </div>
+            <h1 class="text-sm text-center">الترجي الرياضي</h1>
+        </div>
+        <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
+            <h1 class="text-lg font-bold">7</h1>
+            <h1 class="text-lg font-bold">-</h1>
+            <h1 class="text-lg font-bold">1</h1>
+        </div>
+        <div class="p-2">
+            <div class="flex items-center justify-center">
+                <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-12" alt="">
+            </div>
+            <h1 class="text-sm text-center">شبيبة القيروان</h1>
+        </div>
+    </div>
+    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-72 flex items-center justify-between">
+        <div class="p-2">
+            <div class="flex items-center justify-center">
+                <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-12" alt="">
+            </div>
+            <h1 class="text-sm text-center">الترجي الرياضي</h1>
+        </div>
+        <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
+            <h1 class="text-lg font-bold">7</h1>
+            <h1 class="text-lg font-bold">-</h1>
+            <h1 class="text-lg font-bold">1</h1>
+        </div>
+        <div class="p-2">
+            <div class="flex items-center justify-center">
+                <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-12" alt="">
+            </div>
+            <h1 class="text-sm text-center">شبيبة القيروان</h1>
+        </div>
+    </div>
+</section>
+
+<!-- End Section Slider news 1 -->
+
 
 <section class="px-2 md:px-0 wrapper md:flex mt-16 w-full">
 
