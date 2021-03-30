@@ -297,7 +297,8 @@
 
                 setTimeout(() => {
 
-                    fetch('http://localhost/wordpress/get-players/')
+                    // fetch('http://localhost/wordpress/get-players/')
+                    fetch('http://wp.foot24.online/get-players/')
                         .then(response => response.json())
                         .then(data => {
 

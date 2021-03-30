@@ -127,7 +127,7 @@
                     </a>    
                  </button>
                 <button class="py-2 px-4 md:py-4 md:px-12 border-4 border-red-600 text-gray-100 bg-red-600 text-xl md:text-4xl  rounded-2xl">
-                    <a href="/wordpress/player-choose">
+                    <a href="/player-choose">
                     تأكيد 
                     </a>   
                 </button>

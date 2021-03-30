@@ -25,12 +25,45 @@
     <?php wp_head(); ?>
 </head>
 
-<body class="bg-gray-700">
+<body class="bg-gray-300">
 
-    <nav class="md:hidden wrapper mx-auto py-4 px-5 bg-gray-900 text-gray-100">
-        <ul class=" flex items-center justify-between">
-            <li>
-                <ion-icon name="grid" class="text-3xl"></ion-icon>
+<nav class="md:hidden wrapper mx-auto py-4 px-5 bg-gray-900 text-gray-100">
+        <ul class=" flex  justify-between">
+            <li x-data="dropdown()">
+                <ion-icon name="grid" class="text-3xl" x-on:click="open"></ion-icon>
+                <div x-show="isOpen()" x-on:click.away="close">
+
+
+                    <?php 
+                    if (! empty($header_nav_items) && is_array($header_nav_items)){
+                    ?>
+                    <ul class="">
+                        <?php 
+                    foreach ($header_nav_items as $item) {
+                       if (! $item->menu_item_parent){
+                           $children_menu_items = get_menu_item_children($header_nav_items, $item->menu_item_parent);
+                           $has_children = ! empty($children_menu_items) && is_array($children_menu_items);
+                       }
+
+                       if (! $has_children){
+                           ?>
+                        <li class="px-2">
+                            <a href="<?php echo esc_url( $item->url); ?>"><?php echo esc_html( $item->title ) ?></a>
+                        </li>
+                        <?php
+                       } else {
+                           // here the drop down menu
+                       }
+                    }
+                ?>
+                    </ul>
+                    <?php
+                 }
+        ?>
+
+
+
+                </div>
             </li>
             <li class="text-xl font-bold">Foot 24</li>
         </ul>
@@ -93,24 +126,23 @@
         
 
                 <div class="">
-                    /** player one */
-                    <div class="flex items-center justify-center">
+                    <div class="md:flex md:items-center md:justify-center">
                         <div class="bg-white shadow-2xl rounded-2xl relative z-10">
-                            <h1 class="text-center text-red-600 text-3xl py-1" x-text="playerOne.name"></h1>
+                            <h1 class="text-center text-red-600 text-sm md:text-3xl py-1" x-text="playerOne.name"></h1>
                             <hr>
                             <div class="flex items-stretch">
                                 <div
-                                    class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-32">
+                                    class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-24 md:w-32">
                                     <h1 class="text-4xl" x-text="playerOne.totalScorePublic"></h1>
                                 </div>
-                                <div class="py-1 pl-24 pr-2 w-96">
+                                <div class="py-1 pl-1 md:pl-24 pr-2 w-64 md:w-96">
 
                                     <div id="public">
 
                                         <div class="flex w-full items-center justify-between">
                                             <div>
-                                                <span class="text-xs">voting</span>
-                                                <h1 class='text-xl'>publique</h1>
+                                                <span class="text-xs">تصويت</span>
+                                                <h1 class='text-sm md:text-xl'>تصويت الجمهور</h1>
                                             </div>
                                             <div>
                                                 <span class="text-sm" x-text="playerOne.totalScorePublic"></span>
@@ -123,11 +155,11 @@
 
                                         <div class="flex w-full items-center justify-between">
                                             <div>
-                                                <span class="text-xs">voting</span>
-                                                <h1 class='text-xl'>journalist</h1>
+                                                <span class="text-xs">تصويت</span>
+                                                <h1 class='text-sm md:text-xl'>تصويت الصحفيين</h1>
                                             </div>
                                             <div>
-                                                <span class="text-sm" x-text="playerOne.totalScoreJournalist">2.5</span>
+                                                <span class="text-sm" x-text="playerOne.totalScoreJournalist"></span>
                                             </div>
                                         </div>
                                         <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
@@ -139,70 +171,74 @@
 
                             </div>
                         </div>
-                        <div
-                            class="flex items-center justify-center w-48 h-48 rounded-full relative z-20 -mr-16 shadow-2xl">
-                            <img class="w-full rounded-full h-full bg-cover object-cover bg-center bg-top"
-                                :src="playerOne.imgUrl" alt="">
+                        <div class="flex items-center -mt-4 justify-end md:block md:mt-0">
+                        
+                            <div
+                                class="flex items-center justify-center w-28 h-28 md:w-48 md:h-48 rounded-full relative z-20 -mr-4 md:-mr-16 shadow-2xl">
+                                <img class="w-full rounded-full h-full bg-cover object-cover bg-center bg-top"
+                                    :src="playerOne.imgUrl" alt="">
+                            </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="grid grid-cols-2 gap-12 mt-12">
+                <div class="md:grid md:grid-cols-2 md:gap-12 md:mt-12">
                     <template x-for="player in players" class="">
                         
-                        <div class="flex items-center justify-center">
-                            <div class="bg-white shadow-2xl rounded-2xl relative z-10">
-                                <h1 class="text-center text-red-600 text-3xl py-1" x-text="player.name"></h1>
-                                <hr>
-                                <div class="flex items-stretch">
-                                    <div
-                                        class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-32">
-                                        <h1 class="text-4xl" x-text="player.totalScorePublic"></h1>
-                                    </div>
-                                    <div class="py-1 pl-24 pr-2 w-96">
+                    <div class="md:flex md:items-center md:justify-center mt-4 md:mt-0">
+                        <div class="bg-white shadow-2xl rounded-2xl relative z-10">
+                            <h1 class="text-center text-red-600 text-sm md:text-3xl py-1" x-text="player.name"></h1>
+                            <hr>
+                            <div class="flex items-stretch">
+                                <div
+                                    class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-24 md:w-32">
+                                    <h1 class="text-4xl" x-text="player.totalScorePublic"></h1>
+                                </div>
+                                <div class="py-1 pl-1 md:pl-24 pr-2 w-64 md:w-96">
 
-                                        <div id="public">
+                                    <div id="public">
 
-                                            <div class="flex w-full items-center justify-between">
-                                                <div>
-                                                    <span class="text-xs">voting</span>
-                                                    <h1 class='text-xl'>publique</h1>
-                                                </div>
-                                                <div>
-                                                    <span class="text-sm" x-text="player.totalScorePublic"></span>
-                                                </div>
+                                        <div class="flex w-full items-center justify-between">
+                                            <div>
+                                                <span class="text-xs">تصويت</span>
+                                                <h1 class='text-sm md:text-xl'>تصويت الجمهور</h1>
                                             </div>
-                                            <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
-                                        </div>
-
-                                        <div id="jouralist">
-
-                                            <div class="flex w-full items-center justify-between">
-                                                <div>
-                                                    <span class="text-xs">voting</span>
-                                                    <h1 class='text-xl'>journalist</h1>
-                                                </div>
-                                                <div>
-                                                    <span class="text-sm"
-                                                        x-text="player.totalScoreJournalist">2.5</span>
-                                                </div>
+                                            <div>
+                                                <span class="text-sm" x-text="player.totalScorePublic"></span>
                                             </div>
-                                            <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
                                         </div>
-
-
-
+                                        <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
                                     </div>
+
+                                    <div id="jouralist">
+
+                                        <div class="flex w-full items-center justify-between">
+                                            <div>
+                                                <span class="text-xs">تصويت</span>
+                                                <h1 class='text-sm md:text-xl'>تصويت الصحفيين</h1>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm" x-text="player.totalScoreJournalist"></span>
+                                            </div>
+                                        </div>
+                                        <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
+                                    </div>
+
+
 
                                 </div>
-                            </div>
-                            <div
-                                class="flex items-center justify-center w-48 h-48 rounded-full relative z-20 -mr-16 shadow-2xl">
-                                <img class="w-full rounded-full h-full bg-cover object-cover bg-center bg-top"
-                                    :src="player.imgUrl"
-                                    alt="">
+
                             </div>
                         </div>
+                        <div class="flex items-center justify-end -mt-4 md:mt-0 md:block">
+                        
+                            <div
+                                class="flex items-center justify-center w-28 h-28 md:w-48 md:h-48 rounded-full relative z-20 -mr-4 md:-mr-16 shadow-2xl">
+                                <img class="w-full rounded-full h-full bg-cover object-cover bg-center bg-top"
+                                    :src="player.imgUrl" alt="">
+                            </div>
+                        </div>
+                    </div>
                     </template>
                 </div>
             
@@ -253,19 +289,21 @@
 
                 setTimeout(() => {
 
+                    // fetch('http://localhost/wordpress/get-players/')
                     fetch('http://wp.foot24.online/get-players/')
                         .then(response => response.json())
                         .then(data => {
                             
                             let arr =data.data
                             arr.forEach((p, index) => {
-                                console.log(index)
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' +
-                                    '/player/images/' + p.imgUrl
-                                console.log(p.imgUrl)
+                                    '/player/images/' + p.imgUrl;
+                                    p.totalScorePublic = p.totalScorePublic.toFixed(2);
+                                    p.totalScoreJournalist = p.totalScoreJournalist.toFixed(2);
                             })
+                            
+                            arr.sort(function(a, b){return b.totalScorePublic - a.totalScorePublic});
                             this.playerOne = arr[0];
-                            console.log(this.playerOne)
                             this.players = arr.filter((p, index) => index != 0)
 
 
@@ -276,6 +314,20 @@
 
         }
     }
+    function dropdown() {
+        return {
+                show: false,
+                open() {
+                    this.show = true
+                },
+                close() {
+                    this.show = false
+                },
+                isOpen() {
+                    return this.show === true
+                },
+            }
+        }
     </script>
     <?php
 

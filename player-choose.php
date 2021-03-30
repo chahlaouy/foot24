@@ -121,7 +121,7 @@
         setTimeout(() => {
                 
             
-            fetch('http://localhost/wordpress/get-players/')
+            fetch('http://wp.foot24.online/get-players/')
                 .then(response => response.json())
                     .then(data =>{
                         if (data.data != undefined){
@@ -151,7 +151,7 @@
                 <div>
                     <label for="" class="block">الهاتف</label>
                     <input x-model="userInfo.phone" type="text" class="w-full  py-3 bg-gray-700 rounded-xl my-4 px-2"
-                        placeholder="الهاتف">
+                        placeholder="الهاتف" onkeypress="return onlyNumberKey(event)">
                 </div>
                 <button class="w-full bg-gray-100 text-gray-900 text-xl py-3 rounded-xl" 
                     @click="saveUserInfo()"
@@ -301,6 +301,7 @@
 
             vote(id) {
                 if (this.numberOfClicks === 3) {
+                    
                     return
                 }
 
@@ -308,20 +309,20 @@
                 this.players.forEach(p => {
                     if (p.id === id) {
                         switch (this.numberOfClicks) {
-                            case 1:
+                            case 1: 
                                 p.scorePublic = 5;
                                 p.showPlayer = 1;
                                 this.playerOne.imgUrl = p.imgUrl;
                                 this.playerOne.triggred = true;
                                 break;
                             case 2:
-                                p.scorePublic = 3;
+                                p.scorePublic = 4;
                                 p.showPlayer = 1;
                                 this.playerTwo.imgUrl = p.imgUrl;
                                 this.playerTwo.triggred = true;
                                 break;
                             case 3:
-                                p.scorePublic = 2;
+                                p.scorePublic = 3;
                                 p.showPlayer = 1;
                                 this.playerThree.imgUrl = p.imgUrl;
                                 this.playerThree.triggred = true;
@@ -341,7 +342,7 @@
             // isChoosingIsComplete: false,
             get isChoosingIsComplete() {
 
-                return this.numberOfClicks === 3
+                return this.numberOfClicks == 3
             },
 
             errorMessage: "",
@@ -353,10 +354,12 @@
                 if (this.isUserRegistred) {
 
                     /** another if to check wether the user choose or not */
+                    console.log(this.isChoosingIsComplete)
                     if (this.isChoosingIsComplete) {
 
 
-                        fetch('http://localhost/wordpress/update-players/', {
+                        // fetch('http://localhost/wordpress/update-players/', {
+                        fetch('http://wp.foot24.online/update-players/', {
                             method: 'POST',
                             body: JSON.stringify(this.players),
                             headers:{
@@ -369,13 +372,14 @@
                                     this.finalMessage = " تم التصويت بنجاح سيقع تحويلك لصفحة إحصائيات"
                                     setTimeout(() => {
                                         this.finalMessage = ""
-                                        window.location.href = "http://localhost/wordpress/player-result/";
-                                        // window.location.href = "http://wp.foot24.online/player-result/";
+                                        // window.location.href = "http://localhost/wordpress/player-result/";
+                                        window.location.href = "http://wp.foot24.online/player-result/";
                                     }, 1500);
                                 }else{
 
                                     this.finalMessage = ""
-                                    window.location.href = "http://localhost/wordpress/player-result/";
+                                    window.location.href = "http://wp.foot24.online/player-result/";
+                                    // window.location.href = "http://localhost/wordpress/player-result/";
                                 }
                             })
                     } else {
@@ -401,18 +405,31 @@
                         }, 1500);
                         return
                     }
+                    if(this.userInfo.phone.length != 8 ){
+                        this.errorMessage = "هناك  خطآ في رقم  الهاتف";
+                        setTimeout(() => {
+                            this.errorMessage = ""
+                        }, 1500);
+                        return
+                    }
                     this.showLoader = true;
-                    const formData = new FormData();
-                    formData.append('cin', this.userInfo.cin);
-                    fetch('http://localhost/wordpress/get-single-user/',{
+                    // const formData = new FormData();
+                    // formData.append('cin', this.userInfo.cin);
+                    // fetch('http://localhost/wordpress/get-single-user/',{
+                    fetch('http://wp.foot24.online/get-single-user/',{
                         method: 'POST',
-                        body: formData,
-                        headers: {}
+                        body: JSON.stringify({
+                            cin: this.userInfo.cin
+                        }),
+                        headers: {
+                            'Content-Type': 'Application/json'
+                        }
                     })
                         .then(response => response.json())
                         .then(data => {
                             if(data.found == 'no'){
-                                fetch('http://localhost/wordpress/create-user/',{
+                                // fetch('http://localhost/wordpress/create-user/',{
+                                fetch('http://wp.foot24.online/create-user/',{
                                     method: 'POST',
                                     body: JSON.stringify({
                                         name: this.userInfo.username,

@@ -21,7 +21,7 @@
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12" style="direction: ltr ! important">
 
 
-    <div class="flex flex-col md:flex-row" >
+    <div class="flex flex-col md:flex-row relative z-30" >
 
         <!-- Side Nav bar -->
         <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48">
@@ -62,7 +62,7 @@
         <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5" x-data="getPlayers()" x-init="
             setTimeout(() => {
                 
-                fetch('http://localhost/wordpress/get-players/')
+                fetch('http://wp.foot24.online/get-players/')
                     .then(response => response.json())
                         .then(data =>{
                             if (data.data != undefined){
@@ -78,19 +78,37 @@
         
         ">
 
-            <div class="bg-gray-800 pt-3">
+            <div class="bg-gray-800 pt-3 flex justify-between items-center">
                 <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
                     <h3 class="font-bold pl-2">Sondage</h3>
+                </div>
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-lg text-white flex items-center">
+                    <div>
+                        Poucentage Public <span class="bg-green-400 p-1 rounded-2xl ml-2">50%</span>
+                    </div>
+                    <div class="ml-4">
+                        Poucentage Journalist <span class="bg-green-400 p-1 rounded-2xl ml-2">50%</span>
+                    </div>
+                    <button class="ml-4 py-2 px-4 bg-green-300 rounded-lg text-green-800" @click="percentage.showModal = true">
+                        Changer Pourcentage
+                    </button>
+                    <button class="ml-4 py-2 px-4 bg-red-300 rounded-lg text-red-800">
+                        générer gagnant
+                    </button>
                 </div>
 
             </div>
             
             <!-- players list  -->
 
-            <div class="w-full flex items-center justify-around mt-24">
+            <div class="w-full flex items-center justify-around mt-24 relative z-20">
                 <template x-for="player in players">
 
                     <div>
+                        <div class="flex items-center my-4" x-show="showButtons">
+                            <button class="py-2 px-4 bg-red-500 text-gray-100 mr-2 rounded" @click="destroyPlayer(player.id)">Supprimer</button>
+                            <button class="py-2 px-4 bg-green-500 text-gray-100 rounded" @click="setPlayerDataForUpdate(player)">Modifier</button>
+                        </div>
                         <div class="flex items-center justify-center">
                             <div class="w-32 h-32 bg-gray-800 rounded-full">
                                 <img class="w-32 h-32 bg-cover bg-center object-cover rounded-full shadow-2xl cursor-pointer" 
@@ -101,10 +119,6 @@
                             </div>
                         </div>
                         <h1 class="mt-3 text-center text-xl py-2 px-4 text-gray-800" x-text="player.name"></h1>
-                        <div class="flex items-center mt-4" x-show="showButtons">
-                            <button class="py-2 px-4 bg-red-500 text-gray-100 mr-2 rounded" @click="destroyPlayer(player.id)">Supprimer</button>
-                            <button class="py-2 px-4 bg-green-500 text-gray-100 rounded" @click="setPlayerDataForUpdate(player)">Modifier</button>
-                        </div>
                     </div>
                 </template>
 
@@ -159,10 +173,56 @@
             </div>
 
 
+            <div class="absolute top-0 left-0 w-full p-4 bg-gray-800 bg-opacity-50 h-screen z-50" x-show="percentage.showModal">
+                    
+                <div class="flex items-center justify-center w-full h-full">
+                    <div class="w-96 bg-white shadow-2xl rounded-2xl p-8">
+
+                        <div>
+                            <label for="" class="block">Pourcentage Public</label>
+                            <input type="text" id="name" 
+                                class="w-full py-3 bg-gray-100 rounded-xl my-4 px-2 border border-gray-800"
+                                x-model="percentage.publicPercentage"
+                            >
+                        </div>
+                        <div>
+                            <label for="" class="block">Pourcentage Journalist</label>
+                            <input type="text" id="name" 
+                                class="w-full py-3 bg-gray-100 rounded-xl my-4 px-2 border border-gray-800"
+                                x-model="percentage.journalistPercentage"
+                            >
+                        </div>
+                        <div class="flex items-center justify-between">
+                        
+                            <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
+                                id="btnUpload" 
+                                @click()="getPercentage()"
+                                
+                            >
+                                Enregistrer
+                            </button>
+                            <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl flex items-center justify-center"
+                                x-show="percentage.showLoader"
+                            >
+                                <div class="loader"></div>
+                            </button>
+                            <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
+                                id="btnUpload" 
+                                @click()="percentage.showModal = false"
+                                
+                            >
+                                Ignorer
+                            </button>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
 
 
         </div>
     </div>
+    
 
     
 <script>
@@ -197,7 +257,8 @@
 
                 try {
                     
-                    fetch('http://localhost/wordpress/create-player/', {
+                    // fetch('http://localhost/wordpress/create-player/', {
+                    fetch('http://wp.foot24.online/create-player/', {
                         method: 'POST',
                         body: formData,
                         headers : {}
@@ -222,7 +283,8 @@
 
                 setTimeout(() => {
                 
-                fetch('http://localhost/wordpress/get-players/')
+                // fetch('http://localhost/wordpress/get-players/')
+                fetch('http://wp.foot24.online/get-players/')
                     .then(response => response.json())
                         .then(data =>{
                             if (data.data != undefined){
@@ -248,7 +310,8 @@
                 this.showLoader = true;
                 const formData = new FormData();
                 formData.append('id', id);
-                fetch('http://localhost/wordpress/destroy-player/', {
+                // fetch('http://localhost/wordpress/destroy-player/', {
+                fetch('http://wp.foot24.online/destroy-player/', {
                     method: 'POST',
                     body: formData,
                     // headers:{}
@@ -281,7 +344,8 @@
                     // formData.append('name', this.newPlayer.name);
                     // this.playerID = ""
                     // formData.append('image', "no-image");
-                    fetch('http://localhost/wordpress/player-update/', {
+                    // fetch('http://localhost/wordpress/player-update/', {
+                    fetch('http://wp.foot24.online/player-update/', {
                         method: 'POST',
                         body: JSON.stringify({
                             id: this.playerID,
@@ -322,7 +386,8 @@
 
                         try {
                             
-                            fetch('http://localhost/wordpress/update-player-with-image/', {
+                            // fetch('http://localhost/wordpress/update-player-with-image/', {
+                            fetch('http://wp.foot24.online/update-player-with-image/', {
                                 method: 'POST',
                                 body: formData,
                                 headers : {}
@@ -350,6 +415,37 @@
                 this.playerID = player.id;
                 console.log( this.playerID)
 
+            },
+
+
+
+            /** Percantage logic */
+
+            percentage: {
+                publicPercentage: 0,
+                journalistPercentage: 0,
+                showLoader: false,
+                showModal: false
+
+            },
+            getPercentage(){
+                fetch('http://localhost/wordpress/update-percentage/', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        publicPercentage: 40,
+                        journalistPercentage: 60,
+                    }),
+                    headers:{
+                        "Content-Type": "application/json",
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                    })
+            },
+            setPercentage(){
+                
             }
              
         }
