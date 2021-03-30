@@ -19,7 +19,7 @@ class Player{
 
 
     public function __construct($db){
-        $this->conn = $db;
+        $this->conn = $db; 
     }
 
     public function getPlayers(){

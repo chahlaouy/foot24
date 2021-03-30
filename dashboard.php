@@ -300,7 +300,7 @@
 
 
     <script>
-    function getPlayers() { 
+    function getPlayers() {  
         return {
             playerOne: {
                 name: "اللاعب 1",
@@ -338,12 +338,13 @@
 
                 setTimeout(() => {
 
-                    // fetch('http://localhost/wordpress/get-players/')
-                    fetch('http://wp.foot24.online/get-players/')
+                    fetch('http://localhost/wordpress/get-players/')
+                    // fetch('http://wp.foot24.online/get-players/')
                         .then(response => response.json())
                         .then(data => {
 
                             let arr = data.data
+                            console.log(arr)
                             
                             arr.forEach((p, index) => {
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' +

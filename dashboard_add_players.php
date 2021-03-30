@@ -62,7 +62,7 @@
         <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5" x-data="getPlayers()" x-init="
             setTimeout(() => {
                 
-                fetch('http://wp.foot24.online/get-players/')
+                fetch('http://localhost/wordpress/get-players/')
                     .then(response => response.json())
                         .then(data =>{
                             if (data.data != undefined){
@@ -257,8 +257,8 @@
 
                 try {
                     
-                    // fetch('http://localhost/wordpress/create-player/', {
-                    fetch('http://wp.foot24.online/create-player/', {
+                    fetch('http://localhost/wordpress/create-player/', {
+                    // fetch('http://wp.foot24.online/create-player/', {
                         method: 'POST',
                         body: formData,
                         headers : {}
@@ -283,8 +283,8 @@
 
                 setTimeout(() => {
                 
-                // fetch('http://localhost/wordpress/get-players/')
-                fetch('http://wp.foot24.online/get-players/')
+                fetch('http://localhost/wordpress/get-players/')
+                // fetch('http://wp.foot24.online/get-players/')
                     .then(response => response.json())
                         .then(data =>{
                             if (data.data != undefined){

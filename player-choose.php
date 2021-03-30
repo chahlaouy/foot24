@@ -121,14 +121,13 @@
         setTimeout(() => {
                 
             
-            fetch('http://wp.foot24.online/get-players/')
+            fetch('http://localhost/wordpress/get-players/')
                 .then(response => response.json())
                     .then(data =>{
                         if (data.data != undefined){
                         
                             players = data.data
                             players.forEach(p=>{
-                                p.disabled = false
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
                             })
                         }
@@ -288,7 +287,7 @@
             numberOfClicks: 0,
             playerOne: {
                 imgUrl: "",
-                triggred: false
+                triggred: false 
             },
             playerTwo: {
                 imgUrl: "",
@@ -358,8 +357,8 @@
                     if (this.isChoosingIsComplete) {
 
 
-                        // fetch('http://localhost/wordpress/update-players/', {
-                        fetch('http://wp.foot24.online/update-players/', {
+                        fetch('http://localhost/wordpress/update-players/', {
+                        // fetch('http://wp.foot24.online/update-players/', {
                             method: 'POST',
                             body: JSON.stringify(this.players),
                             headers:{
@@ -373,12 +372,12 @@
                                     setTimeout(() => {
                                         this.finalMessage = ""
                                         // window.location.href = "http://localhost/wordpress/player-result/";
-                                        window.location.href = "http://wp.foot24.online/player-result/";
+                                        // window.location.href = "http://wp.foot24.online/player-result/";
                                     }, 1500);
                                 }else{
 
                                     this.finalMessage = ""
-                                    window.location.href = "http://wp.foot24.online/player-result/";
+                                    // window.location.href = "http://wp.foot24.online/player-result/";
                                     // window.location.href = "http://localhost/wordpress/player-result/";
                                 }
                             })
@@ -415,8 +414,8 @@
                     this.showLoader = true;
                     // const formData = new FormData();
                     // formData.append('cin', this.userInfo.cin);
-                    // fetch('http://localhost/wordpress/get-single-user/',{
-                    fetch('http://wp.foot24.online/get-single-user/',{
+                    fetch('http://localhost/wordpress/get-single-user/',{
+                    // fetch('http://wp.foot24.online/get-single-user/',{
                         method: 'POST',
                         body: JSON.stringify({
                             cin: this.userInfo.cin
@@ -428,8 +427,8 @@
                         .then(response => response.json())
                         .then(data => {
                             if(data.found == 'no'){
-                                // fetch('http://localhost/wordpress/create-user/',{
-                                fetch('http://wp.foot24.online/create-user/',{
+                                fetch('http://localhost/wordpress/create-user/',{
+                                // fetch('http://wp.foot24.online/create-user/',{
                                     method: 'POST',
                                     body: JSON.stringify({
                                         name: this.userInfo.username,
