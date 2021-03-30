@@ -133,7 +133,7 @@
                             <div class="flex items-stretch">
                                 <div
                                     class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-24 md:w-32">
-                                    <h1 class="text-4xl" x-text="playerOne.totalScorePublic"></h1>
+                                    <h1 class="text-4xl" x-text="playerOne.finalScore"></h1>
                                 </div>
                                 <div class="py-1 pl-1 md:pl-24 pr-2 w-64 md:w-96">
 
@@ -192,7 +192,7 @@
                             <div class="flex items-stretch">
                                 <div
                                     class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-24 md:w-32">
-                                    <h1 class="text-4xl" x-text="player.totalScorePublic"></h1>
+                                    <h1 class="text-4xl" x-text="player.finalScore"></h1>
                                 </div>
                                 <div class="py-1 pl-1 md:pl-24 pr-2 w-64 md:w-96">
 
@@ -287,6 +287,7 @@
             },
             fetchPlayers() {
 
+                this.getPercentage()
                 setTimeout(() => {
 
                     // fetch('http://localhost/wordpress/get-players/')
@@ -298,19 +299,40 @@
                             arr.forEach((p, index) => {
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' +
                                     '/player/images/' + p.imgUrl;
+                                    p.finalScore =  ((p.totalScorePublic * this.percentage.publicPercentage)/100 +  (p.totalScoreJournalist * this.percentage.journalistPercentage)/100)
                                     p.totalScorePublic = p.totalScorePublic.toFixed(2);
                                     p.totalScoreJournalist = p.totalScoreJournalist.toFixed(2);
+                                    p.finalScore = p.finalScore.toFixed(2)
+                                    console.log(p.finalScore)
                             })
                             
-                            arr.sort(function(a, b){return b.totalScorePublic - a.totalScorePublic});
+                            arr.sort(function(a, b){return b.finalScore - a.finalScore});
                             this.playerOne = arr[0];
                             this.players = arr.filter((p, index) => index != 0)
 
 
 
                         })
-                }, 2000);
-            }
+                }, 1500);
+            },
+            /** Percentage Logic */
+            percentage: {
+                publicPercentage: 0,
+                journalistPercentage: 0,
+                showLoader: false,
+                showModal: false
+
+            },
+            getPercentage(){
+
+                fetch('http://localhost/wordpress/get-percentage/')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.data[0])
+                        this.percentage.publicPercentage = data.data[0].publicPercentage
+                        this.percentage.journalistPercentage = data.data[0].journalistPercentage
+                    })
+                },
 
         }
     }

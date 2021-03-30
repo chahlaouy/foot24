@@ -53,7 +53,7 @@ class Winner{
 
         /** clean the data coming from our form */
 
-        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->winnerName = htmlspecialchars(strip_tags($this->winnerName));
         $this->imgUrl = htmlspecialchars(strip_tags($this->imgUrl));
 
         /** binding of parameters */
@@ -64,14 +64,14 @@ class Winner{
         
         if($stmt->execute()){
 
-            $query2 = 'DELETE from players';
-            $stmt2 = $this->conn->prepare($query2);
-            if($stmt2->execute()){
+            // $query2 = 'DELETE from players';
+            // $stmt2 = $this->conn->prepare($query2);
+            // if($stmt2->execute()){
 
                 return true;
-            }else{
-                return false;
-            }
+            // }else{
+            //     return false;
+            // }
         }
         
         return false;

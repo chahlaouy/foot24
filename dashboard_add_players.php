@@ -77,7 +77,7 @@
                 })
             }, 3000);
         
-        ">
+        "> 
 
             <div class="bg-gray-800 pt-3 flex justify-between items-center">
                 <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
@@ -93,9 +93,7 @@
                     <button class="ml-4 py-2 px-4 bg-green-300 rounded-lg text-green-800" @click="percentage.showModal = true">
                         Changer Pourcentage
                     </button>
-                    <button class="ml-4 py-2 px-4 bg-red-300 rounded-lg text-red-800">
-                        générer gagnant
-                    </button>
+                    
                 </div>
 
             </div>

@@ -65,10 +65,13 @@
 
         <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
-            <div class="bg-gray-800 pt-3">
+            <div class="bg-gray-800 pt-3 flex justify-between items-center">
                 <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
                     <h3 class="font-bold pl-2">Statistique</h3>
                 </div>
+                <button class="ml-4 py-2 px-4 bg-red-300 rounded-lg text-red-800" @click="percentage.showModal = true">
+                    générer gagnant
+                </button>
             </div>
 
 
@@ -102,7 +105,7 @@
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
                                 <div class="rounded-full p-5 bg-green-600"><i
-                                        class="fa fa-newspaper fa-2x fa-inverse"></i></div>
+                                    class="fa fa-newspaper fa-2x fa-inverse"></i></div>
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-600">nombre total de journalistes</h5>
@@ -144,7 +147,7 @@
                                 <div class="flex items-stretch">
                                     <div
                                         class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-32">
-                                        <h1 class="text-4xl" x-text="playerOne.totalScorePublic"></h1>
+                                        <h1 class="text-4xl" x-text="playerOne.finalScore"></h1>
                                     </div>
                                     <div class="py-1 pl-24 pr-2 w-96">
 
@@ -201,7 +204,7 @@
                                     <div class="flex items-stretch">
                                         <div
                                             class="bg-red-600 text-gray-100 rounded-br-2xl items-center flex justify-center w-32">
-                                            <h1 class="text-4xl" x-text="player.totalScorePublic"></h1>
+                                            <h1 class="text-4xl" x-text="player.finalScore"></h1>
                                         </div>
                                         <div class="py-1 pl-24 pr-2 w-96">
 
@@ -228,7 +231,7 @@
                                                     </div>
                                                     <div>
                                                         <span class="text-sm"
-                                                            x-text="player.totalScoreJournalist">2.5</span>
+                                                            x-text="player.totalScoreJournalist"></span>
                                                     </div>
                                                 </div>
                                                 <div class="w-full h-3 bg-red-600 rounded-2xl"></div>
@@ -256,11 +259,48 @@
             </div>
 
         </div>
+        <div class="absolute top-0 left-0 w-full p-4 bg-gray-800 bg-opacity-50 h-screen z-50" x-show="percentage.showModal">
+                    
+            <div class="flex items-center justify-center w-full h-full">
+                <div class="w-96 bg-white shadow-2xl rounded-2xl p-8">
+
+                    
+                    <div class="flex items-center justify-between">
+                    
+                        <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl mr-4"
+                            id="btnUpload" 
+                            @click()="setWinner()"
+                            x-show="!percentage.showLoader"
+                            
+                        >
+                            Enregistrer
+                        </button>
+                        <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl flex items-center justify-center"
+                            x-show="percentage.showLoader"
+                        >
+                            <div class="loader"></div>
+                        </button>
+                        <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
+                            id="btnUpload" 
+                            @click()="percentage.showModal = false"
+                            
+                        >
+                            Ignorer
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+
+
+
     </div>
 
 
     <script>
-    function getPlayers() {
+    function getPlayers() { 
         return {
             playerOne: {
                 name: "اللاعب 1",
@@ -294,6 +334,7 @@
                 },
             ],
             fetchPlayers() {
+                this.getPercentage()
 
                 setTimeout(() => {
 
@@ -303,19 +344,73 @@
                         .then(data => {
 
                             let arr = data.data
+                            
                             arr.forEach((p, index) => {
                                 p.imgUrl = '<?php echo get_template_directory_uri() ?>' +
                                     '/player/images/' + p.imgUrl
-
+                                    p.finalScore =  ((p.totalScorePublic * this.percentage.publicPercentage)/100 +  (p.totalScoreJournalist * this.percentage.journalistPercentage)/100)
+                                    p.totalScorePublic = p.totalScorePublic.toFixed(2);
+                                    p.totalScoreJournalist = p.totalScoreJournalist.toFixed(2);
+                                    p.finalScore = p.finalScore.toFixed(2)
+                                    console.log(p.finalScore)
                             })
+                            arr.sort(function(a, b){ return b.finalScore - a.finalScore });
                             this.playerOne = arr[0];
                             console.log(this.playerOne)
                             this.players = arr.filter((p, index) => index != 0)
-
-
-
+                            console.log(this.players)
                         })
                 }, 2000);
+            },
+
+             /** Percantage logic */
+
+             percentage: {
+                publicPercentage: 0,
+                journalistPercentage: 0,
+                showLoader: false,
+                showModal: false
+
+            },
+            getPercentage(){
+
+                fetch('http://localhost/wordpress/get-percentage/')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.data[0])
+                        this.percentage.publicPercentage = data.data[0].publicPercentage
+                        this.percentage.journalistPercentage = data.data[0].journalistPercentage
+                    })
+            },
+            setWinner(){
+                this.percentage.showLoader =  true
+                try {
+                    
+                    fetch('http://localhost/wordpress/create-winner/', {
+                    // fetch('http://wp.foot24.online/create-player/', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            winnerName : this.playerOne.name,
+                            imgUrl : 'img',
+                            score : this.playerOne.finalScore,
+                        }),
+                        headers : {}
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            
+                            // this.successMessage = "تم تسجيل البينات بنجاح"
+                            // this.newPlayer.name = ""
+                            // this.newPlayer.image = null
+                            // setTimeout(() => {
+                            //     this.successMessage = ""
+                            // }, 1500);
+                            this.fetchPlayers();
+                            this.showLoader = false;
+                        })
+                } catch (error) {
+                    console.log(error)
+                }
             }
 
         }
