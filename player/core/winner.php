@@ -63,7 +63,15 @@ class Winner{
         $stmt->bindParam(':score', $this->score);
         
         if($stmt->execute()){
-            return true;
+
+            $query2 = 'DELETE from players';
+            $stmt2 = $this->conn->prepare($query2);
+            if($stmt2->execute()){
+
+                return true;
+            }else{
+                return false;
+            }
         }
         
         return false;

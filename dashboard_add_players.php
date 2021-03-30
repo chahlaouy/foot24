@@ -73,6 +73,7 @@
                                     p.imgUrl = '<?php echo get_template_directory_uri() ?>' + '/player/images/' + p.imgUrl
                                 })
                             }
+                            getPercentage()
                 })
             }, 3000);
         
@@ -84,10 +85,10 @@
                 </div>
                 <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-lg text-white flex items-center">
                     <div>
-                        Poucentage Public <span class="bg-green-400 p-1 rounded-2xl ml-2">50%</span>
+                        Poucentage Public <span class="bg-green-400 p-1 rounded-2xl ml-2" x-text="percentage.publicPercentage"></span>
                     </div>
                     <div class="ml-4">
-                        Poucentage Journalist <span class="bg-green-400 p-1 rounded-2xl ml-2">50%</span>
+                        Poucentage Journalist <span class="bg-green-400 p-1 rounded-2xl ml-2" x-text="percentage.journalistPercentage"></span>
                     </div>
                     <button class="ml-4 py-2 px-4 bg-green-300 rounded-lg text-green-800" @click="percentage.showModal = true">
                         Changer Pourcentage
@@ -196,7 +197,8 @@
                         
                             <button class="w-full bg-gray-800 text-gray-100 text-xl py-3 rounded-xl"
                                 id="btnUpload" 
-                                @click()="getPercentage()"
+                                @click()="setPercentage()"
+                                x-show="!percentage.showLoader"
                                 
                             >
                                 Enregistrer
@@ -429,11 +431,22 @@
 
             },
             getPercentage(){
+
+                fetch('http://localhost/wordpress/get-percentage/')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.data[0])
+                        this.percentage.publicPercentage = data.data[0].publicPercentage
+                        this.percentage.journalistPercentage = data.data[0].journalistPercentage
+                    })
+            },
+            setPercentage(){
+                this.percentage.showLoader = true
                 fetch('http://localhost/wordpress/update-percentage/', {
                     method: 'POST',
                     body: JSON.stringify({
-                        publicPercentage: 40,
-                        journalistPercentage: 60,
+                        publicPercentage: this.percentage.publicPercentage,
+                        journalistPercentage: this.percentage.journalistPercentage,
                     }),
                     headers:{
                         "Content-Type": "application/json",
@@ -442,9 +455,10 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
+                        this.percentage.showLoader = false
+                        this.percentage.showModal = false
+                        this.getPercentage()
                     })
-            },
-            setPercentage(){
                 
             }
              

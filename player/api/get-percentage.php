@@ -29,7 +29,7 @@ if ($numberOfRows > 0){
         extract($row);
         $post_item = array(
             'id'    =>  $id,
-            'publicPercentage' =>  $journalistPercentage,
+            'publicPercentage' =>  $publicPercentage,
             'journalistPercentage' =>  $journalistPercentage,
         );
 

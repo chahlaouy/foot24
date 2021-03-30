@@ -20,8 +20,6 @@ $data = json_decode(file_get_contents('php://input'));
 
 $winner->publicPercentage = $data->publicPercentage;
 $winner->journalistPercentage = $data->journalistPercentage;
-echo json_encode(array('success' => $data->journalistPercentage));
-echo json_encode(array('success' => $data->publicPercentage));
 
 if($winner->updatePercentage()){
     echo json_encode(array('success' => 'success'));
