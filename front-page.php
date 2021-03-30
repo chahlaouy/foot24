@@ -102,48 +102,162 @@ get_header();
         </div>
         <h1 class="text-center text-xs font-bold"> Stades Rades: 20:00 </h1>
     </div>
-    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-72 flex items-center justify-between">
-        <div class="p-2">
-            <div class="flex items-center justify-center">
-                <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-12" alt="">
+    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-80  border-2 border-gray-300">
+        <h1 class="text-center text-lg font-bold"> " </h1>
+        <div class="flex items-center justify-between">
+            <div class="p-2">
+                <div class="flex items-center justify-center">
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-16" alt="">
+                </div>
+                <h1 class="text-sm text-center">الترجي الرياضي</h1>
             </div>
-            <h1 class="text-sm text-center">الترجي الرياضي</h1>
-        </div>
-        <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
-            <h1 class="text-lg font-bold">7</h1>
-            <h1 class="text-lg font-bold">-</h1>
-            <h1 class="text-lg font-bold">1</h1>
-        </div>
-        <div class="p-2">
-            <div class="flex items-center justify-center">
-                <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-12" alt="">
+            <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
+                <h1 class="text-lg font-bold">7</h1>
+                <h1 class="text-lg font-bold">-</h1>
+                <h1 class="text-lg font-bold">1</h1>
             </div>
-            <h1 class="text-sm text-center">شبيبة القيروان</h1>
+            <div class="p-2">
+                <div class="flex items-center justify-center">
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-16" alt="">
+                </div>
+                <h1 class="text-sm text-center">شبيبة القيروان</h1>
+            </div>
         </div>
+        <h1 class="text-center text-xs font-bold"> Stades Rades: 20:00 </h1>
     </div>
-    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-72 flex items-center justify-between">
-        <div class="p-2">
-            <div class="flex items-center justify-center">
-                <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-12" alt="">
+    <div class="bg-gray-100 p-4 shadow-2xl rounded-2xl w-80  border-2 border-gray-300">
+        <h1 class="text-center text-lg font-bold"> " </h1>
+        <div class="flex items-center justify-between">
+            <div class="p-2">
+                <div class="flex items-center justify-center">
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/est.png'?>" class="w-16" alt="">
+                </div>
+                <h1 class="text-sm text-center">الترجي الرياضي</h1>
             </div>
-            <h1 class="text-sm text-center">الترجي الرياضي</h1>
-        </div>
-        <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
-            <h1 class="text-lg font-bold">7</h1>
-            <h1 class="text-lg font-bold">-</h1>
-            <h1 class="text-lg font-bold">1</h1>
-        </div>
-        <div class="p-2">
-            <div class="flex items-center justify-center">
-                <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-12" alt="">
+            <div class="text-center flex items-center justify-around p-4 rounded bg-gray-300">
+                <h1 class="text-lg font-bold">7</h1>
+                <h1 class="text-lg font-bold">-</h1>
+                <h1 class="text-lg font-bold">1</h1>
             </div>
-            <h1 class="text-sm text-center">شبيبة القيروان</h1>
+            <div class="p-2">
+                <div class="flex items-center justify-center">
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/jsk.png'?>" class="w-16" alt="">
+                </div>
+                <h1 class="text-sm text-center">شبيبة القيروان</h1>
+            </div>
         </div>
+        <h1 class="text-center text-xs font-bold"> Stades Rades: 20:00 </h1>
     </div>
+    
+    
 </section>
 
 <!-- End Section Slider news 1 -->
 
+
+<!-- section latest news -->
+
+<section class="wrapper mx-auto py-8">
+    <h1 class="bg-gray-800 text-lg py-2 text-gray-100 border px-4 border-green-400 rounded my-8 md:my-4 font-bold">الأخبار الوطنية</h1>       
+<?php
+    $args = array(
+    'post_type' => 'post',
+    'post_status' => 'publish',
+    'category_name' => 'الأخبار الوطنية',
+    'posts_per_page' => 6,
+    );
+    $arr_posts = new WP_Query( $args );
+
+    if ( $arr_posts->have_posts() ) :
+        ?>
+        <div class="flex items-center justify-around bg-white shadow">
+        <?php
+        while ( $arr_posts->have_posts() ) :
+
+            $arr_posts->the_post();
+            ?>
+            <h1 class="font-bold p-4 border-l-4 border-green-400"> <?php the_title(); ?></h1>
+            <?php          
+        endwhile;
+        ?>
+        </div>
+        <?php
+    endif;
+?>
+</section>
+
+<!-- end section latest news -->
+
+<!-- section national news -->
+
+<section class="wrapper mx-auto">
+<h1 class="bg-gray-800 text-lg py-2 text-gray-100 border px-4 border-green-400 rounded my-8 md:my-4 font-bold">أخر الأخبار</h1> 
+<div class="md:flex md:justify-between">
+    <?php
+        $args = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'category_name' => 'أخر الأخبار',
+        'posts_per_page' => 4,
+        );
+        $arr_posts = new WP_Query( $args );
+
+        if ( $arr_posts->have_posts() ) :
+            ?>
+        <div class="md:grid md:grid-cols-4 gap-2 w-full">
+            <?php
+            while ( $arr_posts->have_posts() ) :
+
+                $arr_posts->the_post();
+                ?>
+                <div class="wrapper antialiased text-gray-900 w-full md:w-64 mt-4 md:mt-0">
+                    <div>
+                        <img src="<?php the_post_thumbnail_url(); ?>" alt=" random imgee"
+                            class="w-full h-64 object-cover bg-cover bg-top object-center rounded-lg shadow-md">
+
+                        <div class="relative px-4 -mt-16 ">
+                            <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+                                <div class="flex items-baseline">
+                                    <div class="ml-2 text-yellow-600 uppercase text-xs font-semibold tracking-wider">
+                                        <?php echo get_the_date('F j, Y') ?>
+                                    </div>
+                                    <span
+                                        class="bg-red-500 text-red-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+                                        New
+                                    </span>
+                                </div>
+
+                                <h4 class="my-3 text-sm font-semibold uppercase leading-tight"><?php the_title(); ?></h4>
+
+                                <div class="mt-1">
+                                    الأخبار الوطنية
+
+                                </div>
+                                <div class="mt-4 bg-green-500 px-4 py-2 rounded text-center">
+                                    <span class="text-white text-md font-semibold">
+                                        <a href="<?php the_permalink() ?>">
+                                            اقرأ المزيد
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <?php          
+            endwhile;
+            ?>
+        </div>
+            <?php
+        endif;
+    ?>
+        <div style="width: 300px; heigth: 600px" class="bg-gray-300">
+        </div>
+</div>
+</section>
+
+<!-- end section latest news -->
 
 <section class="px-2 md:px-0 wrapper md:flex mt-16 w-full">
 
